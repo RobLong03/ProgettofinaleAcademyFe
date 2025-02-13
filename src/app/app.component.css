@@ -1,0 +1,110 @@
+.space-placeholder {
+  flex: 1 1 auto;
+}
+
+.menu-spacer {
+  flex: 1 1 auto;
+}
+.companyName{
+  font-size: 150%;
+}
+
+.footer {
+  position: relative; /* Footer is relative within the main flex container */
+  bottom: 0;
+  width: 100%;
+  height: 5vh; /* Adjust height based on your requirement */
+  z-index: 1;
+  background-color: #f8f9fa; /* Light background color */
+  text-align: center; /* Center footer content */
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.mat-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mat-sidenav-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mat-sidenav-content {
+  flex-grow: 1;
+  overflow-y: auto; /* Ensures content inside the main area can scroll */
+}
+
+
+div {
+  overflow: inherit;
+
+}
+
+.footer {
+  position: relative; /* Footer is relative within the main flex container */
+  bottom: 0;
+  width: 100%;
+  height: 5vh; /* Adjust height based on your requirement */
+  z-index: 1;
+  background-color: #f8f9fa; /* Light background color */
+  text-align: center; /* Center footer content */
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.mat-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.companyName {
+  margin-left: auto; /* This will push it to the right */
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-sidenav-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mat-sidenav-content {
+  flex-grow: 1;
+  overflow-y: auto; /* Ensures content inside the main area can scroll */
+}
+
+
+a{
+  text-decoration: none;
+  font-size: 110%;
+  white-space: normal;
+}
+
+button{
+  font-size: 110%;
+  min-width: min-content;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-sidenav-content{
+    font-size: 200%;
+    text-align: center;
+    position: static;
+}

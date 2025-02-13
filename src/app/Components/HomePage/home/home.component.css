@@ -1,0 +1,61 @@
+.body {
+  margin: 0;
+  padding: 0;
+  background: #1a1a1a;
+  font-family: Arial, sans-serif;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: flex-end;
+  align-items: center;
+  background: url('https://viterbischool.usc.edu/wp-content/uploads/2023/07/iStock-chip-crop.jpg') no-repeat center center fixed;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+.card {
+  background: #222;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.2);
+  padding: 20px;
+  margin: 10px;
+  width: 20%;
+  text-align: center;
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 255, 255, 0.4);
+}
+.card h2 {
+  color: #00ffff;
+  font-size: 1.5rem;
+}
+.card p {
+  color: #ccc;
+}
+.button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.button.green { background: #00ff99; color: #000; }
+.button.blue { background: #00ffff; color: #000; }
+.button.red { background: #ff007f; color: #fff; }
+@media (max-width: 1024px) {
+  .card {
+      width: 40%; /* Due card per riga su tablet */
+  }
+}
+@media (max-width: 768px) {
+  .card {
+      width: 80%; /* Una card per riga su dispositivi piccoli */
+  }
+}
