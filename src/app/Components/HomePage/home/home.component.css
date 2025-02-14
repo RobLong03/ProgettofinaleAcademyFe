@@ -1,54 +1,225 @@
-.body {
+body {
+  background-color: #0f0f0f;
+  color: #fff;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.p {
+  font-size: 1.1rem;
+
+  color: whitesmoke;
+  background: #000000;
+
+  padding: 1.5rem;
+  border-left: 5px solid #00ffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.p:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Per evidenziare gli emoji e icone */
+.p strong,
+.p em,
+.p span {
+  color: #00ffff;
+  font-weight: bold;
+}
+
+/* ===== CONTENT SECTION ===== */
+.content {
+  padding: 2rem;
+  min-height: 1vh; /* visible content before the cards */
+}
+
+/* ===== FOOTER-LIKE SECTION FOR CARDS ===== */
+.footer-cards {
+  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/*
+  Custom card class with neon/glow style.
+  These cards adjust their width responsively.
+*/
+.card-custom {
+  background-color: #222; /* dark card background */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: calc(20% - 1rem);  /* Default: ~5 cards per row */
+  min-width: 200px;         /* Minimum width for very small screens */
+  margin: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Headings and text inside the card */
+.card-custom .card-title {
+  color: #00ffff; /* neon aqua */
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.card-custom .card-text {
+  color: #cfcfcf;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== NEON-LIKE BUTTONS ===== */
+.btn {
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  min-width: 150px;         /* Consistent minimum width */
+  font-size: 1rem;          /* Uniform font size */
+  border: none;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+  background-size: 200% 200%;
+  transition: transform 0.3s ease, filter 0.3s ease, background-position 0.5s ease;
+}
+
+/* Pseudo-element for a sweeping "shine" animation on hover */
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::after {
+  left: 100%;
+}
+
+/* Neon-like button variants */
+.btn-green {
+  background: linear-gradient(135deg, #f71aff, #e60068);
+  color: #fff;
+  box-shadow: 0 0 6px #e60068;
+}
+
+.btn-blue {
+  background: linear-gradient(135deg, #1a9cff, #0066e6);
+  color: #fff;
+  box-shadow: 0 0 6px #0066e6;
+}
+
+.btn-red {
+  background: linear-gradient(135deg, #ff1a1a, #e60000);
+  color: #fff;
+  box-shadow: 0 0 6px #e60000;
+}
+
+/* Hover state for all buttons */
+.btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+/* For screens smaller than 1200px, show about 3 cards per row */
+@media (max-width: 1200px) {
+  .card-custom {
+    width: calc(33.33% - 1rem);
+  }
+}
+
+/* For screens smaller than 768px, show about 2 cards per row and adjust typography */
+@media (max-width: 768px) {
+  .card-custom {
+    width: calc(50% - 1rem);
+  }
+  .card-custom .card-title {
+    font-size: 1.1rem;
+  }
+  .card-custom .card-text {
+    font-size: 0.9rem;
+  }
+  .btn-green,
+  .btn-blue,
+  .btn-red {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* For screens smaller than 480px, show full-width cards and further adjust typography */
+@media (max-width: 480px) {
+  .card-custom {
+    width: 100%;
+  }
+  .card-custom .card-title {
+    font-size: 1rem;
+  }
+  .card-custom .card-text {
+    font-size: 0.8rem;
+  }
+  .btn-green,
+  .btn-blue,
+  .btn-red {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+/* Pulsante "Torna Su" */
+#scrollTop {
+  position: static;
+  bottom: 20px;
+  right: 20px;
+  background: #00e6e6;
+  color: #000000;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  transition: all 0.3s ease-in-out;
+
+}
+
+#scrollTop:hover {
+  background: #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+.body {
   background: #1a1a1a;
   font-family: Arial, sans-serif;
   color: white;
-  display: flex;
-  flex-direction: column;
+
+
   min-height: 100vh;
   justify-content: flex-end;
   align-items: center;
   background: url('https://viterbischool.usc.edu/wp-content/uploads/2023/07/iStock-chip-crop.jpg') no-repeat center center fixed;
 }
-.container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px;
-}
-.card {
-  background: #222;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.2);
-  padding: 20px;
-  margin: 10px;
-  width: 20%;
-  text-align: center;
-  transition: 0.3s;
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 255, 255, 0.4);
-}
-.card h2 {
-  color: #00ffff;
-  font-size: 1.5rem;
-}
-.card p {
-  color: #ccc;
-}
-.button {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-}
-.button.green { background: #00ff99; color: #000; }
-.button.blue { background: #00ffff; color: #000; }
-.button.red { background: #ff007f; color: #fff; }
 @media (max-width: 1024px) {
   .card {
       width: 40%; /* Due card per riga su tablet */

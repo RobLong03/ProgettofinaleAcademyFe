@@ -1,31 +1,41 @@
 <div class="main-container">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+  <!-- HEADER / TOOLBAR -->
+  <mat-toolbar role="heading" color="primary">
+    <mat-toolbar-row class="toolbar-row">
+      <!-- Hamburger icon only on small screens -->
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow.lt-md>
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="companyName">DDDR Hardwere</span>
+
+      <!-- Company Name -->
+      <span class="companyName">DDDR TechZone</span>
+
+      <!-- Spacer pushes the menu items to the right -->
       <span class="menu-spacer"></span>
-      <div fxShow="true" fxHide.lt-md>
-        <a routerLink="/product" mat-button>Product</a>
-        <a routerLink="/product" mat-button>Menu Item 2</a>
+
+      <!-- Inline menu items only on medium and larger screens -->
+      <div fxShow.gt-sm>
+        <a class="disapper" routerLink="/product" mat-button>Product</a>
+        <a class="disapper" routerLink="/product" mat-button>Menu Item 2</a>
         <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-        <mat-menu #menu="matMenu" yPosition="below">
+        <mat-menu class="disapper" #menu="matMenu" yPosition="below">
           <a routerLink="/product" mat-button>Product</a>
-          <a routerLink="/product" mat-button>Menu Item 2</a>
+          <a   routerLink="/product" mat-button>Menu Item 2</a>
         </mat-menu>
 
-        <a href="#" mat-button>Menu Item 4</a>
-        <a href="#" mat-button>Menu Item 5</a>
-        <a href="#" mat-button>Menu Item 6</a>
+        <a class="disapper" href="#" mat-button>Menu Item 4</a>
+        <a class="disapper" href="#" mat-button>Menu Item 5</a>
+        <a class="disapper" href="#" mat-button>Menu Item 6</a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
 
+  <!-- SIDENAV CONTAINER -->
   <mat-sidenav-container class="mat-sidenav-container">
-    <mat-sidenav #sidenav>
+    <!-- SIDENAV (opens from left) -->
+    <mat-sidenav #sidenav mode="over">
       <mat-nav-list>
-        <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+        <a (click)="sidenav.toggle()" href="#" mat-list-item>Close</a>
         <a href="#" mat-list-item>Menu Item 1</a>
         <a href="#" mat-list-item>Menu Item 2</a>
         <a href="#" mat-list-item>Menu Item 3</a>
@@ -35,11 +45,14 @@
       </mat-nav-list>
     </mat-sidenav>
 
+
+
+    <!-- MAIN CONTENT AREA -->
     <mat-sidenav-content class="mat-sidenav-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
-
 </div>
+
+<!-- FOOTER COMPONENT -->
 <app-footer></app-footer>

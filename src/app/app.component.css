@@ -1,110 +1,85 @@
-.space-placeholder {
-  flex: 1 1 auto;
-}
-
-.menu-spacer {
-  flex: 1 1 auto;
-}
-.companyName{
-  font-size: 150%;
-}
-
-.footer {
-  position: relative; /* Footer is relative within the main flex container */
-  bottom: 0;
+/* Ensures the body and html fill the viewport, allowing flex layouts to stretch */
+mat-toolbar, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   width: 100%;
-  height: 5vh; /* Adjust height based on your requirement */
-  z-index: 1;
-  background-color: #f8f9fa; /* Light background color */
-  text-align: center; /* Center footer content */
-  padding: 10px 0;
-  box-sizing: border-box;
+
 }
 
-.mat-toolbar-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.mat-sidenav-container {
+/* Main container holds the toolbar + sidenav container */
+.main-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  min-height: 100vh;
 }
 
-.mat-sidenav-content {
-  flex-grow: 1;
-  overflow-y: auto; /* Ensures content inside the main area can scroll */
-}
-
-
-div {
-  overflow: inherit;
-
-}
-
-.footer {
-  position: relative; /* Footer is relative within the main flex container */
-  bottom: 0;
-  width: 100%;
-  height: 5vh; /* Adjust height based on your requirement */
-  z-index: 1;
-  background-color: #f8f9fa; /* Light background color */
-  text-align: center; /* Center footer content */
-  padding: 10px 0;
-  box-sizing: border-box;
-}
-
-.mat-toolbar-row {
+/* Toolbar row styling */
+.toolbar-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
 }
 
+/* Company name on the toolbar */
 .companyName {
-  margin-left: auto; /* This will push it to the right */
   font-size: 1.5em;
   font-weight: bold;
+  margin-left: 1rem;
 }
 
+/* Fills remaining horizontal space in the toolbar row, pushing items to the right */
 .menu-spacer {
   flex: 1 1 auto;
 }
 
+/* Sidenav container should flex to fill the rest of the screen */
 .mat-sidenav-container {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  flex: 1 1 auto;
 }
 
+/* Make sure the main content can scroll if it overflows */
 .mat-sidenav-content {
-  flex-grow: 1;
-  overflow-y: auto; /* Ensures content inside the main area can scroll */
+  overflow-y: auto;
+  padding: 1rem;
 }
 
-
-a{
+/* Basic link/button styling */
+a {
   text-decoration: none;
   font-size: 110%;
   white-space: normal;
+  margin: 0 5px;
 }
-
-button{
+button {
   font-size: 110%;
   min-width: min-content;
 }
 
-.example-icon {
-  padding: 0 14px;
+/* FOOTER EXAMPLE */
+.footer {
+  width: 100%;
+  height: 5vh;
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px 0;
+  box-sizing: border-box;
 }
 
-.example-spacer {
-  flex: 1 1 auto;
-}
+/* MEDIA QUERIES FOR ADDITIONAL RESPONSIVENESS */
+@media (max-width: 600px) {
+  .companyName {
+    font-size: 1.2em;
+  }
+  mat-toolbar, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 
-.mat-sidenav-content{
-    font-size: 200%;
-    text-align: center;
-    position: static;
+  }
+  .disapper{
+    display:none ;
+  }
+
 }
