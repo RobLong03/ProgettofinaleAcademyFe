@@ -14,28 +14,39 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FlexLayoutServerModule } from '@angular/flex-layout/server';
+//import { FlexLayoutModule } from '@angular/flex-layout';
+//import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 // Removed FlexLayoutServerModule import as it does not exist
-import { AdministratorComponent } from './Components/Administrator/administrator/administrator.component';
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
-import { CartComponent } from './Components/Cart/cart/cart.component';
+import { CartComponent } from './Components/Customer/cart/cart.component';
 import { ProductComponent } from './Components/Products/product/product.component';
 import { CaseComponent } from './Components/Products/case/case.component';
 import { HomeComponent } from './Components/HomePage/home/home.component';
 import { FooterComponent } from './Components/footer/footer.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
+import { AboutComponent } from './Components/about/about.component';
+import { CustomerComponent } from './Components/Customer/customer/customer.component';
+import { CpuComponent } from './Components/Products/cpu/cpu.component';
+import { GpuComponent } from './Components/Products/gpu/gpu.component';
+import { MotherboardComponent } from './Components/Products/motherboard/motherboard.component';
+import { PsuComponent } from './Components/Products/psu/psu.component';
+import { RamComponent } from './Components/Products/ram/ram.component';
+import { StorageComponent } from './Components/Products/storage/storage.component';
+import { CheckoutComponent } from './Components/Customer/checkout/checkout.component';
+import { WishlistComponent } from './Components/Customer/wishlist/wishlist.component';
+import { AdminComponent } from './Components/Administration/admin/admin.component';
+import { OrdersComponent } from './Components/Administration/orders/orders.component';
+import { ErrorComponent } from './Components/error/error.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdministratorComponent,
     LoginComponent,
     RegisterComponent,
     CartComponent,
@@ -43,8 +54,19 @@ import {MatMenuModule} from '@angular/material/menu';
     CaseComponent,
     HomeComponent,
     FooterComponent,
-
-
+    AboutComponent,
+    CustomerComponent,
+    CpuComponent,
+    GpuComponent,
+    MotherboardComponent,
+    PsuComponent,
+    RamComponent,
+    StorageComponent,
+    CheckoutComponent,
+    WishlistComponent,
+    AdminComponent,
+    OrdersComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -64,13 +86,12 @@ import {MatMenuModule} from '@angular/material/menu';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    FlexLayoutModule,
-    FlexLayoutServerModule,
+    //FlexLayoutModule,
+    //FlexLayoutServerModule,
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    MatMenuModule,
-
+    MatMenuModule
   ],
   providers: [
     provideClientHydration(),
