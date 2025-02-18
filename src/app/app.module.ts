@@ -25,23 +25,30 @@ import { LoginComponent } from './Components/Authtentication/login/login.compone
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
 import { CartComponent } from './Components/Customer/cart/cart.component';
 import { ProductComponent } from './Components/Products/product/product.component';
-import { CaseComponent } from './Components/Products/case/case.component';
+import { CaseComponent } from './Components/Products/Case/case/case.component';
 import { HomeComponent } from './Components/HomePage/home/home.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AboutComponent } from './Components/about/about.component';
 import { CustomerComponent } from './Components/Customer/customer/customer.component';
 import { CpuComponent } from './Components/Products/cpu/cpu.component';
-import { GpuComponent } from './Components/Products/gpu/gpu.component';
-import { MotherboardComponent } from './Components/Products/motherboard/motherboard.component';
-import { PsuComponent } from './Components/Products/psu/psu.component';
-import { RamComponent } from './Components/Products/ram/ram.component';
-import { StorageComponent } from './Components/Products/storage/storage.component';
+import { GpuComponent } from './Components/Products/Gpu/gpu/gpu.component';
+import { MotherboardComponent } from './Components/Products/Motherboard/motherboard/motherboard.component';
+import { PsuComponent } from './Components/Products/Psu/psu/psu.component';
+import { RamComponent } from './Components/Products/Ram/ram/ram.component';
+import { StorageComponent } from './Components/Products/Storage/storage/storage.component';
 import { CheckoutComponent } from './Components/Customer/checkout/checkout.component';
 import { WishlistComponent } from './Components/Customer/wishlist/wishlist.component';
 import { AdminComponent } from './Components/Administration/admin/admin.component';
 import { OrdersComponent } from './Components/Administration/orders/orders.component';
 import { ErrorComponent } from './Components/error/error.component';
+import { SpecificRamComponent } from './Components/Products/Ram/specific-ram/specific-ram.component';
+import { SpecificCaseComponent } from './Components/Products/Case/specific-case/specific-case.component';
+import { SpecificGpuComponent } from './Components/Products/Gpu/specific-gpu/specific-gpu.component';
+import { SpecificMotherboardComponent } from './Components/Products/Motherboard/specific-motherboard/specific-motherboard.component';
+import { SpecificPsuComponent } from './Components/Products/Psu/specific-psu/specific-psu.component';
+import { SpecificStorageComponent } from './Components/Products/Storage/specific-storage/specific-storage.component';
+import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 
 
 @NgModule({
@@ -66,7 +73,14 @@ import { ErrorComponent } from './Components/error/error.component';
     WishlistComponent,
     AdminComponent,
     OrdersComponent,
-    ErrorComponent
+    ErrorComponent,
+    SpecificRamComponent,
+    SpecificCaseComponent,
+    SpecificGpuComponent,
+    SpecificMotherboardComponent,
+    SpecificPsuComponent,
+    SpecificStorageComponent,
+    SpecificProductComponent,
   ],
   imports: [
     BrowserModule,
