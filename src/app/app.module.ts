@@ -19,6 +19,7 @@ import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+
 // Removed FlexLayoutServerModule import as it does not exist
 import { AdministratorComponent } from './Components/Administrator/administrator/administrator.component';
 import { LoginComponent } from './Components/Authtentication/login/login.component';
@@ -68,7 +69,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+
   ],
   providers: [
     provideClientHydration(),
