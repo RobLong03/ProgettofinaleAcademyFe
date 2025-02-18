@@ -28,6 +28,7 @@ import { SpecificMotherboardComponent } from './Components/Products/Motherboard/
 import { SpecificPsuComponent } from './Components/Products/Psu/specific-psu/specific-psu.component';
 import { SpecificRamComponent } from './Components/Products/Ram/specific-ram/specific-ram.component';
 import { SpecificStorageComponent } from './Components/Products/Storage/specific-storage/specific-storage.component';
+import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 
 const routes: Routes = [
 
@@ -41,9 +42,10 @@ const routes: Routes = [
   {path:'about', component:AboutComponent},
 
   {path:'product', component:ProductComponent, children:[
+    {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti
     {path:'case',component:CaseComponent},
     {path:'case/:id',component:SpecificCaseComponent},
-    {path:'cpu', component:CpuComponent},
+    {path:'cpu', component:CpuComponent}, //se vai su /product/cpu vengono caricate solo le cpu dal be
     {path:'cpu/:id', component:CpuComponent},
     {path:'gpu', component:GpuComponent},
     {path:'gpu/:id', component:SpecificGpuComponent},

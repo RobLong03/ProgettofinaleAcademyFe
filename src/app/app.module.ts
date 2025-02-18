@@ -49,6 +49,7 @@ import { SpecificMotherboardComponent } from './Components/Products/Motherboard/
 import { SpecificPsuComponent } from './Components/Products/Psu/specific-psu/specific-psu.component';
 import { SpecificStorageComponent } from './Components/Products/Storage/specific-storage/specific-storage.component';
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
+import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { SpecificProductComponent } from './Components/Products/specific-product
     SpecificPsuComponent,
     SpecificStorageComponent,
     SpecificProductComponent,
+    ProductsListComponent,
   ],
   imports: [
     BrowserModule,
