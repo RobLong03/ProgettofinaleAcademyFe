@@ -26,7 +26,7 @@ export class CustomerService {
     return this.http.post(this.apiUrl + "update", body);
   }
 
-  deleteCustomer(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteCustomer(body : {}){
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }

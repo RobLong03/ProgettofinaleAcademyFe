@@ -26,7 +26,7 @@ export class ProductService {
     return this.http.post(this.apiUrl + "update", body);
   }
 
-  deleteProduct(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteProduct(body : {}){
+    return this.http.get(this.apiUrl + "delete", body);
   }
 }

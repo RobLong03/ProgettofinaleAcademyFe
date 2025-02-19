@@ -26,7 +26,7 @@ export class OrderItemService {
     return this.http.post(this.apiUrl + "removeItemFromOrder", body);
   }
 
-  deleteOrderItme(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteOrderItme(body : {}){
+    return this.http.get(this.apiUrl + "delete", body);
   }
 }

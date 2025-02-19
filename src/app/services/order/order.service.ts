@@ -30,7 +30,7 @@ export class OrderService {
     return this.http.post(this.apiUrl + "update", body);
   }
 
-  deleteOrder(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteOrder(body : {}){
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }

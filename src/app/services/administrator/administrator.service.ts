@@ -26,7 +26,7 @@ export class AdministratorService {
     return this.http.post(this.apiUrl + "update", body);
   }
 
-  deleteAdministrator(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteAdministrator(body : {}){
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }

@@ -22,7 +22,7 @@ export class WishlistItemService {
     return this.http.post(this.apiUrl + "create?id=" + id, body);
   }
 
-  deleteWishlistItem(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteWishlistItem(body : {}){
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }

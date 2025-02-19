@@ -14,8 +14,8 @@ export class CartService {
     return this.http.post(this.apiUrl + "create", body);
   }
 
-  deleteCart(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteCart(body : {}){
+    return this.http.post(this.apiUrl + "delete", body);
   }
 
   clearCart(body : {}){
