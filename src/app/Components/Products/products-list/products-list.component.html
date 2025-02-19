@@ -1,5 +1,7 @@
+
+
 <div class="card-container">
-    <mat-card class="example-card" appearance="outlined">
+    <mat-card class="example-card" appearance="outlined" >
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>Shiba Inu</mat-card-title>
@@ -19,19 +21,19 @@
     </mat-card-actions>
   </mat-card>
   
-      <mat-card class="example-card" appearance="outlined" *ngFor="let cpu of cpuList" >
+      <mat-card class="example-card" appearance="outlined" *ngFor="let prod of productList"  [routerLink]="['/cpu/', prod.id]" >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{cpu.model}}</mat-card-title>
-            <mat-card-subtitle>{{cpu.brand}}</mat-card-subtitle>
+            <mat-card-title>{{prod.model}}</mat-card-title>
+            <mat-card-subtitle>{{prod.brand}}</mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image src={{cpu.imageUrl}} alt="photo of current cpu">
+          <img mat-card-image src={{prod.imageUrl}} alt="photo of current product">
           <mat-card-content>
             <p>
-             {{cpu.description}}
+             {{prod.description}}
             </p>
             <p>
-              {{ cpu.price | currency:'EUR':true }}
+              {{ prod.price | currency:'EUR':true }}
              </p>
           </mat-card-content>
           <mat-card-actions>
