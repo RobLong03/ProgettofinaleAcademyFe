@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomerService } from '../../../services/customer/customer.service';
 import { AuthServiceService } from '../../../Auth/auth-service.service';
 import { Router } from '@angular/router';
+import { SessionStorageService } from '../../../utils/session-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
               private customerS : CustomerService,
               private authS : AuthServiceService,
-              private router: Router
+              private router: Router,
+              private sesStorS : SessionStorageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,18 +42,39 @@ export class LoginComponent {
         this.logged = rsp.logged;
 
         if(this.logged){
-          this.authS.setLoggedIn();
-          this.authS.setRoleUser();
-          this.router.navigate(["/home"]);
+          this.setLoggeduser();
+          this.setGlobalParameter();
         }else{
           this.authS.resetAll();
+          this.loginForm.reset();
         }
         
 
       });
     } else {
       console.log('Form non valido');
+      this.loginForm.reset();
     }
+  }
+
+  setLoggeduser(){
+    this.authS.setLoggedIn();
+    this.authS.setRoleUser();
+  }
+
+  setGlobalParameter(){
+    this.customerS.getCustomerids({email: this.loginForm.value.email})
+    .subscribe((cIds:any)=>
+    {
+      if(cIds.rc == true){
+        this.sesStorS.setUserSession(cIds.dati.customerId,cIds.dati.cartId,cIds.dati.wishListId);
+      }else{
+        console.log("errore nel login...");
+        this.authS.resetAll()
+        this.loginForm.reset();
+      }
+    }
+    )
   }
 
 }
