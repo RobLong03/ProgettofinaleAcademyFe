@@ -1,1 +1,11 @@
-<p>specific-ram works!</p>
+<div>
+    <img mat-card-image [src]="ram?.imageUrl" alt="Photo of a Shiba Inu">
+
+    <h1>{{ram?.brand}}</h1>
+    <p>Model: {{ram?.model}}</p>
+    <p>Description: {{ram?.description}}</p>
+    <p>Mhz: {{ram?.mhz}}</p>
+    <p>Stock: {{ram?.stock}}</p>
+    <p>Size: {{ram?.size}}</p>
+    <p>Price: {{ram?.price | currency:"EUR"}}</p>
+</div>
