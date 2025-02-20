@@ -1,0 +1,29 @@
+<mat-card class="product-card">
+    <mat-card-content class="product-content">
+      <div class="product-left">
+        <!-- Immagine del prodotto -->
+        <img mat-card-image [src]="cpu.imageUrl" alt="{{ cpu.name }}" class="product-image" />
+      </div>
+  
+      <div class="product-right">
+        <h2>{{ cpu.brand }} - {{ cpu.model }}</h2>
+        <p class="product-price">${{ cpu.price }}</p>
+  
+        <div class="actions">
+          <!-- Aggiungi al carrello -->
+          <button mat-raised-button color="primary" >Aggiungi al carrello</button>
+          
+          <!-- Aggiungi alla wishlist -->
+          <button mat-icon-button >
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+        </div>
+  
+        <div class="product-description">
+          <h3>Descrizione</h3>
+          <p>{{ cpu.description }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

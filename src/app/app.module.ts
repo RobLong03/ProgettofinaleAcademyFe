@@ -8,19 +8,22 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-//import { FlexLayoutModule } from '@angular/flex-layout';
-//import { FlexLayoutServerModule } from '@angular/flex-layout/server';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatCardModule} from '@angular/material/card';
-import {MatGridListModule} from '@angular/material/grid-list';
+// import { FlexLayoutModule } from '@angular/flex-layout';
+// import { FlexLayoutServerModule } from '@angular/flex-layout/server';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { FloatLabelType } from '@angular/material/form-field';
 
-// Removed FlexLayoutServerModule import as it does not exist
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
 import { CartComponent } from './Components/Customer/cart/cart.component';
@@ -31,7 +34,7 @@ import { FooterComponent } from './Components/footer/footer.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AboutComponent } from './Components/about/about.component';
 import { CustomerComponent } from './Components/Customer/customer/customer.component';
-import { CpuComponent } from './Components/Products/cpu/cpu.component';
+import { CpuComponent } from './Components/Products/cpu/cpu/cpu.component';
 import { GpuComponent } from './Components/Products/Gpu/gpu/gpu.component';
 import { MotherboardComponent } from './Components/Products/Motherboard/motherboard/motherboard.component';
 import { PsuComponent } from './Components/Products/Psu/psu/psu.component';
@@ -50,7 +53,7 @@ import { SpecificPsuComponent } from './Components/Products/Psu/specific-psu/spe
 import { SpecificStorageComponent } from './Components/Products/Storage/specific-storage/specific-storage.component';
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
-
+import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,7 @@ import { ProductsListComponent } from './Components/Products/products-list/produ
     SpecificStorageComponent,
     SpecificProductComponent,
     ProductsListComponent,
+    SpecificCpuComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,21 +97,16 @@ import { ProductsListComponent } from './Components/Products/products-list/produ
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    //FlexLayoutModule,
-    //FlexLayoutServerModule,
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),

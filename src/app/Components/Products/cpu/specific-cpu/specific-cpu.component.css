@@ -1,0 +1,40 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    width: 100%;
+  }
+  
+  .product-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .product-left {
+    flex: 1;
+  }
+  
+  .product-right {
+    flex: 2;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    color: green;
+    font-weight: bold;
+  }
+  
+  .actions {
+    margin-top: 10px;
+  }
+  
+  .product-description {
+    margin-top: 20px;
+  }
+  

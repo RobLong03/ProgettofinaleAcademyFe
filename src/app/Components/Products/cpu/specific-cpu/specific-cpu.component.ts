@@ -3,11 +3,11 @@ import { CpuService } from '../../../../services/products/cpu.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-cpu-product',
-  templateUrl: './cpu-product.component.html',
-  styleUrl: './cpu-product.component.css'
+  selector: 'app-specific-cpu',
+  templateUrl: './specific-cpu.component.html',
+  styleUrl: './specific-cpu.component.css'
 })
-export class CpuProductComponent {
+export class SpecificCpuComponent {
 
   cpu : any;
   response : any;
@@ -26,8 +26,5 @@ export class CpuProductComponent {
       });
     });
   }
-
-
-
 
 }

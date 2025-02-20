@@ -29,4 +29,8 @@ export class CustomerService {
   deleteCustomer(id : number){
     return this.http.get(this.apiUrl + "delete?id=" + id);
   }
+
+  signInCustomer(body :{}){
+    return this.http.post(this.apiUrl + "signIn", body);
+  }
 }
