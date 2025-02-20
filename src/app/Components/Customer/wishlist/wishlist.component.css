@@ -1,0 +1,46 @@
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Spazio tra le righe */
+    width: 100%;
+  }
+  
+  .product-row {
+    width: 75%; /* Occupa quasi tutta la larghezza */
+    margin: 0 auto; /* Centra gli elementi */
+    cursor: pointer;
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .product-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+  }
+  
+  .product-content img {
+    width: 250px; /* Dimensione immagine */
+    height: auto;
+  }
+  
+  .product-info {
+    flex-grow: 1;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .button-container {
+    text-align: center;
+    margin-bottom: 20px; /* opzionale, per dare un po' di spazio */
+  }
+  
+  

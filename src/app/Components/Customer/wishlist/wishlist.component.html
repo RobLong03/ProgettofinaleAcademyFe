@@ -1,1 +1,28 @@
-<p>wishlist works!</p>
+
+<div class="button-container">
+  <button mat-button (click)="emptyWishlist()">EMPTY</button>
+</div>
+
+<div class="product-list">
+    <div *ngFor="let item of items" class="product-row"> <!--(click)="goToDetail(ram.id)"-->
+      <mat-card class="product-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>{{ item.product.model }}</mat-card-title>
+          <mat-card-subtitle>{{ item.product.brand }}</mat-card-subtitle>
+        </mat-card-header>
+  
+        <div class="product-content">
+          <img mat-card-image [src]="item.product.imageUrl" alt="Product Image">
+          <div class="product-info">
+            <p>{{ item.product.description }}</p>
+            <h5>Price: {{ item.product.price | currency:'EUR' }}</h5>
+          </div>
+        </div>
+  
+        <mat-card-actions>
+          <button mat-button (click)="$event.stopPropagation();">SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  

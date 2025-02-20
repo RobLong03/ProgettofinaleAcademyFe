@@ -19,7 +19,7 @@ export class WishlistItemService {
   }
 
   createWishlistItem(body : {}, id : number){
-    return this.http.post(this.apiUrl + "create?id=" + id, body);
+    return this.http.post(this.apiUrl + "create?customerId=" + id, body);
   }
 
   deleteWishlistItem(body : {}){
