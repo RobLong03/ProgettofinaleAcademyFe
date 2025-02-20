@@ -26,7 +26,7 @@ export class AddressService {
     return this.http.post(this.apiUrl + "update", body);
   }
 
-  deleteAddress(id : number){
-    return this.http.get(this.apiUrl + "delete?id=" + id);
+  deleteAddress(body : {}){
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }
