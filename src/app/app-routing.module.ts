@@ -42,7 +42,7 @@ const routes: Routes = [
   {path:'register', component:RegisterComponent},
   {path:'about', component:AboutComponent},
 
-  {path:'product', canActivate:[pathGuardALoggedGuard] ,component:ProductComponent, children:[
+  {path:'product',component:ProductComponent, children:[
     {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti
     {path:'case',component:CaseComponent},
     {path:'case/:id',component:SpecificCaseComponent},
