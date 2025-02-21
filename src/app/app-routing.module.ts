@@ -43,11 +43,11 @@ const routes: Routes = [
   {path:'about', component:AboutComponent},
 
   {path:'product',component:ProductComponent, children:[
-    {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti
+    {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti i prodotti con le card
     {path:'case',component:CaseComponent},
     {path:'case/:id',component:SpecificCaseComponent},
-    {path:'cpu', component:CpuComponent}, //se vai su /product/cpu vengono caricate solo le cpu dal be
-    {path:'cpu/:id', component:SpecificCpuComponent},
+    {path:'cpu', component:CpuComponent}, //se vai su /product/cpu vengono caricate solo le cpu come lista di cpu's
+    {path:'cpu/:id', component:SpecificCpuComponent},  // questo carica la pagina di una cpu specifica
     {path:'gpu', component:GpuComponent},
     {path:'gpu/:id', component:SpecificGpuComponent},
     {path:'motherboard', component:MotherboardComponent},
