@@ -15,7 +15,7 @@ export class CartItemService {
   }
 
   removeCartItem(body : {}){
-    return this.http.post(this.apiUrl + "create", body);
+    return this.http.post(this.apiUrl + "remove", body);
   }
 
   addCartItem(body : {}){
@@ -24,5 +24,9 @@ export class CartItemService {
 
   removeItemsCart(body : {}){
     return this.http.post(this.apiUrl + "removeItems", body);
+  }
+
+  listByCart(cartId : number){
+    return this.http.get(this.apiUrl + "listByCart?id=" + cartId);
   }
 }
