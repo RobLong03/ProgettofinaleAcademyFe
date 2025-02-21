@@ -1,0 +1,6 @@
+.example-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 150px 400px;
+  }

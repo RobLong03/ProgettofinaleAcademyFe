@@ -7,7 +7,7 @@ import { CaseComponent } from './Components/Products/Case/case/case.component';
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
 import { AboutComponent } from './Components/about/about.component';
-import { CpuComponent } from './Components/Products/cpu/cpu.component';
+import { CpuComponent } from './Components/Products/cpu/cpu/cpu.component';
 import { GpuComponent } from './Components/Products/Gpu/gpu/gpu.component';
 import { MotherboardComponent } from './Components/Products/Motherboard/motherboard/motherboard.component';
 import { PsuComponent } from './Components/Products/Psu/psu/psu.component';
@@ -29,11 +29,12 @@ import { SpecificPsuComponent } from './Components/Products/Psu/specific-psu/spe
 import { SpecificRamComponent } from './Components/Products/Ram/specific-ram/specific-ram.component';
 import { SpecificStorageComponent } from './Components/Products/Storage/specific-storage/specific-storage.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
+import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
+import { pathGuardALoggedGuard } from './Auth/Guards/path-guard-logged.guard';
 
 const routes: Routes = [
 
-  //da cambiare
-  {path:'home', component:AppComponent},
+
 
   {path:'', redirectTo:'home', pathMatch:'full'},
   {path:'home', component:HomeComponent},
@@ -41,12 +42,12 @@ const routes: Routes = [
   {path:'register', component:RegisterComponent},
   {path:'about', component:AboutComponent},
 
-  {path:'product', component:ProductComponent, children:[
-    {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti
+  {path:'product',component:ProductComponent, children:[
+    {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti i prodotti con le card
     {path:'case',component:CaseComponent},
     {path:'case/:id',component:SpecificCaseComponent},
-    {path:'cpu', component:CpuComponent}, //se vai su /product/cpu vengono caricate solo le cpu dal be
-    {path:'cpu/:id', component:CpuComponent},
+    {path:'cpu', component:CpuComponent}, //se vai su /product/cpu vengono caricate solo le cpu come lista di cpu's
+    {path:'cpu/:id', component:SpecificCpuComponent},  // questo carica la pagina di una cpu specifica
     {path:'gpu', component:GpuComponent},
     {path:'gpu/:id', component:SpecificGpuComponent},
     {path:'motherboard', component:MotherboardComponent},

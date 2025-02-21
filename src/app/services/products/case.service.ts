@@ -17,9 +17,9 @@ export class CaseService {
     return this.http.get(this.apiUrl + "list");
   }
 
-  createCase(body : {}){
-    return this.http.post(this.apiUrl + "create", body);
-  }
+    createCase(body : {}){
+      return this.http.post(this.apiUrl + "create", body);
+    }
 
   updateCase(body : {}){
     return this.http.post(this.apiUrl + "update", body);

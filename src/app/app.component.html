@@ -20,12 +20,12 @@
         <button mat-button [matMenuTriggerFor]="menu">Menu</button>
         <mat-menu class="disapper" #menu="matMenu" yPosition="below">
           <a routerLink="/product" mat-button>Product</a>
-          <a   routerLink="/product" mat-button>Menu Item 2</a>
+          <a   routerLink="/product/cpu" mat-button>Cpu</a>
         </mat-menu>
 
         <a class="disapper" href="#" mat-button>Menu Item 4</a>
         <a class="disapper" href="#" mat-button>Menu Item 5</a>
-        <a class="disapper" href="#" mat-button>Menu Item 6</a>
+        <a class="disapper" routerLink="/login" mat-button>Login</a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>

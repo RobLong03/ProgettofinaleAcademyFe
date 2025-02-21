@@ -1,1 +1,26 @@
-<p>motherboard works!</p>
+<div>
+  <div class="card-container">
+    <mat-card class="example-card" appearance="outlined" *ngFor="let motherboard of motherboards"
+      (click)="goToDetail(motherboard.id)">
+      <mat-card-header>
+        <mat-card-title>{{ motherboard.model }}</mat-card-title>
+        <mat-card-subtitle>{{ motherboard.brand }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <img mat-card-image [src]="motherboard?.imageUrl" alt="Photo of a Shiba Inu">
+
+      <mat-card-content>
+        <p>{{ motherboard.description }}</p>
+        <br>
+        <h5>Price: {{ motherboard.price | currency:'EUR' }}</h5>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button (click)="$event.stopPropagation();">SHARE</button>
+        <button mat-button (click)="addToWishlist(motherboard.id); $event.stopPropagation();">
+          Add Wishlist
+        </button>
+      </mat-card-actions>
+    </mat-card>    
+  </div>
+</div>

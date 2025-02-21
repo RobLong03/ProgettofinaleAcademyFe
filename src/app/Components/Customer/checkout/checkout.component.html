@@ -1,1 +1,23 @@
-<p>checkout works!</p>
+<!-- "Checkout page bla bla bla" -->
+ <h3>CHECKOUT OF ORDER</h3>
+
+<!-- Scegli a quale indirizzo spedire -->
+<form>
+  <h4>Indirizzo di spedizione:</h4>
+  <mat-form-field>
+    <mat-label>Per favore scegli un indirizzo a cui sepdire</mat-label>
+    <mat-select>
+      <mat-option value="option2" disabled>Scegli gli indirizzi</mat-option>
+      <mat-option *ngFor="let addr of addresses" value={{addr.id}}>{{addr.country}} | {{addr.postalCode}} | {{addr.city}} | {{addr.street}} | {{addr.street}} | {{addr.houseNumber</mat-option>
+      
+    </mat-select>
+  </mat-form-field>
+
+
+</form>
+
+<!-- Prodotti nel ordine -->
+
+<!-- Prezzo totale: 
+    ordi
+-->

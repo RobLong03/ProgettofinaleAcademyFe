@@ -1,19 +1,30 @@
 <div>
-        <div *ngFor="let ram of rams">
-            <mat-card class="example-card" appearance="outlined">
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
-                  <mat-card-title>{{ram.model}}</mat-card-title>
-                  <mat-card-subtitle>{{ram.brand}}</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>{{ram.description}}</p>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>LIKE</button>
-                  <button mat-button>SHARE</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
+  <div class="card-container">
+    <mat-card class="example-card" appearance="outlined" *ngFor="let ram of rams"
+    (click)="goToDetail(ram.id)">
+      <mat-card-header>
+        <mat-card-title>{{ ram.model }}</mat-card-title>
+        <mat-card-subtitle>{{ ram.brand }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <img mat-card-image [src]="ram?.imageUrl" alt="Photo of a Shiba Inu">
+
+      <mat-card-content>
+        <p>{{ ram.description }}</p>
+        <br>
+        <h5>Price: {{ ram.price | currency:'EUR' }}</h5>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button (click)="$event.stopPropagation();">SHARE</button>
+        <button mat-button (click)="addToWishlist(ram.id); $event.stopPropagation();">
+          Add Wishlist
+        </button>
+      </mat-card-actions>
+    </mat-card>    
+  </div>
+</div> 
+
+<div>
+    
 </div>

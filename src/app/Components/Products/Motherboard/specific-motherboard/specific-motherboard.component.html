@@ -1,1 +1,10 @@
-<p>specific-motherboard works!</p>
+<div>
+    <img mat-card-image [src]="motherboard?.imageUrl" alt="Photo of a Shiba Inu">
+
+    <h1>{{motherboard?.brand}}</h1>
+    <p>Model: {{motherboard?.model}}</p>
+    <p>Description: {{motherboard?.description}}</p>
+    <p>Compatibility: {{motherboard?.cpuCompatibility}}</p>
+    <p>Stock: {{motherboard?.stock}}</p>
+    <p>Price: {{motherboard?.price | currency:"EUR"}}</p>
+</div>

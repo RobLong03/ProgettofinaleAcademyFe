@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CpuService } from '../../../services/products/cpu.service';
+import { CpuService } from '../../../../services/products/cpu.service';
 
 @Component({
   selector: 'app-cpu',
