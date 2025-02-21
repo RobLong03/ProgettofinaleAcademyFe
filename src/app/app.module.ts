@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import {FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -113,7 +114,9 @@ import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/spe
     ReactiveFormsModule,
     MatCheckboxModule,
     MatSelectModule,
-    FormsModule
+    MatRadioModule,
+    FormsModule,
+  
 
   ],
   providers: [

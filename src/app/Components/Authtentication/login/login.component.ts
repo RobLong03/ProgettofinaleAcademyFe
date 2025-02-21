@@ -31,7 +31,7 @@ export class LoginComponent {
     console.log("login clicked")
     if (this.loginForm.valid) {
       console.log('Login data:', this.loginForm.value);
-
+      
       
       this.customerS.signInCustomer({
         username: this.loginForm.value.email,
