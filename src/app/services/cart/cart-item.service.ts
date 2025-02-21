@@ -26,7 +26,7 @@ export class CartItemService {
     return this.http.post(this.apiUrl + "removeItems", body);
   }
 
-  getListByCart(id : number){ //impl temporanea per testare checkout
-    return this.http.get(this.apiUrl + "listByCart?id=" + id);
+  listByCart(cartId : number){
+    return this.http.get(this.apiUrl + "listByCart?id=" + cartId);
   }
 }
