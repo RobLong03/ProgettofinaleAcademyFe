@@ -22,3 +22,7 @@ form {
   .item-details {
     text-align: left; /* Allinea i dettagli a sinistra */
   }
+
+  .removeItemChoser{
+    width:15%;
+  }

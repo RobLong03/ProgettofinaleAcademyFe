@@ -23,6 +23,7 @@ export class CartItemService {
   }
 
   removeItemsCart(body : {}){
+    console.log(body);
     return this.http.post(this.apiUrl + "removeItems", body);
   }
 

@@ -1,86 +1,106 @@
 <h3>CHECKOUT OF ORDER</h3>
 
-<form>
+<form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
   <h5>Indirizzo di spedizione</h5>
   <mat-form-field>
     <mat-label>Per favore scegli un indirizzo a cui spedire</mat-label>
-    <mat-select (selectionChange)="onAddressChange($event.value)">
-      <mat-option  disabled>Scegli gli indirizzi</mat-option>
+    <mat-select (selectionChange)="onAddressChange($event.value)" ngModel name="addressField" required>
+      <mat-option disabled>Scegli gli indirizzi</mat-option>
       <mat-option *ngFor="let addr of addresses" [value]="addr.id">
         {{addr.country}} {{addr.postalCode}} {{addr.city}} {{addr.street}} {{addr.houseNumber}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-    <p *ngIf="selectedAddress">Indirizzo Scelto: {{selectedAddress.country}} {{selectedAddress.postalCode}} {{selectedAddress.city}} {{selectedAddress.street}} {{selectedAddress.houseNumber}}</p>
-    <mat-divider></mat-divider>
-    <br>
-    
-    <h5>Metodo di pagamento</h5>
-    <mat-radio-group (change)="onPaymentMethodChange($event)">
-      <mat-radio-button value="cash">Contanti</mat-radio-button>
-      <mat-radio-button value="card">Carta</mat-radio-button>
-      <mat-radio-button value="paypal">PayPal</mat-radio-button>
-    </mat-radio-group>
+  <p *ngIf="selectedAddress">Indirizzo Scelto: {{selectedAddress.country}} {{selectedAddress.postalCode}} {{selectedAddress.city}} {{selectedAddress.street}} {{selectedAddress.houseNumber}}</p>
+  <mat-divider></mat-divider>
+  <br>
+  
+  <h5>Metodo di pagamento</h5>
+  <mat-radio-group (change)="onPaymentMethodChange($event)" ngModel name="paymentMethod" required>
+    <mat-radio-button value="cash">Contanti</mat-radio-button>
+    <mat-radio-button value="card">Carta</mat-radio-button>
+    <mat-radio-button value="paypal">PayPal</mat-radio-button>
+  </mat-radio-group>
 
-    <div *ngIf="paymentMethod == 'card'">
-      <mat-form-field>
-        <mat-label>Card Number</mat-label>
-        <input matInput value="1234 5678 9012 3456" disabled>
+  <div *ngIf="paymentMethod == 'card'">
+    <mat-form-field>
+      <mat-label>Card Number</mat-label>
+      <input matInput value="1234 5678 9012 3456" disabled>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Card Holder Name</mat-label>
+      <input matInput value="John Doe" disabled>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Expiry Date</mat-label>
+      <input matInput value="MM/YY" disabled>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>CVV</mat-label>
+      <input matInput value="123" disabled>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="paymentMethod == 'cash'">
+    <p>Pagamento in contanti alla consegna.</p>
+  </div>
+
+  <div *ngIf="paymentMethod == 'paypal'">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput value="tantisoldi@paypal.com" disabled>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput value="PasswordCosiSicuraCheLaVedi" disabled>
+    </mat-form-field>
+  </div>
+  
+  <mat-divider></mat-divider>
+  <h5>Articoli nel ordine:</h5>
+
+  <div *ngFor="let item of orderItems" class="order-item">
+    <img [src]="item.imageUrl" alt="{{item.brand}} {{item.model}}" class="item-image">
+    <div class="item-details">
+      <p><strong>Marca e Modello:</strong> {{item.brand}} {{item.model}}</p>
+      <p><strong>Quantità:</strong> {{item.quantity}}</p>
+      <p><strong>Prezzo Singolo:</strong> {{item.price | currency}}</p>
+      <p><strong>Prezzo Totale:</strong> {{item.price * item.quantity | currency}}</p>
+
+      <mat-form-field class="removeItemChoser">
+        <mat-label>Quantità da rimuovere</mat-label>
+        <mat-select id="remQty{{ item.id }}">
+          <mat-option *ngFor="let qty of [].constructor(item.quantity); let i = index" [value]="i+1">
+            {{ i+1 }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Card Holder Name</mat-label>
-        <input matInput value="John Doe" disabled>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Expiry Date</mat-label>
-        <input matInput value="MM/YY" disabled>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>CVV</mat-label>
-        <input matInput value="123" disabled>
-      </mat-form-field>
-    </div>
-
-    <div *ngIf="paymentMethod == 'cash'">
-      <p>Pagamento in contanti alla consegna.</p>
-    </div>
-
-    <div *ngIf="paymentMethod == 'paypal'">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput value="tantisoldi@paypal.com" disabled>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput value="PasswordCosiSicuraCheLaVedi" disabled>
-      </mat-form-field>
-    </div>
-    
-    <mat-divider></mat-divider>
-    <h5>Articoli nel ordine:</h5>
-
-    <div *ngFor="let item of orderItems" class="order-item">
-      <img [src]="item.imageUrl" alt="{{item.brand}} {{item.model}}" class="item-image">
-      <div class="item-details">
-        <p><strong>Marca e Modello:</strong> {{item.brand}} {{item.model}}</p>
-        <p><strong>Quantità:</strong> {{item.quantity}}</p>
-        <p><strong>Prezzo Singolo:</strong> {{item.price | currency}}</p>
-        <p><strong>Prezzo Totale:</strong> {{item.price * item.quantity | currency}}</p>
-        <select [(ngModel)]="item.selectedQuantityToRemove">
-          <option *ngFor="let qty of [].constructor(item.quantity); let i = index" [value]="i + 1">{{i + 1}}</option>
-        </select>
-        <button (click)="removeItems(item)" style="background-color: rgba(115, 63, 63, 0.532); color:red"> remove item from order/cart</button>        <hr>
-      </div>
-    
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div>
-      <p>Total order price: {{totalprice | currency}}</p>
-    </div>
-
-    <div>
       
+      <button mat-stroked-button (click)="removeItems(item.cartItemId, item.id)">
+        Remove item(s) from order/cart
+      </button>
+      <hr>
     </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div>
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p>Total order price: {{totalprice | currency}}</p>
+      </mat-card-content>
+    </mat-card>
+    
+    <button mat-stroked-button type="submit" [disabled]="!orderForm.valid">Completa Ordine</button>
+    <div *ngIf="!orderForm.controls['addressField'].value">
+      <p>Scegli un indirizzo per continuare.</p>
+    </div>
+    <div *ngIf="!orderForm.controls['paymentMethod'].value">
+      <p>Scegli un metodo di pagamento per continuare.</p>
+    </div>
+  </div>
+
+  <div>
+  </div>
 </form>
