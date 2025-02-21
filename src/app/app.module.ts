@@ -31,7 +31,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
-import { CartListComponent } from './Components/Customer/cart/cart.component';
+import { CartComponent } from './Components/Customer/cart/cart.component';
 import { ProductComponent } from './Components/Products/product/product.component';
 import { CaseComponent } from './Components/Products/Case/case/case.component';
 import { HomeComponent } from './Components/HomePage/home/home.component';
@@ -65,7 +65,7 @@ import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/spe
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    CartListComponent,
+    CartComponent,
     ProductComponent,
     CaseComponent,
     HomeComponent,
