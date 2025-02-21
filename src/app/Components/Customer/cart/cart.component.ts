@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItemService } from '../../../services/cart/cart-item.service';
+import { CartService } from '../../../services/cart/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +12,10 @@ export class CartListComponent implements OnInit {
   cartItems: any[] = [];
   cartId: number = 1;  // Qui definisci il cartId (puoi passarlo dinamicamente in base al tuo caso)
 
-  constructor(private cartItemService: CartItemService) {}
+  constructor(
+    private cartItemService: CartItemService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.getCartItems(this.cartId);  // Passa il cartId al metodo
