@@ -18,7 +18,7 @@ export class WishlistService {
     return this.http.get(this.apiUrl + "get?id=" + id);
   }
 
-  emptyWishlist(id : number){
-    return this.http.post(this.apiUrl + "emptyWishlist?wishlistId=" + id, null);
+  emptyWishlist(body:{}){
+    return this.http.post(this.apiUrl + "emptyWishlist", body);
   }
 }

@@ -20,7 +20,7 @@
         </div>
   
         <mat-card-actions>
-          <button mat-button (click)="$event.stopPropagation();">SHARE</button>
+          <button mat-button (click)="deleteItem(item.id); $event.stopPropagation();">Remove</button>
         </mat-card-actions>
       </mat-card>
     </div>
