@@ -19,7 +19,7 @@
         <ul>
             <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Processori:</strong> Ultime generazioni Intel e AMD.</p>
             <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Schede Video:</strong> GPU NVIDIA e AMD per grafica senza compromessi.</p>
-            <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Memorie RAM:</strong> DDR4 e DDR5 per velocità e stabiptà.</p>
+            <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Memorie RAM:</strong> DDR4 e DDR5 per velocità e stabilità.</p>
             <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ SSD e HDD:</strong> Archiviazione ultraveloce.</p>
         </ul>
     </section>
@@ -34,7 +34,35 @@
   </section>
   </div>
 
+  <div class="carousel slide carousel-container" data-ride="carousel">
+    <!-- Carousel Indicators -->
+    <ol class="carousel-indicators">
+      <li *ngFor="let prod of productList; let i = index"
+          [class.active]="i === currentIndex"
+          [attr.data-slide-to]="i"
+          (click)="goToSlide(i)"></li>
+    </ol>
 
+    <!-- Carousel Inner -->
+    <div class="carousel-inner">
+      <div *ngFor="let prod of productList; let i = index"
+           class="carousel-item"
+           [class.active]="i === currentIndex">
+        <!-- Just images in each carousel item -->
+        <img mat-card-image [src]="prod.imageUrl.image" alt="Photo of {{ prod.model }}" class="d-block w-100"/>
+      </div>
+    </div>
+
+    <!-- Carousel Navigation -->
+    <a class="carousel-control-prev" role="button" data-slide="prev" (click)="moveCarousel('prev')">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only"></span>
+    </a>
+    <a class="carousel-control-next" role="button" data-slide="next" (click)="moveCarousel('next')">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only"></span>
+    </a>
+  </div>
 
 
 </div>

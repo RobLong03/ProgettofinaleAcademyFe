@@ -1,0 +1,72 @@
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Griglia dinamica */
+  gap: 20px;
+  /* Spaziatura tra le card */
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.example-card {
+  max-width: 100%;
+  /* Occupa tutta la colonna assegnata */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+    /* Una card per riga su dispositivi piccoli */
+  }
+}
+
+img {
+  height: auto;
+    width: auto;
+  object-fit: fill;
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.example-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.example-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+  object-fit: cover;
+  max-height: 200px;
+}
+
+.product-description {
+  font-size: 0.9rem;
+  color: #00ff99 !important;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #00ff99 !important;
+}
+
+.action-button {
+  font-weight: 500;
+}
