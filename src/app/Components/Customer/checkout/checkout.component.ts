@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private fetchCartItems(cart:number){
-    this.cartitemS.getListByCart(cart).subscribe(resp=>
+    this.cartitemS.listByCart(cart).subscribe(resp=>
     {
       this.itemsFromCartResp = resp;
       this.itemsFromCart = this.itemsFromCartResp.dati;
