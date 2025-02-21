@@ -60,7 +60,7 @@ const routes: Routes = [
     {path:'storage/:id', component:SpecificStorageComponent}
   ]},
 
-  {path:'customer/:id', component:CustomerComponent, children:[
+  {path:'customer/c', component:CustomerComponent, children:[
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
     {path:'wishlist', component:WishlistComponent}

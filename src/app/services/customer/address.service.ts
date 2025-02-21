@@ -14,8 +14,8 @@ export class AddressService {
     return this.http.get(this.apiUrl + "get?id=" + id);
   }
 
-  listAddress(){
-    return this.http.get(this.apiUrl + "list");
+  listAddressByCustomer(customerId:number){
+    return this.http.get(this.apiUrl + "listByCustomer?customerId="+customerId);
   }
 
   createAddress(body : {}){

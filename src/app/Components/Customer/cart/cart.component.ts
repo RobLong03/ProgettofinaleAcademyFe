@@ -7,7 +7,7 @@ import { CartService } from '../../../services/cart/cart.service';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartListComponent implements OnInit {
+export class CartComponent implements OnInit {
 
   cartItems: any[] = [];
   cartId: number = 1;  // Qui definisci il cartId (puoi passarlo dinamicamente in base al tuo caso)

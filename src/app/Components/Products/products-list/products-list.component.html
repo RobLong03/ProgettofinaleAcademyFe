@@ -30,7 +30,7 @@
           <img mat-card-image src={{prod.imageUrl}} alt="photo of current product">
           <mat-card-content>
             <p>
-             {{prod.description}}
+             {{prod?.description.description}}
             </p>
             <p>
               {{ prod.price | currency:'EUR':true }}
