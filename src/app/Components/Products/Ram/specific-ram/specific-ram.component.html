@@ -3,9 +3,13 @@
 
     <h1>{{ram?.brand}}</h1>
     <p>Model: {{ram?.model}}</p>
-    <p>Description: {{ram?.description}}</p>
+    <p>Description: {{ram?.description.description}}</p>
     <p>Mhz: {{ram?.mhz}}</p>
     <p>Stock: {{ram?.stock}}</p>
     <p>Size: {{ram?.size}}</p>
     <p>Price: {{ram?.price | currency:"EUR"}}</p>
+
+    <button mat-button (click)="addToWishlist(ram.id); $event.stopPropagation();">
+        Add to wishlist
+    </button>
 </div>

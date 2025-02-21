@@ -10,7 +10,7 @@
       <img mat-card-image [src]="motherboard?.imageUrl" alt="Photo of a Shiba Inu">
 
       <mat-card-content>
-        <p>{{ motherboard.description }}</p>
+        <p>{{ motherboard.description.description }}</p>
         <br>
         <h5>Price: {{ motherboard.price | currency:'EUR' }}</h5>
       </mat-card-content>
@@ -18,7 +18,7 @@
       <mat-card-actions>
         <button mat-button (click)="$event.stopPropagation();">SHARE</button>
         <button mat-button (click)="addToWishlist(motherboard.id); $event.stopPropagation();">
-          Add Wishlist
+          Add to wishlist
         </button>
       </mat-card-actions>
     </mat-card>    

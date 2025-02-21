@@ -3,8 +3,12 @@
 
     <h1>{{motherboard?.brand}}</h1>
     <p>Model: {{motherboard?.model}}</p>
-    <p>Description: {{motherboard?.description}}</p>
+    <p>Description: {{motherboard?.description.description}}</p>
     <p>Compatibility: {{motherboard?.cpuCompatibility}}</p>
     <p>Stock: {{motherboard?.stock}}</p>
     <p>Price: {{motherboard?.price | currency:"EUR"}}</p>
+
+    <button mat-button (click)="addToWishlist(motherboard.id); $event.stopPropagation();">
+        Add to wishlist
+    </button>
 </div>

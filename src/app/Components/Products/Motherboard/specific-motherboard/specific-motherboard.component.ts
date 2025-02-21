@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MotherboardService } from '../../../../services/products/motherboard.service';
 import { ActivatedRoute } from '@angular/router';
+import { WishlistItemService } from '../../../../services/wishlist/wishlist-item.service';
 
 @Component({
   selector: 'app-specific-motherboard',
@@ -11,7 +12,10 @@ export class SpecificMotherboardComponent implements OnInit{
 
   motherboard:any;
 
-  constructor(private motherbS:MotherboardService, private route:ActivatedRoute) { }
+  constructor(
+    private motherbS:MotherboardService,
+    private wishlItemS:WishlistItemService,
+    private route:ActivatedRoute) { }
   
   ngOnInit(): void {
     
@@ -20,6 +24,15 @@ export class SpecificMotherboardComponent implements OnInit{
 
         this.motherboard=resp.dati;
         console.log(this.motherboard);
+      });
+  }
+
+  addToWishlist(productId:number) {
+
+    this.wishlItemS.createWishlistItem({productId:productId}, 1)
+      .subscribe((resp:any) => {
+
+        console.log(resp.rc);
       });
   }
 }
