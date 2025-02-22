@@ -1,45 +1,35 @@
 <div class="card-container">
-    <mat-card class="example-card" appearance="outlined">
+  <mat-card
+    class="example-card"
+    appearance="outlined"
+    *ngFor="let cpu of cpuList"
+    (click)="onClick(cpu.id)"
+  >
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      <mat-card-title>{{ cpu.model }}</mat-card-title>
+      <mat-card-subtitle>{{ cpu.brand }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+
+    <img
+      mat-card-image
+      [src]="cpu.imageUrl.image"
+      alt="Photo of {{ cpu.model }}"
+      class="cpu-image"
+    />
+
     <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
+      <p class="cpu-description">
+        {{ cpu?.description?.description }}
+      </p>
+      <p class="cpu-price">
+        {{ cpu.price | currency: 'EUR': 'symbol-narrow' }}
       </p>
     </mat-card-content>
+
     <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      <button mat-button class="action-button">Add To Cart</button>
+      <button mat-button class="action-button">Add to Wishlist</button>
     </mat-card-actions>
   </mat-card>
-  
-      <mat-card class="example-card" appearance="outlined" *ngFor="let cpu of cpuList" >
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{cpu.model}}</mat-card-title>
-            <mat-card-subtitle>{{cpu.brand}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src={{cpu.imageUrl}} alt="photo of current cpu">
-          <mat-card-content>
-            <p>
-             {{cpu.description}}
-            </p>
-            <p>
-              {{ cpu.price | currency:'EUR':true }}
-             </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>Add To Cart</button>
-            <button mat-button>Add to wishlist</button>
-          </mat-card-actions>
-        </mat-card>
-  
-  
-  </div>
-  
+</div>
