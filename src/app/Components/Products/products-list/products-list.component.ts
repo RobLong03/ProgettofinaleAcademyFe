@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/products/product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WishlistItemService } from '../../../services/wishlist/wishlist-item.service';
+import { CaseService } from '../../../services/products/case.service';
+import { CpuService } from '../../../services/products/cpu.service';
+import { GpuService } from '../../../services/products/gpu.service';
+import { MotherboardService } from '../../../services/products/motherboard.service';
+import { PsuService } from '../../../services/products/psu.service';
+import { RamService } from '../../../services/products/ram.service';
+import { StorageService } from '../../../services/products/storage.service';
 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.css'
 })
-export class ProductsListComponent {
+export class ProductsListComponent implements OnInit{
 
   productList: any;
   response: any;
+
+
   imageUrls = [
     { image: "https://as1.ftcdn.net/v2/jpg/00/81/24/72/1000_F_81247213_OYvGTCn5mnQQ2c0gWJ1U5ixcbmNBaMOp.jpg" },
     { image: "https://www.hellotech.com/blog/wp-content/uploads/2020/02/what-is-a-gpu.jpg" },
@@ -29,7 +38,11 @@ export class ProductsListComponent {
 
 
 
-  constructor(private prodS: ProductService, private router: Router, private wishlItemS: WishlistItemService) { }
+  constructor(private prodS: ProductService, private caseS: CaseService,
+    private cpuS: CpuService, private gpuS: GpuService,private motherboardS: MotherboardService,
+    private psuS: PsuService,private ramS: RamService, private storageS: StorageService,
+    private thisRoute: ActivatedRoute
+    , private router: Router, private wishlItemS: WishlistItemService) { }
 
   onClick(prodId: number) {
     //logica per capire che prodotto è
@@ -61,9 +74,9 @@ export class ProductsListComponent {
           this.router.navigate(['product/psu/' + productChosen.id]);
           break;
         case "storage":
-        console.log("Il prodotto scelto contiene 'Storage' nella descrizione.");
-        this.router.navigate(['product/storage/' + productChosen.id]);
-        break;
+          console.log("Il prodotto scelto contiene 'Storage' nella descrizione.");
+          this.router.navigate(['product/storage/' + productChosen.id]);
+          break;
 
         case "case":
           console.log("Il prodotto scelto contiene 'gpu' nella descrizione.");
@@ -112,7 +125,78 @@ export class ProductsListComponent {
           imageUrl: product.imageUrl || this.imageUrls[index] || '' //se gia presente un campo imageUrl o comunque se gia assegnato usa quello, altrimenti usa un link dalla lista immagini
         }));
 
-      });
+    this.thisRoute.paramMap.subscribe(params => {
+      const category = String(params.get('category'));
+      if (category) {
+        switch (category.toLowerCase()) {
+          case "case":
+            this.caseS.listCase()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+
+              });
+
+            //this.router.navigate(['product/' + category]);
+            break;
+          case "cpu":
+            this.cpuS.listCpu()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+
+              });
+            break;
+          case "ram":
+            this.ramS.listRam()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+              });
+            break;
+          case "motherboard":
+            this.motherboardS.listMotherboard()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+              });
+            break;
+          case "psu":
+            this.psuS.listPsu()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+              });
+            break;
+            case "gpu":
+              this.gpuS.listGpu()
+                .subscribe(resp => {
+                  this.response = resp;
+                  this.productList = this.response.dati;
+                });
+              break;
+          case "storage":
+            this.storageS.listStorage()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+              });
+            break;
+
+
+
+          default:
+            this.prodS.listProduct()
+              .subscribe(resp => {
+                this.response = resp;
+                this.productList = this.response.dati;
+
+              });
+        }
+      }
+
+    })});
+
   }
 
   addToWishlist(productId: number) {
