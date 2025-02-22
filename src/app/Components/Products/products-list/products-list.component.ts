@@ -10,8 +10,8 @@ import { WishlistItemService } from '../../../services/wishlist/wishlist-item.se
 })
 export class ProductsListComponent {
 
-  productList : any;
-  response : any;
+  productList: any;
+  response: any;
   imageUrls = [
     { image: "https://as1.ftcdn.net/v2/jpg/00/81/24/72/1000_F_81247213_OYvGTCn5mnQQ2c0gWJ1U5ixcbmNBaMOp.jpg" },
     { image: "https://www.hellotech.com/blog/wp-content/uploads/2020/02/what-is-a-gpu.jpg" },
@@ -29,15 +29,48 @@ export class ProductsListComponent {
 
 
 
-  constructor(private prodS : ProductService, private router: Router, private wishlItemS:WishlistItemService){}
+  constructor(private prodS: ProductService, private router: Router, private wishlItemS: WishlistItemService) { }
 
-  onClick(prodId:number){
-    //logica per campre che prodotto è
+  onClick(prodId: number) {
+    //logica per capire che prodotto è
 
-    let productChosen = this.productList?.find((prod:any) => prod.id == prodId);
+    let productChosen = this.productList?.find((prod: any) => prod.id == prodId);
 
     //prendo il prodotto dalla lista con id
+    if (productChosen) {
+      switch (productChosen.type.toLowerCase()) {
+        case "case":
+          console.log("Il prodotto scelto contiene 'Case' nella descrizione.");
+          this.router.navigate(['product/case/' + productChosen.id]);
+          break;
+        case "cpu":
+          console.log("Il prodotto scelto contiene 'Cpu' nella descrizione.");
+          this.router.navigate(['product/cpu/' + productChosen.id]);
+          break;
+        case "ram":
+          console.log("Il prodotto scelto contiene 'Ram' nella descrizione.");
+          this.router.navigate(['product/ram/' + productChosen.id]);
+          break;
+        case "motherboard":
+          console.log("Il prodotto scelto contiene 'Motherboard' nella descrizione.");
+          this.router.navigate(['product/motherboard/' + productChosen.id]);
+          break;
+        case "psu":
+          console.log("Il prodotto scelto contiene 'Psu' nella descrizione.");
+          this.router.navigate(['product/psu/' + productChosen.id]);
+          break;
+        case "storage":
+        console.log("Il prodotto scelto contiene 'Storage' nella descrizione.");
+        this.router.navigate(['product/storage/' + productChosen.id]);
+        break;
 
+
+
+        default:
+          alert("Prodotto non trovato")
+      }
+    }
+    /*
     if (productChosen) {
       console.log("Prodotto trovato:", productChosen);
       // Qui puoi fare altre operazioni con productChosen
@@ -62,25 +95,25 @@ export class ProductsListComponent {
     }
 
 
-
+*/
   }
 
   ngOnInit(): void {
     this.prodS.listProduct()
-   .subscribe(resp => {
-    this.response = resp;
-    this.productList = this.response.dati.map((product: any, index: number) => ({
-      ...product,
-      imageUrl: this.imageUrls[index] || ''
-    }));
+      .subscribe(resp => {
+        this.response = resp;
+        this.productList = this.response.dati.map((product: any, index: number) => ({
+          ...product,
+          imageUrl: this.imageUrls[index] || ''
+        }));
 
-   });
+      });
   }
 
-  addToWishlist(productId:number) {
+  addToWishlist(productId: number) {
 
-    this.wishlItemS.createWishlistItem({productId:productId}, 2)
-      .subscribe((resp:any) => {
+    this.wishlItemS.createWishlistItem({ productId: productId }, 2)
+      .subscribe((resp: any) => {
 
         console.log(resp.rc);
       });

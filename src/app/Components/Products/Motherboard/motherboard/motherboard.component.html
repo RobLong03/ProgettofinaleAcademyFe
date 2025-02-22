@@ -10,7 +10,7 @@
       <img mat-card-image [src]="motherboard?.imageUrl" alt="Photo of a Shiba Inu">
 
       <mat-card-content>
-        <p>{{ motherboard.description.description }}</p>
+        <p>{{ motherboard?.description?.description }}</p>
         <br>
         <h5>Price: {{ motherboard.price | currency:'EUR' }}</h5>
       </mat-card-content>
@@ -21,6 +21,6 @@
           Add to wishlist
         </button>
       </mat-card-actions>
-    </mat-card>    
+    </mat-card>
   </div>
 </div>
