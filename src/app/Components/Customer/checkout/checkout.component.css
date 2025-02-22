@@ -1,28 +1,32 @@
-form {
-    text-align: center;
-  }
-  
-  .mat-form-field {
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .order-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .item-image {
-    max-width: 150px; /* Limita la dimensione massima dell'immagine */
-    margin-right: 20px; /* Spazio tra l'immagine e i dettagli */
-  }
-  
-  .item-details {
-    text-align: left; /* Allinea i dettagli a sinistra */
-  }
+h3 { 
+  text-align: center;
+  margin: 30px;
+}
 
-  .removeItemChoser{
-    width:15%;
-  }
+form {
+  text-align: center;
+}
+
+.mat-form-field {
+  display: block;
+  margin: 0 auto;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-image {
+  max-width: 150px;
+  margin-right: 20px;
+}
+
+.item-details {
+  text-align: left;
+}
+
+.removeItemChoser {
+  width: 15%;
+}

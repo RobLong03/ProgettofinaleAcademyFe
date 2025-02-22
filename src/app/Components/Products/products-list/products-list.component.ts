@@ -35,6 +35,7 @@ export class ProductsListComponent {
     //logica per capire che prodotto è
 
     let productChosen = this.productList?.find((prod: any) => prod.id == prodId);
+    console.log(productChosen)
 
     //prendo il prodotto dalla lista con id
     if (productChosen) {
@@ -64,6 +65,10 @@ export class ProductsListComponent {
         this.router.navigate(['product/storage/' + productChosen.id]);
         break;
 
+        case "case":
+          console.log("Il prodotto scelto contiene 'gpu' nella descrizione.");
+          this.router.navigate(['product/gpu/' + productChosen.id]);
+          break;
 
 
         default:
@@ -104,7 +109,7 @@ export class ProductsListComponent {
         this.response = resp;
         this.productList = this.response.dati.map((product: any, index: number) => ({
           ...product,
-          imageUrl: this.imageUrls[index] || ''
+          imageUrl: product.imageUrl || this.imageUrls[index] || '' //se gia presente un campo imageUrl o comunque se gia assegnato usa quello, altrimenti usa un link dalla lista immagini
         }));
 
       });
