@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../../services/wishlist/wishlist.service';
 import { ActivatedRoute } from '@angular/router';
 import { WishlistItemService } from '../../../services/wishlist/wishlist-item.service';
+import { SessionStorageService } from '../../../utils/session-storage.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -11,18 +12,22 @@ import { WishlistItemService } from '../../../services/wishlist/wishlist-item.se
 export class WishlistComponent implements OnInit{
 
   items:any;
+  customerId: number | null;
+  wishlistId: number | null;
 
   constructor(
     private wishlist:WishlistService,
     private wishlistItem:WishlistItemService,
-    private route:ActivatedRoute
-  ) { }
+    private route:ActivatedRoute,
+    private userValues:SessionStorageService
+  ) { 
+    this.customerId = parseInt(this.userValues.idCliente!);
+    this.wishlistId = parseInt(this.userValues.idWishListCliente!);
+  }
   
   ngOnInit(): void {
 
-    //recupero id dall'url padre(senza 'parent' non funziona, 
-    //perchè nel paramMap del componente wishlist il parametro id non esiste)
-    this.wishlist.getWishlist(parseInt(this.route.parent?.snapshot.paramMap.get("id")!))
+    this.wishlist.getWishlist(this.customerId!)
       .subscribe((resp:any) => {
 
       this.items=resp.dati.wishlistItems;
@@ -47,9 +52,10 @@ export class WishlistComponent implements OnInit{
   }
 
   emptyWishlist() {
-
+    console.log("wishlistId");
+    console.log("wishlistId"+this.wishlistId);
     this.wishlist.emptyWishlist({
-      id:parseInt(this.route.parent?.snapshot.paramMap.get("id")!) //sostituire parametro con valore preso da local storage
+      id : this.wishlistId! //sostituire parametro con valore preso da local storage
     })
     .subscribe((resp:any) => {
 
