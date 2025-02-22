@@ -31,6 +31,7 @@ import { SpecificStorageComponent } from './Components/Products/Storage/specific
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
 import { pathGuardALoggedGuard } from './Auth/Guards/path-guard-logged.guard';
+import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 
 const routes: Routes = [
 
@@ -42,8 +43,16 @@ const routes: Routes = [
   {path:'register', component:RegisterComponent},
   {path:'about', component:AboutComponent},
 
-  {path:'product',component:ProductComponent, children:[
-    {path: '', component:ProductsListComponent , pathMatch: 'full'}, //se vai su /product vengono caricati tutti i prodotti con le card
+  {
+    path: 'products',
+    component: ProductComponent,
+    children: [
+      { path: '', component: ProductsListComponent, pathMatch: 'full' }, // Mostra tutti i prodotti
+      { path: ':category', component: ProductsListComponent },  // Filtra per categoria
+    ]
+  },
+  { path: 'product/:category/:id', component: SpecificProductComponent }, // Dettaglio prodotto
+    /*
     {path:'case',component:CaseComponent},
     {path:'case/:id',component:SpecificCaseComponent},
     {path:'cpu', component:CpuComponent}, //se vai su /product/cpu vengono caricate solo le cpu come lista di cpu's
@@ -58,14 +67,15 @@ const routes: Routes = [
     {path:'ram/:id', component:SpecificRamComponent},
     {path:'storage', component:StorageComponent},
     {path:'storage/:id', component:SpecificStorageComponent}
-  ]},
+    */
+
 
   {path:'customer/c', component:CustomerComponent, children:[
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
     {path:'wishlist', component:WishlistComponent}
   ]},
-  
+
   {path:'admin', component:AdminComponent, children:[
     {path:'product', component:ProductAdministrationComponent},
     {path:'customer', component:CustomerAdministrationComponent},

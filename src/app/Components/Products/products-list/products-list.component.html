@@ -1,35 +1,44 @@
-<div class="card-container">
-  <mat-card
-    class="example-card"
-    appearance="outlined"
-    *ngFor="let prod of productList"
-    (click)="onClick(prod.id)"
-  >
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{ prod.model }}</mat-card-title>
-      <mat-card-subtitle>{{ prod.brand }}</mat-card-subtitle>
-    </mat-card-header>
+<div *ngIf="productList && productList.length > 0">
+  <div class="card-container">
+    <mat-card
+      class="example-card"
+      appearance="outlined"
+      *ngFor="let prod of productList"
+      (click)="onClick(prod.id)"
+    >
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ prod.model }}</mat-card-title>
+        <mat-card-subtitle>{{ prod.brand }}</mat-card-subtitle>
+      </mat-card-header>
 
-    <img
-      mat-card-image
-      [src]="prod.imageUrl.image"
-      alt="Photo of {{ prod.model }}"
-      class="product-image"
-    />
+      <img
+        mat-card-image
+        [src]="prod.imageUrl"
+        alt="Photo of {{ prod.model }}"
+        class="product-image"
+      />
 
-    <mat-card-content>
-      <p class="product-description">
-        {{ prod?.description?.description }}
-      </p>
-      <p class="product-price">
-        {{ prod.price | currency: 'EUR': 'symbol-narrow' }}
-      </p>
-    </mat-card-content>
+      <mat-card-content>
+        <p class="product-description">
+          {{ prod?.description?.description }}
+        </p>
+        <p class="product-price">
+          {{ prod.price | currency: 'EUR': 'symbol-narrow' }}
+        </p>
+      </mat-card-content>
 
-    <mat-card-actions>
-      <button mat-button class="action-button">Add To Cart</button>
-      <button mat-button class="action-button">Add to Wishlist</button>
-    </mat-card-actions>
-  </mat-card>
+      <mat-card-actions>
+        <button mat-button class="action-button">Add To Cart</button>
+        <button mat-button class="action-button">Add to Wishlist</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Show fallback message when productList is empty or null -->
+<div *ngIf="!productList || productList.length === 0">
+  <div class=" no-products-message">
+    <p>No products available at the moment. Please check back later!</p>
+  </div>
 </div>

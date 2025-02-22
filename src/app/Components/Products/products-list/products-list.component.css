@@ -70,3 +70,34 @@ img {
 .action-button {
   font-weight: 500;
 }
+.no-products-message {
+  width: 80%; /* Adjust width for better responsiveness */
+  max-width: 42vw; /* Max width to prevent it from becoming too wide */
+  margin: 10vh auto; /* Centers the element with some vertical margin */
+  padding: 20px; /* Adds padding to the inside of the box */
+  font-size: 1.2rem; /* Use relative units to scale the font size */
+  color: #000000;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+  display: block; /* Ensures it behaves like a block element */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .no-products-message {
+    width: 90%; /* Take up more space on smaller screens */
+    font-size: 1rem; /* Slightly smaller text for mobile */
+    padding: 15px; /* Adjust padding for smaller devices */
+  }
+}
+
+@media (max-width: 480px) {
+  .no-products-message {
+    width: 95%; /* Take up even more space on very small screens */
+    font-size: 0.9rem; /* Further adjust text size */
+    padding: 10px; /* Adjust padding */
+  }
+}
