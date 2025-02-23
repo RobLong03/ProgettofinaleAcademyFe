@@ -24,6 +24,7 @@ import { OrdersComponent } from './Components/Administration/orders/orders.compo
 import { ErrorComponent } from './Components/error/error.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
+import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
 
 const routes: Routes = [
 
@@ -65,6 +66,7 @@ const routes: Routes = [
   {path:'customer/c', component:CustomerComponent, children:[
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
+    {path:'orders', component:OrderHistoryComponent},
     {path:'wishlist', component:WishlistComponent}
   ]},
   //authguard da inserire

@@ -44,9 +44,45 @@ export class ProductsListComponent implements OnInit {
   onClick(prodId: number) {
     const productChosen = this.productList?.find((prod: any) => prod.id === prodId);
 
-    if (!productChosen || !productChosen.type) {
 
-      return;
+
+    //prendo il prodotto dalla lista con id
+    if (productChosen) {
+      switch (productChosen.type.toLowerCase()) {
+        case "case":
+          console.log("Il prodotto scelto contiene 'Case' nella descrizione.");
+          this.router.navigate(['product/case/' + productChosen.id]);
+          break;
+        case "cpu":
+          console.log("Il prodotto scelto contiene 'Cpu' nella descrizione.");
+          this.router.navigate(['product/cpu/' + productChosen.id]);
+          break;
+        case "ram":
+          console.log("Il prodotto scelto contiene 'Ram' nella descrizione.");
+          this.router.navigate(['product/ram/' + productChosen.id]);
+          break;
+        case "motherboard":
+          console.log("Il prodotto scelto contiene 'Motherboard' nella descrizione.");
+          this.router.navigate(['product/motherboard/' + productChosen.id]);
+          break;
+        case "psu":
+          console.log("Il prodotto scelto contiene 'Psu' nella descrizione.");
+          this.router.navigate(['product/psu/' + productChosen.id]);
+          break;
+        case "storage":
+          console.log("Il prodotto scelto contiene 'Storage' nella descrizione.");
+          this.router.navigate(['product/storage/' + productChosen.id]);
+          break;
+
+        case "case":
+          console.log("Il prodotto scelto contiene 'gpu' nella descrizione.");
+          this.router.navigate(['product/gpu/' + productChosen.id]);
+          break;
+
+
+        default:
+          alert("Prodotto non trovato")
+      }
     }
 
     const productType = productChosen.type.trim().toLowerCase();
@@ -68,6 +104,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
 
 
     this.thisRoute.paramMap.subscribe(params => {

@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -61,6 +62,7 @@ import { SpecificStorageComponent } from './Components/Products/Storage/specific
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
+import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
 import { ProductComponent as ProductAdministrationComponent} from './Components/Administration/product/product.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
@@ -99,7 +101,6 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     SpecificProductComponent,
     ProductsListComponent,
     SpecificCpuComponent,
-    AdProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,12 +125,9 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     MatSelectModule,
     MatRadioModule,
     MatTooltipModule,
-    FormsModule,
-    MatProgressSpinnerModule,
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatTableModule,
+    FormsModule
+
+
   ],
   providers: [
     provideClientHydration(),

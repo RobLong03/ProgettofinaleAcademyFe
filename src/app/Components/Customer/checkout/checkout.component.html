@@ -1,16 +1,24 @@
+<mat-divider></mat-divider>
 <h3>CHECKOUT OF ORDER</h3>
+<mat-divider></mat-divider>
 
-<form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
+<form #orderForm="ngForm" (ngSubmit)="onSubmit()">
   <h5>Indirizzo di spedizione</h5>
   <mat-form-field>
+
     <mat-label>Per favore scegli un indirizzo a cui spedire</mat-label>
     <mat-select (selectionChange)="onAddressChange($event.value)" ngModel name="addressField" required>
+
       <mat-option disabled>Scegli gli indirizzi</mat-option>
-      <mat-option *ngFor="let addr of addresses" [value]="addr.id">
-        {{addr.country}} {{addr.postalCode}} {{addr.city}} {{addr.street}} {{addr.houseNumber}}
-      </mat-option>
+      <ng-container *ngFor="let addr of addresses; let i = index">
+        <mat-option [value]="addr.id">
+          {{addr.country}} {{addr.postalCode}} {{addr.city}} {{addr.street}} {{addr.houseNumber}}
+        </mat-option>
+        <mat-divider *ngIf="i < addresses.length - 1"></mat-divider>
+      </ng-container>      
     </mat-select>
   </mat-form-field>
+  <button mat-stroked-button>Aggiungi un altro indirizzo TODO/WIP</button>
   <p *ngIf="selectedAddress">Indirizzo Scelto: {{selectedAddress.country}} {{selectedAddress.postalCode}} {{selectedAddress.city}} {{selectedAddress.street}} {{selectedAddress.houseNumber}}</p>
   <mat-divider></mat-divider>
   <br>
@@ -69,14 +77,14 @@
 
       <mat-form-field class="removeItemChoser">
         <mat-label>Quantità da rimuovere</mat-label>
-        <mat-select id="remQty{{ item.id }}">
+        <mat-select id="remQty{{ item.id }}" ngModel name="remQty{{ item.id }}" >
           <mat-option *ngFor="let qty of [].constructor(item.quantity); let i = index" [value]="i+1">
             {{ i+1 }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       
-      <button mat-stroked-button (click)="removeItems(item.cartItemId, item.id)">
+      <button type="button" mat-stroked-button (click)="removeItems(item.cartItemId, item.id)">
         Remove item(s) from order/cart
       </button>
       <hr>
@@ -99,8 +107,5 @@
     <div *ngIf="!orderForm.controls['paymentMethod'].value">
       <p>Scegli un metodo di pagamento per continuare.</p>
     </div>
-  </div>
-
-  <div>
   </div>
 </form>

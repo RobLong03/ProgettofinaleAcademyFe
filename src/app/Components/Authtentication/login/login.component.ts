@@ -18,7 +18,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
               private customerS : CustomerService,
               private authS : AuthServiceService,
-              private router: Router,
+              private redRouter: Router,
               private sesStorS : SessionStorageService
   ) {
     this.loginForm = this.fb.group({
@@ -44,6 +44,7 @@ export class LoginComponent {
         if(this.logged){
           this.setLoggeduser();
           this.setGlobalParameter();
+          this.redRouter.navigate(["home"]);
         }else{
           this.authS.resetAll();
           this.loginForm.reset();

@@ -4,6 +4,8 @@ import { AddressService } from '../../../services/customer/address.service';
 import { CartItemService } from '../../../services/cart/cart-item.service';
 import { ProductService } from '../../../services/products/product.service';
 import { NgForm } from '@angular/forms';
+import { OrderService } from '../../../services/order/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -11,10 +13,6 @@ import { NgForm } from '@angular/forms';
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent implements OnInit {
-onSubmit(_t6: NgForm) {
-throw new Error('Method not implemented.');
-}
-
   customerId: number;
   cartId: number;
 
@@ -33,7 +31,9 @@ throw new Error('Method not implemented.');
     private userValues: SessionStorageService,
     private addressS: AddressService,
     private cartitemS: CartItemService,
-    private productS: ProductService
+    private productS: ProductService,
+    private orderS: OrderService,
+    private redRoute: Router
   ) {
     this.customerId = parseInt(this.userValues.idCliente!);
     this.cartId = parseInt(this.userValues.idCarrelloCliente!);
@@ -90,7 +90,9 @@ throw new Error('Method not implemented.');
   removeItems(cartItemId: number, productId: number) {
     let item = this.orderItems.find((ordItm: any) => ordItm.id == productId);
     let qty:number = item.quantity;
+
     if (item) {
+      //ho generato un id dinamico per il select di ogni item, cosi facendo dovrei avere l'elemento per cui ho clicato
       const inputElement = document.getElementById(`remQty${productId}`) as HTMLInputElement;
       qty = inputElement.textContent ? Number.parseInt(inputElement.textContent) : qty;
     }
@@ -126,5 +128,30 @@ throw new Error('Method not implemented.');
 
   updateRemoveQuantity(item: any) {
     item.removeQuantity = Math.max(1, Math.min(item.quantity, item.removeQuantity || 1)); //limita tra 1 e max quantity
+  }
+
+  onSubmit() {
+    console.log("Saving order....");
+    console.log({
+      addressId : this.selectedAddress.id,
+      customerId: this.customerId
+    })
+
+    this.orderS.createOrder({
+      addressId : this.selectedAddress.id,
+      customerId: this.customerId
+    }).subscribe((r:any)=>
+    {
+      console.log(r)
+      if(r.rc == true || r.rc == "true"){
+        console.log("completato l'ordine");
+        alert("order created, redirecting....");
+        this.redRoute.navigate(["home"]);
+      }else{
+        alert("problem with order:" + r.msg);
+      }
+    }
+    )
+
   }
 }
