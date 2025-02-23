@@ -22,15 +22,7 @@ import { ProductComponent as ProductAdministrationComponent} from './Components/
 import { CustomerComponent as CustomerAdministrationComponent} from './Components/Administration/customer/customer.component';
 import { OrdersComponent } from './Components/Administration/orders/orders.component';
 import { ErrorComponent } from './Components/error/error.component';
-import { SpecificCaseComponent } from './Components/Products/Case/specific-case/specific-case.component';
-import { SpecificGpuComponent } from './Components/Products/Gpu/specific-gpu/specific-gpu.component';
-import { SpecificMotherboardComponent } from './Components/Products/Motherboard/specific-motherboard/specific-motherboard.component';
-import { SpecificPsuComponent } from './Components/Products/Psu/specific-psu/specific-psu.component';
-import { SpecificRamComponent } from './Components/Products/Ram/specific-ram/specific-ram.component';
-import { SpecificStorageComponent } from './Components/Products/Storage/specific-storage/specific-storage.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
-import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
-import { pathGuardALoggedGuard } from './Auth/Guards/path-guard-logged.guard';
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 
 const routes: Routes = [
@@ -75,9 +67,10 @@ const routes: Routes = [
     {path:'checkout', component:CheckoutComponent},
     {path:'wishlist', component:WishlistComponent}
   ]},
-
-  {path:'admin', component:AdminComponent, children:[
-    {path:'product', component:ProductAdministrationComponent},
+  //authguard da inserire
+  {path:'admin', component:AdminComponent ,children:[
+    { path: '', redirectTo:"products", pathMatch: 'full' },
+    {path:'products', component:ProductAdministrationComponent},
     {path:'customer', component:CustomerAdministrationComponent},
     {path:'orders', component:OrdersComponent}
   ]},

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/products/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,184 +16,106 @@ import { StorageService } from '../../../services/products/storage.service';
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.css'
 })
-export class ProductsListComponent implements OnInit{
-
-  productList: any;
+export class ProductsListComponent implements OnInit {
+  productList: any = [];
   response: any;
+  category: string | null = null;
+  showSpinner=true;
 
 
-  imageUrls = [
-    { image: "https://as1.ftcdn.net/v2/jpg/00/81/24/72/1000_F_81247213_OYvGTCn5mnQQ2c0gWJ1U5ixcbmNBaMOp.jpg" },
-    { image: "https://www.hellotech.com/blog/wp-content/uploads/2020/02/what-is-a-gpu.jpg" },
+  constructor(
+    private prodS: ProductService,
+    private caseS: CaseService,
+    private cpuS: CpuService,
+    private gpuS: GpuService,
+    private motherboardS: MotherboardService,
+    private psuS: PsuService,
+    private ramS: RamService,
+    private storageS: StorageService,
+    private thisRoute: ActivatedRoute,
+    private location: Location,
+    private router: Router,
+    private wishlItemS: WishlistItemService
+  ) {}
 
-    { image: "https://i.ibb.co/5Wfs3dj7/ssd.jpg" },
-    { image: "https://i.ibb.co/q31bvYx9/ram.jpg" },
-    { image: "https://i.ibb.co/3yrd0QnF/hdd.jpg" },
-    { image: "https://i.ibb.co/hxL7tvFJ/motherboard.jpg" },
-    { image: "https://i.ibb.co/Rkkhw7Gr/gpu.jpg" },
-    { image: "https://i.ibb.co/0jjJCNcz/case.jpg" },
-    { image: "https://i.ibb.co/XZWxg4sP/psu.jpg" },
-    { image: "https://i.ibb.co/7dYFCy3h/cpu.jpg" },
-    { image: "https://i.ibb.co/dJkZ9BRK/products.jpg" } // Generic product image
-  ];
 
 
-
-  constructor(private prodS: ProductService, private caseS: CaseService,
-    private cpuS: CpuService, private gpuS: GpuService,private motherboardS: MotherboardService,
-    private psuS: PsuService,private ramS: RamService, private storageS: StorageService,
-    private thisRoute: ActivatedRoute
-    , private router: Router, private wishlItemS: WishlistItemService) { }
 
   onClick(prodId: number) {
-    //logica per capire che prodotto è
+    const productChosen = this.productList?.find((prod: any) => prod.id === prodId);
 
-    let productChosen = this.productList?.find((prod: any) => prod.id == prodId);
+    if (!productChosen || !productChosen.type) {
 
-    //prendo il prodotto dalla lista con id
-    if (productChosen) {
-      switch (productChosen.type.toLowerCase()) {
-        case "case":
-          console.log("Il prodotto scelto contiene 'Case' nella descrizione.");
-          this.router.navigate(['product/case/' + productChosen.id]);
-          break;
-        case "cpu":
-          console.log("Il prodotto scelto contiene 'Cpu' nella descrizione.");
-          this.router.navigate(['product/cpu/' + productChosen.id]);
-          break;
-        case "ram":
-          console.log("Il prodotto scelto contiene 'Ram' nella descrizione.");
-          this.router.navigate(['product/ram/' + productChosen.id]);
-          break;
-        case "motherboard":
-          console.log("Il prodotto scelto contiene 'Motherboard' nella descrizione.");
-          this.router.navigate(['product/motherboard/' + productChosen.id]);
-          break;
-        case "psu":
-          console.log("Il prodotto scelto contiene 'Psu' nella descrizione.");
-          this.router.navigate(['product/psu/' + productChosen.id]);
-          break;
-        case "storage":
-          console.log("Il prodotto scelto contiene 'Storage' nella descrizione.");
-          this.router.navigate(['product/storage/' + productChosen.id]);
-          break;
-
-
-
-        default:
-          alert("Prodotto non trovato")
-      }
+      return;
     }
-    /*
-    if (productChosen) {
-      console.log("Prodotto trovato:", productChosen);
-      // Qui puoi fare altre operazioni con productChosen
 
-      if (productChosen.type.toLowerCase().includes("cpu")) {
-        console.log("Il prodotto scelto contiene 'Cpu' nella descrizione.");
-        this.router.navigate(['product/cpu/' + productChosen.id]);
-      }
+    const productType = productChosen.type.trim().toLowerCase();
+    const categoryRoutes: { [key: string]: string } = {
+      case: "case",
+      cpu: "cpu",
+      ram: "ram",
+      motherboard: "motherboard",
+      psu: "psu",
+      gpu: "gpu",
+      storage: "storage",
+    };
 
-      if (productChosen.type.toLowerCase().includes("ram")) {
-        console.log("Il prodotto scelto contiene 'Ram' nella descrizione.");
-        this.router.navigate(['product/ram/' + productChosen.id]);
-      }
-
-      if (productChosen.type.toLowerCase().includes("motherboard")) {
-        console.log("Il prodotto scelto contiene 'motherboard' nella descrizione.");
-        this.router.navigate(['product/motherboard/' + productChosen.id]);
-      }
-
+    if (categoryRoutes[productType]) {
+      this.router.navigate([`product/${categoryRoutes[productType]}/${productChosen.id}`]);
     } else {
-      console.log("Prodotto non trovato!");
+
     }
-
-
-*/
   }
 
   ngOnInit(): void {
 
+
     this.thisRoute.paramMap.subscribe(params => {
-      const category = String(params.get('category'));
-      if (category) {
-        switch (category.toLowerCase()) {
-          case "case":
-            this.caseS.listCase()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
+      const category = params.get('category')?.trim().toLowerCase() || null;
+      this.category = category;
+      this.showSpinner=true;
+      this.productList={};
 
-              });
+      const serviceMap: { [key: string]: any } = {
+        case: this.caseS.listCase(),
+        cpu: this.cpuS.listCpu(),
+        ram: this.ramS.listRam(),
+        motherboard: this.motherboardS.listMotherboard(),
+        psu: this.psuS.listPsu(),
+        gpu: this.gpuS.listGpu(),
+        storage: this.storageS.listStorage(),
+      };
 
-            //this.router.navigate(['product/' + category]);
-            break;
-          case "cpu":
-            this.cpuS.listCpu()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
-
-              });
-            break;
-          case "ram":
-            this.ramS.listRam()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
-              });
-            break;
-          case "motherboard":
-            this.motherboardS.listMotherboard()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
-              });
-            break;
-          case "psu":
-            this.psuS.listPsu()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
-              });
-            break;
-            case "gpu":
-              this.gpuS.listGpu()
-                .subscribe(resp => {
-                  this.response = resp;
-                  this.productList = this.response.dati;
-                });
-              break;
-          case "storage":
-            this.storageS.listStorage()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
-              });
-            break;
+      if (category && serviceMap[category]) {
+        serviceMap[category].subscribe((resp: any) => {
+          setTimeout(() => {
+            this.showSpinner=false;
+            this.response = resp;
+            this.productList = this.response.dati;
+          }, 224);
+        });
+      } else {
+        this.prodS.listProduct().subscribe(resp => {
+          setTimeout(() => {
+            this.showSpinner=false;
+            this.response = resp;
+            this.productList = this.response.dati;
+          }, 224);
 
 
 
-          default:
-            this.prodS.listProduct()
-              .subscribe(resp => {
-                this.response = resp;
-                this.productList = this.response.dati;
-
-              });
-        }
+        });
       }
-
     });
-
   }
 
   addToWishlist(productId: number) {
+    this.wishlItemS.createWishlistItem({ productId }, 2).subscribe((resp: any) => {
+      console.log(resp.rc);
+    });
+  }
 
-    this.wishlItemS.createWishlistItem({ productId: productId }, 2)
-      .subscribe((resp: any) => {
-
-        console.log(resp.rc);
-      });
+  goback() {
+    this.location.back();
   }
 }

@@ -101,3 +101,10 @@ img {
     padding: 10px; /* Adjust padding */
   }
 }
+mat-spinner{
+
+position: relative;
+bottom: 30%;
+left: 50%;
+transform: translate(-50%, -50%,-50%,50%);
+}

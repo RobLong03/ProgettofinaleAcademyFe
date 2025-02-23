@@ -1,0 +1,210 @@
+
+
+.error-container .error-message h2 {
+  position: absolute;
+  top: 33%;
+  left: 0;
+  right: 10rem;
+  width: 100%;
+  font-size: 6em;
+  text-shadow: 0 0 0.075 #fcee0a, -0.25em 0 2.5em rgba(175, 200, 50, 0.25), 0.25em 0 2.5em rgba(175, 200, 50, 0.25);
+  animation: textShakingAnim 500ms ease-in-out infinite alternate;
+  user-select: none;
+}
+
+.error-container .error-message h2:before {
+  content: attr(text);
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+  height: 0.1em;
+  line-height: 0.5em;
+  width: 100%;
+  animation: textScanningAnim 500ms ease-in-out infinite alternate, textGlitchAnim 250ms ease-in-out infinite alternate;
+  overflow: hidden;
+  opacity: 0.75;
+}
+
+.error-container .error-message h2:after {
+  content: attr(text);
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  transform: translateX(-50%);
+  height: 0.5em;
+  line-height: 0.1em;
+  width: 100%;
+  animation: textScanningAnim 500ms ease-in-out infinite alternate, textGlitchAnim 250ms ease-in-out infinite alternate;
+  overflow: hidden;
+  opacity: 0.75;
+}
+
+.error-container .error-message .bottom-container {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  width: 100%;
+}
+
+.error-container .error-message p,
+.error-container .error-message a {
+  font-size: 2.5em;
+  text-shadow: 0 0 5px #fcee0a;
+  filter: blur(0.75px);
+  font-family: monospace;
+}
+
+.error-container .error-message p {
+  margin-bottom: 1em;
+}
+
+.error-container .error-message a {
+  position: relative;
+  text-decoration: none;
+  color: #fcee0a;
+  letter-spacing: 10px;
+  font-weight: 700;
+  border: 2px solid #fcee0a;
+  padding: 5px 30px;
+  box-shadow: inset 0 0 0 0 rgba(175, 200, 50, 0.25);
+  transition: 25ms ease-in-out all;
+  overflow: hidden;
+  animation: btnAnim 2.5s ease-in-out infinite;
+}
+
+.error-container .error-message a:hover {
+  cursor: pointer;
+  box-shadow: inset 0 -2.5em 0 0 rgba(175, 200, 50, 0.25);
+  transition: 250ms ease-in-out all 250ms;
+  animation: none;
+}
+
+.error-container .error-message a:hover:before,
+.error-container .error-message a:hover:after {
+  transform: translate(-50%, 0) scale(0, 1);
+}
+
+.error-container .error-message a:active {
+  box-shadow: inset 0 -2.5em 0 0 rgba(175, 200, 50, 0.5);
+  transition: 250ms ease-in-out all 250ms;
+}
+
+.error-container .error-message a:before,
+.error-container .error-message a:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0) scale(1, 1);
+  transform-origin: center;
+  background-color: #101010;
+  width: 90%;
+  height: 5px;
+  transition: 250ms ease-in-out all;
+  mix-blend-mode: hard-light;
+}
+
+.error-container .error-message a:before {
+  top: -4px;
+}
+
+.error-container .error-message a:after {
+  bottom: -4px;
+}
+
+@keyframes textScanningAnim {
+  from, 20%, 100% {
+      height: 0;
+      transform: translate(-50%, 0em);
+  }
+
+  10%, 15% {
+      height: 1em;
+      line-height: 0.2em;
+      transform: translate(-55%, 0em);
+  }
+}
+
+@keyframes btnAnim {
+  0%, 100% {
+      opacity: 1;
+  }
+
+  30%, 35% {
+      opacity: 0.5;
+  }
+}
+
+@keyframes textShakingAnim {
+  0%, 100% {
+      transform: translate(-1px, 0);
+  }
+
+  10% {
+      transform: translate(2px, 1px);
+  }
+
+  30% {
+      transform: translate(-3px, 2px);
+  }
+
+  35% {
+      transform: translate(2px, -3px);
+      filter: blur(4px);
+  }
+
+  45% {
+      transform: translate(2px, 2px) skewY(-8deg) scale(0.96, 1);
+      filter: blur(0);
+  }
+
+  50% {
+      transform: translate(-3px, 1px);
+  }
+}
+
+@keyframes textGlitchAnim {
+  0% {
+      clip: rect(73px, 9999px, 72px, 0);
+  }
+
+  10% {
+      clip: rect(39px, 9999px, 95px, 0);
+  }
+
+  20% {
+      clip: rect(48px, 9999px, 8px, 0);
+  }
+
+  30% {
+      clip: rect(28px, 9999px, 40px, 0);
+  }
+
+  40% {
+      clip: rect(21px, 9999px, 23px, 0);
+  }
+
+  50% {
+      clip: rect(44px, 9999px, 12px, 0);
+  }
+
+  60% {
+      clip: rect(94px, 9999px, 42px, 0);
+  }
+
+  70% {
+      clip: rect(51px, 9999px, 79px, 0);
+  }
+
+  80% {
+      clip: rect(35px, 9999px, 22px, 0);
+  }
+
+  90% {
+      clip: rect(83px, 9999px, 71px, 0);
+  }
+
+  100% {
+      clip: rect(74px, 9999px, 54px, 0);
+  }
+}

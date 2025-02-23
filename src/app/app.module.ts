@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -26,7 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { FloatLabelType } from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -60,6 +61,10 @@ import { SpecificStorageComponent } from './Components/Products/Storage/specific
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
+import { ProductComponent as ProductAdministrationComponent} from './Components/Administration/product/product.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +73,7 @@ import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/spe
     RegisterComponent,
     CartComponent,
     ProductComponent,
+    ProductAdministrationComponent,
     CaseComponent,
     HomeComponent,
     FooterComponent,
@@ -93,6 +99,7 @@ import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/spe
     SpecificProductComponent,
     ProductsListComponent,
     SpecificCpuComponent,
+    AdProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,14 +124,17 @@ import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/spe
     MatSelectModule,
     MatRadioModule,
     MatTooltipModule,
-    FormsModule 
-
-
+    FormsModule,
+    MatProgressSpinnerModule,
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatTableModule,
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

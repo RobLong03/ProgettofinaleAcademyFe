@@ -1,5 +1,5 @@
 <button mat-button (click)="goback()"style="float: left;">
-  BACK
+  <mat-icon>arrow_back</mat-icon> BACK
 </button>
 
   <div class="card-container">
@@ -10,14 +10,14 @@
     >
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{ product.model }}</mat-card-title>
-        <mat-card-subtitle>{{ product.brand }}</mat-card-subtitle>
+        <mat-card-title>{{ product?.model }}</mat-card-title>
+        <mat-card-subtitle>{{ product?.brand }}</mat-card-subtitle>
       </mat-card-header>
 
       <img
         mat-card-image
         [src]="product?.imageUrl"
-        alt="Photo of {{ product.model }}"
+        alt="Photo of {{ product?.model }}"
         class="product-image"
       />
 
@@ -26,7 +26,7 @@
           {{ product?.description?.description }}
         </p>
         <p class="product-price">
-          {{ product.price | currency: 'EUR': 'symbol-narrow' }}
+          {{ product?.price | currency: 'EUR': 'symbol-narrow' }}
         </p>
       </mat-card-content>
 
