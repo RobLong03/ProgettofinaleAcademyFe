@@ -1,28 +1,51 @@
 <mat-accordion>
 
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> This is the expansion title </mat-panel-title>
+      <mat-panel-description> This is a summary of the content </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>This is the primary content of the panel.</p>
+  </mat-expansion-panel>
+
+  <mat-divider></mat-divider>
+
+  <div *ngFor="let order of orderList">
     <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> This is the expansion title </mat-panel-title>
-        <mat-panel-description> This is a summary of the content </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>This is the primary content of the panel.</p>
-    </mat-expansion-panel>
-
-    <mat-divider></mat-divider>
-
-    <div *ngFor="let order of orderList">
-    <mat-expansion-panel >
       <mat-expansion-panel-header>
         <mat-panel-title> Ordine #{{order.id}} </mat-panel-title>
         <mat-panel-description> Data: {{order.orderDate | date}} | Prezzo totale: {{order.totalPrice | currency}} </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Ordine #{{order.id}}SSS</p>
-    </mat-expansion-panel>
+      <p>Ordine #{{order.id}} Effettuato in data {{order.orderDate | date}} con un prezzo totale di {{order.totalPrice | currency}} </p>
+      <p>É stato spedito al indirizzo: {{order.address.street}}, {{order.address.houseNumber}}, {{order.address.city}}, {{order.address.postalCode}}, {{order.address.country}} </p>
+      
+      <!-- Nested expansion panel for products -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Prodotti </mat-panel-title>
+        </mat-expansion-panel-header>
 
+        <div *ngFor="let item of order.orderItemsList" class="order-item">
+          <img [src]="item.product.imageUrl" alt="{{item.brand}} {{item.model}}" class="item-image">
+          <div class="item-details">
+            <p><strong>Marca e Modello:</strong> {{item.product.brand}} {{item.product.model}}</p>
+            <p><strong>Quantità:</strong> {{item.quantity}}</p>
+            <p><strong>Prezzo Singolo:</strong> {{item.product.price | currency}}</p>
+            <p><strong>Prezzo Totale:</strong> {{item.product.price * item.quantity | currency}}</p>
+            <br><br>
+            <mat-divider></mat-divider>
+            <br><br>
+          </div>
+          <div class="item-buttons">
+            <button mat-button>Button 1</button>
+            <button mat-button>Button 2</button>
+          </div>
+
+        </div>
+      </mat-expansion-panel>
+      
+    </mat-expansion-panel>
     <mat-divider></mat-divider>
   </div>
 
-
-  </mat-accordion>
-
-  
+</mat-accordion>

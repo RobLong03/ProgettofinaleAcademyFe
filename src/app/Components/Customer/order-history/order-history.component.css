@@ -1,3 +1,21 @@
-body{
-    text-align: center;
+
+.order-item {
+  display: flex;
+  align-items: flex-start; /* Cambiato da center a flex-start */
+}
+.item-image {
+  width: 100px;
+  height: auto;
+  margin-right: 16px;
+}
+.item-details {
+  flex: 1;
+}
+.item-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+.item-buttons button {
+  margin-bottom: 8px;
 }
