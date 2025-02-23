@@ -101,6 +101,7 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     SpecificProductComponent,
     ProductsListComponent,
     SpecificCpuComponent,
+    OrderHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,14 +126,15 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     MatSelectModule,
     MatRadioModule,
     MatTooltipModule,
-    FormsModule
+    FormsModule ,
+    MatExpansionModule
 
 
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
