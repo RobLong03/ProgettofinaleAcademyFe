@@ -130,7 +130,7 @@ export class CheckoutComponent implements OnInit {
     item.removeQuantity = Math.max(1, Math.min(item.quantity, item.removeQuantity || 1)); //limita tra 1 e max quantity
   }
 
-  onSubmit(orderForm: NgForm) {
+  onSubmit() {
     console.log("Saving order....");
     console.log({
       addressId : this.selectedAddress.id,
