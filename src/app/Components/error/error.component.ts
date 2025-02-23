@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-error',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class ErrorComponent {
 
+  constructor(private location:Location) {
+
+  }
+  goback(){
+    this.location.back()
+  }
 }

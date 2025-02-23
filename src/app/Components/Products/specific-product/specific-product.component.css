@@ -66,3 +66,17 @@ img {
 .action-button {
   font-weight: 500;
 }
+.back-button {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #ff4081, #ff9100);
+  border-radius: 20px;
+  padding: 8px 16px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.back-button:hover {
+  transform: scale(1.05);
+}

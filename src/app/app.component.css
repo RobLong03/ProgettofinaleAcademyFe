@@ -67,7 +67,8 @@ button {
 }
 
 /* MEDIA QUERIES FOR ADDITIONAL RESPONSIVENESS */
-@media (max-width: 600px) {
+
+@media screen and (min-width: 769px) {
   .companyName {
     font-size: 1.2em;
   }
@@ -81,5 +82,36 @@ button {
   .disapper{
     display:none ;
   }
+}
 
+@media screen and (min-device-width: 481px) and (max-device-width: 768px) {
+  .companyName {
+    font-size: 1.2em;
+  }
+  mat-toolbar, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+  }
+  .disapper{
+    display:none ;
+  }
+}
+
+@media only screen and (max-device-width: 480px) {
+  .companyName {
+    font-size: 1.2em;
+  }
+  mat-toolbar, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+  }
+  .disapper{
+    display:none ;
+  }
 }

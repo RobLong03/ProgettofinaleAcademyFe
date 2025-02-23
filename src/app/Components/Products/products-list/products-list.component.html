@@ -1,3 +1,4 @@
+<mat-spinner  *ngIf="showSpinner"></mat-spinner>
 <div *ngIf="productList && productList.length > 0">
   <div class="card-container">
     <mat-card
@@ -8,14 +9,14 @@
     >
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{ prod.model }}</mat-card-title>
-        <mat-card-subtitle>{{ prod.brand }}</mat-card-subtitle>
+        <mat-card-title>{{ prod?.model }}</mat-card-title>
+        <mat-card-subtitle>{{ prod?.brand }}</mat-card-subtitle>
       </mat-card-header>
 
       <img
         mat-card-image
-        [src]="prod.imageUrl"
-        alt="Photo of {{ prod.model }}"
+        [src]="prod?.imageUrl"
+        alt="Photo of {{ prod?.model }}"
         class="product-image"
       />
 
@@ -24,7 +25,7 @@
           {{ prod?.description?.description }}
         </p>
         <p class="product-price">
-          {{ prod.price | currency: 'EUR': 'symbol-narrow' }}
+          {{ prod?.price | currency: 'EUR': 'symbol-narrow' }}
         </p>
       </mat-card-content>
 
@@ -37,8 +38,19 @@
 </div>
 
 <!-- Show fallback message when productList is empty or null -->
-<div *ngIf="!productList || productList.length === 0">
+<div *ngIf="!productList || productList.length === 0 && !showSpinner">
   <div class=" no-products-message">
     <p>No products available at the moment. Please check back later!</p>
   </div>
 </div>
+
+
+<div *ngIf="category">
+  <button mat-button (click)="goback()"style="float: left;">
+    <mat-icon>arrow_back</mat-icon> BACK
+  </button>
+</div>
+
+
+
+
