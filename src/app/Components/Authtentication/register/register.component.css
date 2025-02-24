@@ -1,0 +1,54 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centrare verticalmente */
+    padding: 1rem;
+  }
+  
+  .nerd-card {
+    width: 40%;
+    max-width: 500px; /* Evita che diventi troppo largo su schermi grandi */
+    min-width: 300px; /* Evita che diventi troppo piccolo sui telefoni */
+    background: #1e1e2f; /* Colore scuro per un look nerd/tech */
+    color: #c5c6c7;
+    border: 1px solid #45a29e;
+    padding: 1.5rem;
+  }
+  
+  .nerd-card mat-card-title,
+  .nerd-card mat-card-subtitle {
+    color: #66fcf1;
+    text-align: center;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .footer-note {
+    text-align: center;
+    font-style: italic;
+    margin-top: 1rem;
+    color: #45a29e;
+  }
+  
+  /* Responsività */
+  @media (max-width: 768px) {
+    .nerd-card {
+      width: 80%; /* Sui tablet e schermi piccoli, il form si allarga */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .nerd-card {
+      width: 90%; /* Sugli smartphone, il form occupa quasi tutta la larghezza */
+    }
+  }
