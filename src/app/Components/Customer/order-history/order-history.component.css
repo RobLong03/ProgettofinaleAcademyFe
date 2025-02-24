@@ -17,5 +17,22 @@
   margin-left: auto;
 }
 .item-buttons button {
-  margin-bottom: 8px;
+  margin-bottom: 11px;
+}
+
+.mat-panel-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.centered-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.red-button {
+  color: red;
+}
+.cyan-button {
+  color: cyan;
 }

@@ -74,7 +74,7 @@ export class ProductsListComponent implements OnInit {
           this.router.navigate(['product/storage/' + productChosen.id]);
           break;
 
-        case "case":
+        case "gpu":
           console.log("Il prodotto scelto contiene 'gpu' nella descrizione.");
           this.router.navigate(['product/gpu/' + productChosen.id]);
           break;

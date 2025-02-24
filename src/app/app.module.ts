@@ -62,6 +62,8 @@ import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/spe
 import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
 import { ProductComponent as ProductAdministrationComponent } from './Components/Administration/product/product.component';
 import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.component';
+import { OrderDeleteConfirmComponent } from './Dialogs/order/order-delete-confirm/order-delete-confirm.component';
+import { ItemfromOrderDeleteConfirmComponent } from './Dialogs/order/itemfrom-order-delete-confirm/itemfrom-order-delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     ProductsListComponent,
     SpecificCpuComponent,
     OrderHistoryComponent,
+    OrderDeleteConfirmComponent,
+    ItemfromOrderDeleteConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -126,6 +130,7 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatTableModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration(),

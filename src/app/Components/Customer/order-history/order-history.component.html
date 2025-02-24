@@ -18,13 +18,21 @@
       </mat-expansion-panel-header>
       <p>Ordine #{{order.id}} Effettuato in data {{order.orderDate | date}} con un prezzo totale di {{order.totalPrice | currency}} </p>
       <p>É stato spedito al indirizzo: {{order.address.street}}, {{order.address.houseNumber}}, {{order.address.city}}, {{order.address.postalCode}}, {{order.address.country}} </p>
-      
-      <!-- Nested expansion panel for products -->
+
+      <button mat-raised-button (click)="openDeleteOrderDialog(order.id)" class="red-button">
+        <i class="material-icons">delete_forever</i>Cancella Questo Ordine
+      </button>
+
+      <button mat-raised-button (click)="openChangeAddress(order.address.id)" class="cyan-button">
+        <i class="material-icons">local_shipping</i>Scegli un altro indirizzo
+      </button>
+
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title> Prodotti </mat-panel-title>
+          <mat-panel-title class="centered-title"> Prodotti </mat-panel-title>
         </mat-expansion-panel-header>
-
+        <mat-divider></mat-divider>
+        <br>
         <div *ngFor="let item of order.orderItemsList" class="order-item">
           <img [src]="item.product.imageUrl" alt="{{item.brand}} {{item.model}}" class="item-image">
           <div class="item-details">
@@ -32,14 +40,16 @@
             <p><strong>Quantità:</strong> {{item.quantity}}</p>
             <p><strong>Prezzo Singolo:</strong> {{item.product.price | currency}}</p>
             <p><strong>Prezzo Totale:</strong> {{item.product.price * item.quantity | currency}}</p>
+            <div class="item-buttons">
+              <button mat-raised-button (click)="openDeleteItemDialog(item.orderId, item.id, item.product.brand, item.product.model)" class="red-button">
+                <i class="material-icons">delete_forever</i>Rimuovi da ordine
+              </button>
+            </div>
             <br><br>
             <mat-divider></mat-divider>
             <br><br>
           </div>
-          <div class="item-buttons">
-            <button mat-button>Button 1</button>
-            <button mat-button>Button 2</button>
-          </div>
+
 
         </div>
       </mat-expansion-panel>

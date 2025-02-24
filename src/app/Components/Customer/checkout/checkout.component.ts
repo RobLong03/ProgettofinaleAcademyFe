@@ -146,7 +146,7 @@ export class CheckoutComponent implements OnInit {
       if(r.rc == true || r.rc == "true"){
         console.log("completato l'ordine");
         alert("order created, redirecting....");
-        this.redRoute.navigate(["home"]);
+        this.redRoute.navigate(["customer/c/orders"]);
       }else{
         alert("problem with order:" + r.msg);
       }

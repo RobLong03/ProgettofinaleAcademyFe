@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class OrderItemService {
 
-  private apiUrl = 'http://localhost:9090/app/admin/order/items'
+  private apiUrl = 'http://localhost:9090/app/admin/order/items/'
         
   constructor(private http: HttpClient) { }
 
@@ -27,6 +27,6 @@ export class OrderItemService {
   }
 
   deleteOrderItme(body : {}){
-    return this.http.get(this.apiUrl + "delete", body);
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }
