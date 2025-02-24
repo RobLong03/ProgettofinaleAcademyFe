@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -13,24 +13,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatExpansionModule} from '@angular/material/expansion';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-// import { FlexLayoutModule } from '@angular/flex-layout';
-// import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
@@ -63,9 +60,7 @@ import { SpecificProductComponent } from './Components/Products/specific-product
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
 import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
-import { ProductComponent as ProductAdministrationComponent} from './Components/Administration/product/product.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { ProductComponent as ProductAdministrationComponent } from './Components/Administration/product/product.component';
 import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.component';
 
 @NgModule({
@@ -126,10 +121,11 @@ import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.compo
     MatSelectModule,
     MatRadioModule,
     MatTooltipModule,
-    FormsModule ,
-    MatExpansionModule
-
-
+    FormsModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatTableModule,
   ],
   providers: [
     provideClientHydration(),
