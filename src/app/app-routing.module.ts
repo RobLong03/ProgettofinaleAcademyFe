@@ -26,6 +26,10 @@ import { ProductsListComponent } from './Components/Products/products-list/produ
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
 import { AdminLoginComponent } from './Components/Administration/admin-login/admin-login.component';
+import { adminGuardPathGuard } from './Auth/Guards/admin-guard-path.guard';
+import { adminrGuardChildGuard } from './Auth/Guards/adminr-guard-child.guard';
+import { customerGuardPathGuard } from './Auth/Guards/customer-guard-path.guard';
+import { customerGuardChildGuard } from './Auth/Guards/customer-guard-child.guard';
 
 const routes: Routes = [
 
@@ -64,7 +68,7 @@ const routes: Routes = [
     */
 
 
-  {path:'@me', component:CustomerComponent, children:[
+  {path:'@me', component:CustomerComponent, children:[ //canActivate:[customerGuardPathGuard], canActivateChild:[customerGuardChildGuard],
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
     {path:'orders', component:OrderHistoryComponent},
@@ -72,7 +76,7 @@ const routes: Routes = [
   ]},
   //authguard da inserire
   {path:'admin/login', component:AdminLoginComponent},
-  {path:'admin', component:AdminComponent ,children:[
+  {path:'admin', component:AdminComponent,children:[ //canActivate:[adminGuardPathGuard], canActivateChild:[adminrGuardChildGuard],
     { path: '', redirectTo:"products", pathMatch: 'full' },
     {path:'products', component:ProductAdministrationComponent},
     {path:'customer', component:CustomerAdministrationComponent},
