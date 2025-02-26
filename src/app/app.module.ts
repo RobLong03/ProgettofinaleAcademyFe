@@ -77,6 +77,7 @@ import { RemoveItemComponent } from './Dialogs/checkout/remove-item/remove-item.
 import { ChangeShippingAddressComponent } from './Dialogs/order/change-shipping-address/change-shipping-address.component';
 import { ChangeStatusDialogComponent } from './Dialogs/order/change-status-dialog/change-status-dialog.component';
 import { NewAddressDialogComponent } from './Dialogs/address/new-address-dialog/new-address-dialog.component';
+import { AdminLoginComponent } from './Components/Administration/admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { NewAddressDialogComponent } from './Dialogs/address/new-address-dialog/
     RemoveItemComponent,
     ChangeShippingAddressComponent,
     ChangeStatusDialogComponent,
-    NewAddressDialogComponent
+    NewAddressDialogComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

@@ -29,4 +29,8 @@ export class AdministratorService {
   deleteAdministrator(body : {}){
     return this.http.post(this.apiUrl + "delete", body);
   }
+
+  signInAdmin(body :{}){
+    return this.http.post(this.apiUrl + "signIn", body);
+  }
 }
