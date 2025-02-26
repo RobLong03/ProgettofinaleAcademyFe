@@ -50,6 +50,6 @@ export class ProductService {
   }
 
   deleteProduct(body : {}){
-    return this.http.get(this.apiUrl + "delete", body);
+    return this.http.post(this.apiUrl + "delete", body);
   }
 }

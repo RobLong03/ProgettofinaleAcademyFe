@@ -22,10 +22,16 @@
       <mat-toolbar color="secondary" class="top-toolbar">
         <span>📊 Dashboard</span>
         <span class="spacer"></span>
-        <button mat-icon-button>
-          <mat-icon>notifications</mat-icon>
-        </button>
-        <button mat-icon-button>
+        <!-- per far vedere se stai su admin in products invece di altre routes-->
+        <a style="display: none;" [routerLink]="['/admin/products']" routerLinkActive="active" #productLink="routerLinkActive">
+
+        </a>
+        <button  matTooltip="Aggiungi nuovo prodotto" *ngIf="productLink.isActive" mat-icon-button (click)="onClick()">
+          <mat-icon>add</mat-icon>
+         </button>
+
+
+        <button matTooltip="Gestione Admins" mat-icon-button>
           <mat-icon>account_circle</mat-icon>
         </button>
       </mat-toolbar>

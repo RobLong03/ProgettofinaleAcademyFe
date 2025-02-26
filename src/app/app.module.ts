@@ -25,8 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { MatTableModule } from '@angular/material/table';
 import {
   MatSnackBar,
@@ -68,8 +67,6 @@ import { SpecificStorageComponent } from './Components/Products/Storage/specific
 import { SpecificProductComponent } from './Components/Products/specific-product/specific-product.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
 import { SpecificCpuComponent } from './Components/Products/cpu/specific-cpu/specific-cpu.component';
-import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
-import { ProductComponent as ProductAdministrationComponent } from './Components/Administration/product/product.component';
 import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.component';
 import { OrderDeleteConfirmComponent } from './Dialogs/order/order-delete-confirm/order-delete-confirm.component';
 import { ItemfromOrderDeleteConfirmComponent } from './Dialogs/order/itemfrom-order-delete-confirm/itemfrom-order-delete-confirm.component';
@@ -78,6 +75,11 @@ import { ChangeShippingAddressComponent } from './Dialogs/order/change-shipping-
 import { ChangeStatusDialogComponent } from './Dialogs/order/change-status-dialog/change-status-dialog.component';
 import { NewAddressDialogComponent } from './Dialogs/address/new-address-dialog/new-address-dialog.component';
 import { AdminLoginComponent } from './Components/Administration/admin-login/admin-login.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
+import { ProductComponent as Productadmin } from './Components/Administration/product/product.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-description-panel/product-description-panel.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,8 @@ import { AdminLoginComponent } from './Components/Administration/admin-login/adm
     RegisterComponent,
     CartComponent,
     ProductComponent,
-    ProductAdministrationComponent,
+
+    AdProductComponent,
     CaseComponent,
     HomeComponent,
     FooterComponent,
@@ -112,6 +115,7 @@ import { AdminLoginComponent } from './Components/Administration/admin-login/adm
     SpecificProductComponent,
     ProductsListComponent,
     SpecificCpuComponent,
+    AdProductComponent,
     OrderHistoryComponent,
     OrderDeleteConfirmComponent,
     ItemfromOrderDeleteConfirmComponent,
@@ -119,7 +123,9 @@ import { AdminLoginComponent } from './Components/Administration/admin-login/adm
     ChangeShippingAddressComponent,
     ChangeStatusDialogComponent,
     NewAddressDialogComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    Productadmin,
+    ProductDescriptionPanelComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,54 @@
+<mat-accordion multi>
+  <!-- Existing Descriptions -->
+  <mat-expansion-panel *ngFor="let desc of descriptions">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ desc.lang | uppercase }} - ID: {{ desc.id }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ desc?.description ? (desc.description | slice:0:50) : '' }}{{ (desc?.description || '').length > 50 ? '...' : '' }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- The rest of your panel content -->
+
+
+
+    <!-- Edit Form for the Description -->
+    <form ngNoForm  [formGroup]="editDescriptionForms[desc.id]">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Edit description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Language</mat-label>
+        <input matInput formControlName="lang" placeholder="Language">
+      </mat-form-field>
+    </form>
+    <mat-action-row>
+      <button mat-button color="primary" type="button" (click)="updateDescription(desc)">Save</button>
+      <button mat-button color="warn" type="button"  (click)="deleteDescription(desc)">Delete</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <!-- Panel for Adding a New Description -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add New Description
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="addDescriptionForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Language</mat-label>
+        <input matInput formControlName="lang" placeholder="Language">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Enter description"></textarea>
+      </mat-form-field>
+    </form>
+    <mat-action-row>
+      <button mat-raised-button color="primary" type="button" (click)="addDescription()">Add</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

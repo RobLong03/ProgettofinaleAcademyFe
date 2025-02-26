@@ -50,7 +50,7 @@ export class ProductsListComponent implements OnInit {
     {name:"Gigabyte", selected:false},
     {name:"ASRock", selected:false}
   ];
-  
+
   constructor(
     private prodS: ProductService,
     private caseS: CaseService,
@@ -138,7 +138,10 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
+
+
+
     this.thisRoute.paramMap.subscribe(params => {
       const category = params.get('category')?.trim().toLowerCase() || null;
       this.category = category;
@@ -195,7 +198,7 @@ export class ProductsListComponent implements OnInit {
     this.selectedTypes=selectedTypesFormArray.controls
       .map((ctrl, i) => (ctrl.value ? this.types[i].name : null))
       .filter(name => name!==null) as string[];
-  
+
     const selectedBrandsFormArray=this.formRetrieveFilter.get('selectedBrandsForm') as FormArray;
     this.selectedBrands=selectedBrandsFormArray.controls
       .map((ctrl, i) => (ctrl.value ? this.brands[i].name : null))
@@ -204,7 +207,7 @@ export class ProductsListComponent implements OnInit {
     this.selectedMinPrice=(this.formRetrieveFilter.value.selectedMinPriceForm!==this.selectedMinPrice)
       ? this.formRetrieveFilter.value.selectedMinPriceForm : this.selectedMinPrice
 
-    this.selectedMaxPrice=(this.formRetrieveFilter.value.selectedMaxPriceForm!==this.selectedMaxPrice) 
+    this.selectedMaxPrice=(this.formRetrieveFilter.value.selectedMaxPriceForm!==this.selectedMaxPrice)
       ? this.formRetrieveFilter.value.selectedMaxPriceForm : this.selectedMaxPrice
 
     //console.log(this.selectedTypes);
