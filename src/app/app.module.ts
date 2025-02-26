@@ -28,6 +28,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import {
+  MatSnackBar,
+  MatSnackBarAction,
+  MatSnackBarActions,
+  MatSnackBarLabel,
+  MatSnackBarRef,
+} from '@angular/material/snack-bar';
 
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
@@ -64,6 +71,10 @@ import { ProductComponent as ProductAdministrationComponent } from './Components
 import { AdProductComponent } from './Dialogs/dialog/ad-product/ad-product.component';
 import { OrderDeleteConfirmComponent } from './Dialogs/order/order-delete-confirm/order-delete-confirm.component';
 import { ItemfromOrderDeleteConfirmComponent } from './Dialogs/order/itemfrom-order-delete-confirm/itemfrom-order-delete-confirm.component';
+import { RemoveItemComponent } from './Dialogs/checkout/remove-item/remove-item.component';
+import { ChangeShippingAddressComponent } from './Dialogs/order/change-shipping-address/change-shipping-address.component';
+import { ChangeStatusDialogComponent } from './Dialogs/order/change-status-dialog/change-status-dialog.component';
+import { NewAddressDialogComponent } from './Dialogs/address/new-address-dialog/new-address-dialog.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +111,11 @@ import { ItemfromOrderDeleteConfirmComponent } from './Dialogs/order/itemfrom-or
     SpecificCpuComponent,
     OrderHistoryComponent,
     OrderDeleteConfirmComponent,
-    ItemfromOrderDeleteConfirmComponent
+    ItemfromOrderDeleteConfirmComponent,
+    RemoveItemComponent,
+    ChangeShippingAddressComponent,
+    ChangeStatusDialogComponent,
+    NewAddressDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -130,7 +145,10 @@ import { ItemfromOrderDeleteConfirmComponent } from './Dialogs/order/itemfrom-or
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarAction,
+    MatSnackBarActions,
+    MatSnackBarLabel
   ],
   providers: [
     provideClientHydration(),

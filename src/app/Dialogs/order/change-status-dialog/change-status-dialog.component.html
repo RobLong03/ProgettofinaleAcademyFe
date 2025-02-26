@@ -1,0 +1,25 @@
+
+<h2 mat-dialog-title>Cambio Stato</h2>
+
+<mat-dialog-content>
+  <p></p>
+  <mat-form-field>
+    <mat-label>Per favore scegli il nuovo stato</mat-label>
+    <mat-select (selectionChange)="updateSelecteStatus($event)" name="newStatus" required>
+
+      <mat-option disabled>Scegli gli stati</mat-option>
+      <ng-container *ngFor="let status of statusChoices; let i = index">
+        <mat-option  [value]="status">
+          {{status}}
+        </mat-option>
+        <mat-divider *ngIf="i < statusChoices.length - 1"></mat-divider>
+      </ng-container>      
+    </mat-select>
+  </mat-form-field>
+  
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close="false">Annulla</button>
+  <button mat-button [mat-dialog-close]="newStatus">Conferma</button>
+</mat-dialog-actions>

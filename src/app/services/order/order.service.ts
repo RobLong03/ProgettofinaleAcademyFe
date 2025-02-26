@@ -30,6 +30,10 @@ export class OrderService {
     return this.http.post(this.apiUrl + "update", body);
   }
 
+updateOrderStatus(body : {}){
+    return this.http.post(this.apiUrl + "updateStatus", body);
+}
+
   deleteOrder(body : {}){
     return this.http.post(this.apiUrl + "delete", body);
   }

@@ -5,64 +5,62 @@ import { SessionStorageService } from '../utils/session-storage.service';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private isLoggedIn = false;
-  private isAdmin = false;
+  private isLoggedInAdmin = false;
+  private isLoggedInCustomer = false;
 
   constructor(private sessionS: SessionStorageService) {
     this.initializeAuthState();
   }
 
   private initializeAuthState(): void {
-    const isLoggedInValue = this.sessionS.getItem("isLoggedIn");
-    const isAdminValue = this.sessionS.getItem("isAdmin");
+    const isLoggedInAdminValue = this.sessionS.getItem("isLoggedInAdmin");
+    const isLoggedInCustomerValue = this.sessionS.getItem("isLoggedInCustomer");
 
-    this.isLoggedIn = isLoggedInValue === '1';
-    this.isAdmin = isAdminValue === '1';
+    this.isLoggedInAdmin = isLoggedInAdminValue === '1';
+    this.isLoggedInCustomer = isLoggedInCustomerValue === '1';
 
-    console.log("Logged:", this.isLoggedIn);
-    console.log("Admin:", this.isAdmin);
+    console.log("Admin Logged:", this.isLoggedInAdmin);
+    console.log("Customer Logged:", this.isLoggedInCustomer);
   }
 
-  setLoggedIn(): void {
-    this.isLoggedIn = true;
-    this.sessionS.setItem('isLoggedIn', '1');
+  setLoggedInAdmin(): void {
+    this.isLoggedInAdmin = true;
+    this.isLoggedInCustomer = false;
+    this.sessionS.setItem('isLoggedInAdmin', '1');
+    this.sessionS.setItem('isLoggedInCustomer', '0');
+  }
+
+  setLoggedInCustomer(): void {
+    this.isLoggedInCustomer = true;
+    this.isLoggedInAdmin = false;
+    this.sessionS.setItem('isLoggedInCustomer', '1');
+    this.sessionS.setItem('isLoggedInAdmin', '0');
   }
 
   setLoggedOut(): void {
-    this.isLoggedIn = false;
-    this.isAdmin = false;
-    this.sessionS.setItem('isLoggedIn', '0');
-    this.sessionS.setItem('isAdmin', '0');
+    this.isLoggedInAdmin = false;
+    this.isLoggedInCustomer = false;
+    this.sessionS.setItem('isLoggedInAdmin', '0');
+    this.sessionS.setItem('isLoggedInCustomer', '0');
   }
 
-  setRoleAdmin(): void {
-    this.isAdmin = true;
-    this.sessionS.setItem('isAdmin', '1');
+  isAuthenticatedAdmin(): boolean {
+    console.log("is authenticated admin:", this.isLoggedInAdmin);
+    return this.isLoggedInAdmin;
   }
 
-  setRoleUser(): void {
-    this.isAdmin = false;
-    this.sessionS.setItem('isAdmin', '0');
+  isAuthenticatedCustomer(): boolean {
+    console.log("is authenticated customer:", this.isLoggedInCustomer);
+    return this.isLoggedInCustomer;
   }
-
-  isAuthenticated(): boolean {
-    console.log("is authenticated:",this.isLoggedIn)
-    return this.isLoggedIn;
-  }
-
-  isRoleAdmin(): boolean {
-    return this.isAdmin;
-  }
-
 
   resetAll(): void {
-    this.isLoggedIn = false;
-    this.isAdmin = false;
+    this.isLoggedInAdmin = false;
+    this.isLoggedInCustomer = false;
   
-    this.sessionS.setItem('isLoggedIn', '0');
-    this.sessionS.setItem('isAdmin', '0');
+    this.sessionS.setItem('isLoggedInAdmin', '0');
+    this.sessionS.setItem('isLoggedInCustomer', '0');
   
-    console.log("Auth state reset: LoggedIn = false, Admin = false");
+    console.log("Auth state reset: Admin = false, Customer = false");
   }
-  
 }

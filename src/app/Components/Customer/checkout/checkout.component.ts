@@ -6,6 +6,11 @@ import { ProductService } from '../../../services/products/product.service';
 import { NgForm } from '@angular/forms';
 import { OrderService } from '../../../services/order/order.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { RemoveItemComponent } from '../../../Dialogs/checkout/remove-item/remove-item.component';
+import { query } from 'express';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NewAddressDialogComponent } from '../../../Dialogs/address/new-address-dialog/new-address-dialog.component';
 
 @Component({
   selector: 'app-checkout',
@@ -13,6 +18,8 @@ import { Router } from '@angular/router';
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent implements OnInit {
+
+
   customerId: number;
   cartId: number;
 
@@ -33,7 +40,10 @@ export class CheckoutComponent implements OnInit {
     private cartitemS: CartItemService,
     private productS: ProductService,
     private orderS: OrderService,
-    private redRoute: Router
+    private redRoute: Router,
+    public dialog : MatDialog,
+    private snackbar : MatSnackBar
+    
   ) {
     this.customerId = parseInt(this.userValues.idCliente!);
     this.cartId = parseInt(this.userValues.idCarrelloCliente!);
@@ -42,27 +52,42 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.orderItems = [];
     if (this.customerId)
-      this.fetchAddresses(this.customerId);
+      this.fetchAddresses();
 
     if (this.cartId)
       this.fetchCartItems(this.cartId);
   }
 
-  private fetchAddresses(cId: number) {
-    this.addressS.listAddressByCustomer(cId).subscribe((resp:any) => {
+  private fetchAddresses() {
+    this.addressS.listAddressByCustomer(this.customerId).subscribe((resp:any) => {
       this.addresses = resp.dati;
-      console.log(this.addresses);
+      if(this.addresses.lenghth == 0){
+        this.snackbar.open("Non hai alcun indirizzo salvato, perfavore creane uno")
+      }
     });
   }
 
   private fetchCartItems(cart: number) {
     this.cartitemS.listByCart(cart).subscribe((resp:any) => {
       this.itemsFromCart = resp.dati;
-      this.getItemsAndAsignToOrder();
+      console.log(this.itemsFromCart.length > 0)
+      if( this.itemsFromCart.length > 0 ){
+        this.fetchOtherItemData();
+      }else{
+        console.log("il tuo carello é vuoto, aggiungi qualcosa al carello per continuare")
+        this.snackbar.open("il tuo carello é vuoto, aggiungi qualcosa al carello per continuare", ''  , {
+          duration: 3000
+        });
+        setTimeout(() => {
+          this.redRoute.navigate(["home"]);
+        }, 3000)
+      }
+
+      
     });
   }
 
-  private getItemsAndAsignToOrder() {
+  private fetchOtherItemData() {
     this.orderItems = []; // sistemazione temporanea, da aggiornre dto e poi aggiornare questo metodo
     this.totalprice = 0;
     for (let cartItem of this.itemsFromCart) {
@@ -87,55 +112,50 @@ export class CheckoutComponent implements OnInit {
     this.paymentMethod = event.value;
   }
 
-  removeItems(cartItemId: number, productId: number) {
-    let item = this.orderItems.find((ordItm: any) => ordItm.id == productId);
-    let qty:number = item.quantity;
+  openDeleteItemDialog(itemToRemove:any) {
 
-    if (item) {
-      //ho generato un id dinamico per il select di ogni item, cosi facendo dovrei avere l'elemento per cui ho clicato
-      const inputElement = document.getElementById(`remQty${productId}`) as HTMLInputElement;
-      qty = inputElement.textContent ? Number.parseInt(inputElement.textContent) : qty;
+    console.log("Removing items from cart:",itemToRemove);
+    console.log("Cart Item ID:", itemToRemove.cartItemId);
+    console.log("Product ID:", itemToRemove.id);
+
+   let deleteOrderitemDialog = this.dialog.open(RemoveItemComponent,{
+    data : {
+      brand        : itemToRemove.brand,
+      model        : itemToRemove.model,
+      maxQuantity  : itemToRemove.quantity
     }
+   });
 
-    console.log("Removing items from cart:");
-    console.log("Cart Item ID:", cartItemId);
-    console.log("Product ID:", productId);
-    console.log("Quantity to remove:", qty);
+   deleteOrderitemDialog.afterClosed().subscribe(result => {
+    if(result !="false"){
+      let qtyToRemove = result;
+      console.log(qtyToRemove);
 
-    console.log(item);
-    if ((item.quantity - qty) > 0) {
-      console.log("item qty>0");
-       this.cartitemS.removeItemsCart({
-         id        :   item.cartItemId,
-         productId :   item.id,
-         cartId    :   item.cartId,
-         quantity  :   qty,
-       }).subscribe((r:any)=>{
-        this.fetchCartItems(item.cartId);
-       }
-      )
-    } else {
-      console.log("item qty<=0");
-      this.cartitemS.removeCartItem({
-        id: cartItemId
-      }).subscribe((r:any)=>
-        {
-          this.fetchCartItems(item.cartId);
-        } );
+
+      this.removeOrderItems(itemToRemove,qtyToRemove);
     }
+  });
 
   }
 
-  updateRemoveQuantity(item: any) {
-    item.removeQuantity = Math.max(1, Math.min(item.quantity, item.removeQuantity || 1)); //limita tra 1 e max quantity
+  private removeOrderItems(item:any,quantityToRemove:number){
+    console.log("item qty>0");
+    this.cartitemS.removeItemsCart({
+      id        :   item.cartItemId,
+      productId :   item.id,
+      cartId    :   item.cartId,
+      quantity  :   quantityToRemove,
+    }).subscribe((r:any)=>{
+      if(r)
+        this.fetchCartItems(item.cartId);
+      else
+      this.snackbar.open("theres been a problem deleting the item:"+r.msg)
+    }
+   )
   }
 
   onSubmit() {
     console.log("Saving order....");
-    console.log({
-      addressId : this.selectedAddress.id,
-      customerId: this.customerId
-    })
 
     this.orderS.createOrder({
       addressId : this.selectedAddress.id,
@@ -145,13 +165,51 @@ export class CheckoutComponent implements OnInit {
       console.log(r)
       if(r.rc == true || r.rc == "true"){
         console.log("completato l'ordine");
-        alert("order created, redirecting....");
-        this.redRoute.navigate(["customer/c/orders"]);
+        this.snackbar.open("order created, redirecting....", ''  , {
+          duration: 2500
+        });
+        setTimeout(() => {
+          this.redRoute.navigate(["customer/c/orders"]);
+        }, 3000)
+        
       }else{
-        alert("problem with order:" + r.msg);
+        this.snackbar.open("problem with order:" + r.msg, ''  , {
+          duration: 2000
+        });
       }
     }
     )
 
   }
+
+  addNewAddress() {
+    let newAddressDialog = this.dialog.open(NewAddressDialogComponent);
+
+    newAddressDialog.afterClosed().subscribe((r)=>{
+      if(r!="false" && r!=false){
+        this.createAddress(r);
+      }
+    })
+
+  }
+  private createAddress(addr: any) {
+    this.addressS.createAddress({
+      customerID : this.customerId,
+      country : addr.country,
+      city : addr.city,
+      postalCode: addr.postalCode,
+      street: addr.street,
+      houseNumber : addr.houseNumber
+    }).subscribe((r:any)=>{
+
+      if(r.rc){
+        this.fetchAddresses();
+      }else{
+        this.snackbar.open("Errore nel aggiunta del indirizzo:"+r.msg);
+      }
+
+    })
+  }
+
+
 }

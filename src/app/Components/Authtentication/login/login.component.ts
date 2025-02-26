@@ -59,8 +59,7 @@ export class LoginComponent {
   }
 
   setLoggeduser(){
-    this.authS.setLoggedIn();
-    this.authS.setRoleUser();
+    this.authS.setLoggedInCustomer();
   }
 
   setGlobalParameter(){

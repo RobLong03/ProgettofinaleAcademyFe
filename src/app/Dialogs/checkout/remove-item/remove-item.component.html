@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Conferma eliminazione</h2>
+
+<mat-dialog-content>
+  <p>Rimozione prodotto {{data.brand}} - {{data.model}}, Scegliere la quantita da rimuovere tra 1 e {{data.maxQuantity}}</p>
+  <mat-form-field>
+    <mat-label>Quantità</mat-label>
+    <input matInput type="number" [(ngModel)]="qtyToRemove" min="1" [max]="data.maxQuantity">  
+  </mat-form-field>
+  
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close="false">Annulla</button>
+  <button mat-button [mat-dialog-close]="qtyToRemove">Conferma</button>
+</mat-dialog-actions>

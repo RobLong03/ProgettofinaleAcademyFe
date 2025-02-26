@@ -1,0 +1,25 @@
+
+<h2 mat-dialog-title>Cambio Indirizzo</h2>
+
+<mat-dialog-content>
+  <p></p>
+  <mat-form-field>
+    <mat-label>Per favore scegli un indirizzo a cui spedire</mat-label>
+    <mat-select (selectionChange)="updateSelectedAddress($event)" name="addressField" required>
+
+      <mat-option disabled>Scegli gli indirizzi</mat-option>
+      <ng-container *ngFor="let addr of data.addresses; let i = index">
+        <mat-option *ngIf="addr.id != data.currentAddressId" [value]="addr.id">
+          {{addr.country}} {{addr.postalCode}} {{addr.city}} {{addr.street}} {{addr.houseNumber}}
+        </mat-option>
+        <mat-divider *ngIf="i < data.addresses.length - 1"></mat-divider>
+      </ng-container>      
+    </mat-select>
+  </mat-form-field>
+  
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close="false">Annulla</button>
+  <button mat-button [mat-dialog-close]="newAddressId">Conferma</button>
+</mat-dialog-actions>

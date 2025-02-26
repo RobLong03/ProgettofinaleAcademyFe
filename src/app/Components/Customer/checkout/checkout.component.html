@@ -15,10 +15,12 @@
           {{addr.country}} {{addr.postalCode}} {{addr.city}} {{addr.street}} {{addr.houseNumber}}
         </mat-option>
         <mat-divider *ngIf="i < addresses.length - 1"></mat-divider>
-      </ng-container>      
+      </ng-container>     
+
     </mat-select>
+
   </mat-form-field>
-  <button mat-stroked-button>Aggiungi un altro indirizzo TODO/WIP</button>
+  <button type="button" mat-stroked-button (click)="addNewAddress()">Aggiungi un altro indirizzo TODO/WIP</button>
   <p *ngIf="selectedAddress">Indirizzo Scelto: {{selectedAddress.country}} {{selectedAddress.postalCode}} {{selectedAddress.city}} {{selectedAddress.street}} {{selectedAddress.houseNumber}}</p>
   <mat-divider></mat-divider>
   <br>
@@ -75,18 +77,10 @@
       <p><strong>Prezzo Singolo:</strong> {{item.price | currency}}</p>
       <p><strong>Prezzo Totale:</strong> {{item.price * item.quantity | currency}}</p>
 
-      <mat-form-field class="removeItemChoser">
-        <mat-label>Quantità da rimuovere</mat-label>
-        <mat-select id="remQty{{ item.id }}" ngModel name="remQty{{ item.id }}" >
-          <mat-option *ngFor="let qty of [].constructor(item.quantity); let i = index" [value]="i+1">
-            {{ i+1 }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <button type="button" mat-stroked-button (click)="removeItems(item.cartItemId, item.id)">
-        Remove item(s) from order/cart
+      <button type="button"  mat-raised-button (click)="openDeleteItemDialog(item)" class="red-button">
+        <i class="material-icons">delete_forever</i>Rimuovi da ordine
       </button>
+      
       <hr>
     </div>
   </div>

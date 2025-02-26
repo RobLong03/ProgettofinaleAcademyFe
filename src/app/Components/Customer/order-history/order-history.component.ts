@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from '../../../utils/session-storage.service';
 import { OrderService } from '../../../services/order/order.service';
 import { OrderItemService } from '../../../services/order/order-item.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OrderDeleteConfirmComponent } from '../../../Dialogs/order/order-delete-confirm/order-delete-confirm.component';
 import { ItemfromOrderDeleteConfirmComponent } from '../../../Dialogs/order/itemfrom-order-delete-confirm/itemfrom-order-delete-confirm.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChangeShippingAddressComponent } from '../../../Dialogs/order/change-shipping-address/change-shipping-address.component';
+import { AddressService } from '../../../services/customer/address.service';
 
 @Component({
   selector: 'app-order-history',
@@ -20,7 +23,9 @@ export class OrderHistoryComponent implements OnInit{
   constructor(userValues : SessionStorageService,
               private orderService : OrderService,
               private orderItemsService : OrderItemService,
-              public dialog : MatDialog
+              public dialog : MatDialog,
+              private snackbar : MatSnackBar,
+              private addressService:AddressService
   ){
     this.customerId = Number.parseInt(userValues.idCliente!);
   }
@@ -65,7 +70,7 @@ private deleteItemFromOrder(delItemId:number){
     if(r.rc){
       this.loadOrders();
     }else{
-      alert("errore nella cancelazione:"+r.msg)
+      this.snackbar.open("errore nella cancelazione:"+r.msg)
 
     }
   }
@@ -85,7 +90,8 @@ openDeleteOrderDialog(delOrderID:number) {
     }else{
       console.log("his life is spared")
     }
-  })
+  });
+
 }
 
 
@@ -99,16 +105,66 @@ openDeleteOrderDialog(delOrderID:number) {
       if(r.rc === true){
         this.loadOrders();
       }else if (r.rc === false){
-        alert("errore nella cancelazione:"+r.msg)
+        this.snackbar.open("errore nella cancelazione:"+r.msg)
       }
     });
   }
 
 
-  openChangeAddress(currentAddressID:number) {
-    throw new Error('Method not implemented.');
+  openChangeAddress(currentAddressID:number, orderId:number) {
+    
+
+    this.addressService.listAddressByCustomer(this.customerId).subscribe((r:any)=>
+    {
+      if(r.rc){
+        this.loadAddressChabngeDialog(r.dati,currentAddressID,orderId);
+      }else{
+        this.snackbar.open("non é stato possibile caricare gli indirizzi")
+      }
+     });
+
+      
+
+    }
+
+    private loadAddressChabngeDialog(addresesList:any, currentAddressID:number, orderId:number ){
+      if(addresesList.length<=1){
+        this.snackbar.open("Non ci sono altri indirizzi sul tuo profilo, aggiungine prima");
+      }else{
+        let deleteOrderitemDialog = this.dialog.open(ChangeShippingAddressComponent , {
+          data: {
+            addresses : addresesList,
+            currentAddressId : currentAddressID
+          }
+        });
+
+        deleteOrderitemDialog.afterClosed().subscribe(r=>{
+          if(r!="false"){
+            this.changeAddress(orderId, r,);
+          }
+        })
+
+      }
+    }
+
+    private changeAddress(orderId:number, addressId:number ){
+
+      this.orderService.updateOrder({
+        id       : orderId,
+        addressId : addressId
+      }).subscribe((r:any)=>{
+        if(r.rc){
+          this.snackbar.open("Indirizzo aggiornato con succcesso");
+          this.loadOrders();
+        }else{
+          this.snackbar.open("Errore nel aggiornamento del del indrizzo:"+r.msg);
+        }
+      })
+
     }
 
 
+  }
 
-}
+
+
