@@ -1,0 +1,47 @@
+/* Imposta il tema scuro per il dialogo */
+:host {
+    color: #ffffff;
+    background-color: #333333;
+    display: block;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  /* Stile per il titolo del dialogo */
+  h2 {
+    color: #ffcc00;
+    margin-bottom: 16px;
+  }
+  
+  /* Stile per il contenuto del dialogo */
+  mat-dialog-content {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Stile per il campo di input */
+  mat-form-field {
+    width: 100%;
+    margin-top: 16px;
+  }
+  
+  input[matInput] {
+    color: #ffffff;
+    background-color: #444444;
+    border-radius: 4px;
+  }
+  
+  /* Stile per i pulsanti */
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+  
+  button[mat-button] {
+    color: #ffcc00;
+  }
+  
+  button[mat-button]:hover {
+    background-color: #555555;
+  }

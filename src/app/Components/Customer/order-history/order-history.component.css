@@ -1,7 +1,10 @@
-
 .order-item {
   display: flex;
-  align-items: flex-start; /* Cambiato da center a flex-start */
+  align-items: flex-start;
+  background-color: #333;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
 }
 .item-image {
   width: 100px;
@@ -10,6 +13,7 @@
 }
 .item-details {
   flex: 1;
+  color: #fff;
 }
 .item-buttons {
   display: flex;
@@ -24,15 +28,26 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  color: #fff;
 }
 .centered-title {
   display: flex;
   justify-content: center;
   width: 100%;
+  color: #fff;
 }
 .red-button {
   color: red;
+  border-color: red;
 }
 .cyan-button {
   color: cyan;
+  border-color: cyan;
+}
+.mat-expansion-panel {
+  background-color: #444;
+  color: #fff;
+}
+.mat-divider {
+  background-color: #555;
 }

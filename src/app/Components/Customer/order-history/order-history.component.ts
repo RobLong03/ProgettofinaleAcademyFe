@@ -12,159 +12,152 @@ import { AddressService } from '../../../services/customer/address.service';
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
-  styleUrl: './order-history.component.css'
+  styleUrls: ['./order-history.component.css']
 })
-export class OrderHistoryComponent implements OnInit{
+export class OrderHistoryComponent implements OnInit {
 
+  customerId: number;
+  orderList: any[] = [];
 
-  customerId:number;
-  orderList:any;
-
-  constructor(userValues : SessionStorageService,
-              private orderService : OrderService,
-              private orderItemsService : OrderItemService,
-              public dialog : MatDialog,
-              private snackbar : MatSnackBar,
-              private addressService:AddressService
-  ){
-    this.customerId = Number.parseInt(userValues.idCliente!);
+  constructor(
+    private sessionStorageService: SessionStorageService,
+    private orderService: OrderService,
+    private orderItemsService: OrderItemService,
+    public dialog: MatDialog,
+    private snackbar: MatSnackBar,
+    private addressService: AddressService
+  ) {
+    this.customerId = Number.parseInt(this.sessionStorageService.idCliente!);
   }
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.loadOrders();
   }
 
-  private loadOrders() {
-    this.orderList =[];
-    this.orderService.listByCustomer(this.customerId).subscribe((r:any)=>
-      {
-        this.orderList = r.dati.sort((a: any, b: any) => a.id - b.id)
-      })
+  // Carica gli ordini del cliente e li ordina per ID
+  private loadOrders(): void {
+    this.orderService.listByCustomer(this.customerId).subscribe(
+      (response: any) => {
+        this.orderList = response.dati.sort((a: any, b: any) => a.id - b.id);
+      },
+      (error: any) => {
+        this.snackbar.open('Errore nel caricamento degli ordini', 'Chiudi', { duration: 3000 });
+      }
+    );
   }
 
-openDeleteItemDialog(orderId:number, delItemID:number, delItemBrand:string, delItemModel:string) {
-  let deleteOrderitemDialog = this.dialog.open(ItemfromOrderDeleteConfirmComponent,
-    {
-      data : {
-        orderId : orderId,
-        brand : delItemBrand,
-        model :delItemModel
-       }
-    }
-  );
+  // Apre il dialog per confermare la cancellazione di un articolo dall'ordine
+  openDeleteItemDialog(orderId: number, delItemID: number, delItemBrand: string, delItemModel: string): void {
+    const deleteOrderItemDialog = this.dialog.open(ItemfromOrderDeleteConfirmComponent, {
+      data: {
+        orderId: orderId,
+        brand: delItemBrand,
+        model: delItemModel
+      }
+    });
 
-  deleteOrderitemDialog.afterClosed().subscribe(result=>{
-    if(result == "true"){
-      this.deleteItemFromOrder(delItemID);
-    }
-  })
-
-}
- 
-private deleteItemFromOrder(delItemId:number){
-  this.orderItemsService.deleteOrderItme({
-    id : delItemId
-  }).subscribe((r:any)=>
-  {
-    console.log(r);
-    if(r.rc){
-      this.loadOrders();
-    }else{
-      this.snackbar.open("errore nella cancelazione:"+r.msg)
-
-    }
-  }
-  )
-}
-
-openDeleteOrderDialog(delOrderID:number) {
-  let deleteOrderDialog = this.dialog.open(OrderDeleteConfirmComponent,
-    {
-      data : {orderId : delOrderID }
-    }
-  );
-
-  deleteOrderDialog.afterClosed().subscribe(result => {
-    if(result == "true"){
-      this.deleteOrder(delOrderID);
-    }else{
-      console.log("his life is spared")
-    }
-  });
-
-}
-
-
-  deleteOrder(delOrderID: number) {
-    console.log(`Deleting order with id ${delOrderID}`);
-    this.orderService.deleteOrder({
-      id:delOrderID
-    }).subscribe((r:any)=>
-    {
-      console.log(r);
-      if(r.rc === true){
-        this.loadOrders();
-      }else if (r.rc === false){
-        this.snackbar.open("errore nella cancelazione:"+r.msg)
+    deleteOrderItemDialog.afterClosed().subscribe(result => {
+      if (result === 'true') {
+        this.deleteItemFromOrder(delItemID); // Chiamata successiva
       }
     });
   }
 
-
-  openChangeAddress(currentAddressID:number, orderId:number) {
-    
-
-    this.addressService.listAddressByCustomer(this.customerId).subscribe((r:any)=>
-    {
-      if(r.rc){
-        this.loadAddressChabngeDialog(r.dati,currentAddressID,orderId);
-      }else{
-        this.snackbar.open("non é stato possibile caricare gli indirizzi")
-      }
-     });
-
-      
-
-    }
-
-    private loadAddressChabngeDialog(addresesList:any, currentAddressID:number, orderId:number ){
-      if(addresesList.length<=1){
-        this.snackbar.open("Non ci sono altri indirizzi sul tuo profilo, aggiungine prima");
-      }else{
-        let deleteOrderitemDialog = this.dialog.open(ChangeShippingAddressComponent , {
-          data: {
-            addresses : addresesList,
-            currentAddressId : currentAddressID
-          }
-        });
-
-        deleteOrderitemDialog.afterClosed().subscribe(r=>{
-          if(r!="false"){
-            this.changeAddress(orderId, r,);
-          }
-        })
-
-      }
-    }
-
-    private changeAddress(orderId:number, addressId:number ){
-
-      this.orderService.updateOrder({
-        id       : orderId,
-        addressId : addressId
-      }).subscribe((r:any)=>{
-        if(r.rc){
-          this.snackbar.open("Indirizzo aggiornato con succcesso");
-          this.loadOrders();
-        }else{
-          this.snackbar.open("Errore nel aggiornamento del del indrizzo:"+r.msg);
+  // Cancella un articolo dall'ordine
+  private deleteItemFromOrder(delItemId: number): void {
+    this.orderItemsService.deleteOrderItem({ id: delItemId }).subscribe(
+      (response: any) => {
+        if (response.rc) {
+          this.loadOrders(); // Ricarica gli ordini dopo la cancellazione
+        } else {
+          this.snackbar.open(`Errore nella cancellazione: ${response.msg}`, 'Chiudi', { duration: 3000 });
         }
-      })
-
-    }
-
-
+      },
+      (error: any) => {
+        this.snackbar.open('Errore nella cancellazione dell\'articolo', 'Chiudi', { duration: 3000 });
+      }
+    );
   }
 
+  // Apre il dialog per confermare la cancellazione di un ordine
+  openDeleteOrderDialog(delOrderID: number): void {
+    const deleteOrderDialog = this.dialog.open(OrderDeleteConfirmComponent, {
+      data: { orderId: delOrderID }
+    });
 
+    deleteOrderDialog.afterClosed().subscribe(result => {
+      if (result === 'true') {
+        this.deleteOrder(delOrderID); // Chiamata successiva
+      }
+    });
+  }
 
+  // Cancella un ordine
+  private deleteOrder(delOrderID: number): void {
+    this.orderService.deleteOrder({ id: delOrderID }).subscribe(
+      (response: any) => {
+        if (response.rc) {
+          this.loadOrders(); // Ricarica gli ordini dopo la cancellazione
+        } else {
+          this.snackbar.open(`Errore nella cancellazione: ${response.msg}`, 'Chiudi', { duration: 3000 });
+        }
+      },
+      (error: any) => {
+        this.snackbar.open('Errore nella cancellazione dell\'ordine', 'Chiudi', { duration: 3000 });
+      }
+    );
+  }
+
+  // Apre il dialog per cambiare l'indirizzo di spedizione di un ordine
+  openChangeAddress(currentAddressID: number, orderId: number): void {
+    this.addressService.listAddressByCustomer(this.customerId).subscribe(
+      (response: any) => {
+        if (response.rc) {
+          this.loadAddressChangeDialog(response.dati, currentAddressID, orderId); // Chiamata successiva
+        } else {
+          this.snackbar.open('Non è stato possibile caricare gli indirizzi', 'Chiudi', { duration: 3000 });
+        }
+      },
+      (error: any) => {
+        this.snackbar.open('Errore nel caricamento degli indirizzi', 'Chiudi', { duration: 3000 });
+      }
+    );
+  }
+
+  // Carica il dialog per cambiare l'indirizzo di spedizione
+  private loadAddressChangeDialog(addressesList: any[], currentAddressID: number, orderId: number): void {
+    if (addressesList.length <= 1) {
+      this.snackbar.open('Non ci sono altri indirizzi sul tuo profilo, aggiungine prima', 'Chiudi', { duration: 3000 });
+    } else {
+      const changeAddressDialog = this.dialog.open(ChangeShippingAddressComponent, {
+        data: {
+          addresses: addressesList,
+          currentAddressId: currentAddressID
+        }
+      });
+
+      changeAddressDialog.afterClosed().subscribe(result => {
+        if (result !== 'false') {
+          this.changeAddress(orderId, result); // Chiamata successiva
+        }
+      });
+    }
+  }
+
+  // Cambia l'indirizzo di spedizione di un ordine
+  private changeAddress(orderId: number, addressId: number): void {
+    this.orderService.updateOrder({ id: orderId, addressId: addressId }).subscribe(
+      (response: any) => {
+        if (response.rc) {
+          this.snackbar.open('Indirizzo aggiornato con successo', 'Chiudi', { duration: 3000 });
+          this.loadOrders(); // Ricarica gli ordini dopo l'aggiornamento
+        } else {
+          this.snackbar.open(`Errore nell'aggiornamento dell'indirizzo: ${response.msg}`, 'Chiudi', { duration: 3000 });
+        }
+      },
+      (error: any) => {
+        this.snackbar.open('Errore nell\'aggiornamento dell\'indirizzo', 'Chiudi', { duration: 3000 });
+      }
+    );
+  }
+}

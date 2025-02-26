@@ -3,14 +3,12 @@ import { SessionStorageService } from '../../../utils/session-storage.service';
 import { AddressService } from '../../../services/customer/address.service';
 import { CartItemService } from '../../../services/cart/cart-item.service';
 import { ProductService } from '../../../services/products/product.service';
-import { NgForm } from '@angular/forms';
 import { OrderService } from '../../../services/order/order.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { RemoveItemComponent } from '../../../Dialogs/checkout/remove-item/remove-item.component';
-import { query } from 'express';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewAddressDialogComponent } from '../../../Dialogs/address/new-address-dialog/new-address-dialog.component';
+import { RemoveItemComponent } from '../../../Dialogs/checkout/remove-item/remove-item.component';
 
 @Component({
   selector: 'app-checkout',
@@ -18,20 +16,13 @@ import { NewAddressDialogComponent } from '../../../Dialogs/address/new-address-
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent implements OnInit {
-
-
   customerId: number;
   cartId: number;
-
-  addresses: any;
+  addresses: any[] = [];
   selectedAddress: any;
-
-  itemsFromCart: any;
-
-  orderItems: any;
-
+  itemsFromCart: any[] = [];
+  orderItems: any[] = [];
   paymentMethod: string = 'cash'; // Default payment method
-
   totalprice: number = 0;
 
   constructor(
@@ -41,9 +32,8 @@ export class CheckoutComponent implements OnInit {
     private productS: ProductService,
     private orderS: OrderService,
     private redRoute: Router,
-    public dialog : MatDialog,
-    private snackbar : MatSnackBar
-    
+    public dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {
     this.customerId = parseInt(this.userValues.idCliente!);
     this.cartId = parseInt(this.userValues.idCarrelloCliente!);
@@ -51,165 +41,181 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderItems = [];
-    if (this.customerId)
-      this.fetchAddresses();
-
-    if (this.cartId)
-      this.fetchCartItems(this.cartId);
+    if (this.customerId) this.fetchAddresses();
+    if (this.cartId) this.fetchCartItems(this.cartId);
   }
 
-  private fetchAddresses() {
-    this.addressS.listAddressByCustomer(this.customerId).subscribe((resp:any) => {
-      this.addresses = resp.dati;
-      if(this.addresses.lenghth == 0){
-        this.snackbar.open("Non hai alcun indirizzo salvato, perfavore creane uno")
+  // Metodo per ottenere gli indirizzi del cliente
+  private fetchAddresses(): void {
+    this.addressS.listAddressByCustomer(this.customerId).subscribe({
+      next: (resp: any) => {
+        this.addresses = resp.dati;
+        if (this.addresses.length === 0) {
+          this.snackbar.open("Non hai alcun indirizzo salvato, perfavore creane uno");
+        }
+      },
+      error: (err) => {
+        console.error("Error fetching addresses:", err);
+        this.snackbar.open("Errore nel recupero degli indirizzi");
       }
     });
   }
 
-  private fetchCartItems(cart: number) {
-    this.cartitemS.listByCart(cart).subscribe((resp:any) => {
-      this.itemsFromCart = resp.dati;
-      console.log(this.itemsFromCart.length > 0)
-      if( this.itemsFromCart.length > 0 ){
-        this.fetchOtherItemData();
-      }else{
-        console.log("il tuo carello é vuoto, aggiungi qualcosa al carello per continuare")
-        this.snackbar.open("il tuo carello é vuoto, aggiungi qualcosa al carello per continuare", ''  , {
-          duration: 3000
-        });
-        setTimeout(() => {
-          this.redRoute.navigate(["home"]);
-        }, 3000)
+  // Metodo per ottenere gli articoli del carrello
+  private fetchCartItems(cartId: number): void {
+    this.cartitemS.listByCart(cartId).subscribe({
+      next: (resp: any) => {
+        this.itemsFromCart = resp.dati;
+        if (this.itemsFromCart.length > 0) {
+          this.fetchOtherItemData(); // Chiama fetchOtherItemData() se ci sono articoli nel carrello
+        } else {
+          this.handleEmptyCart(); // Chiama handleEmptyCart() se il carrello è vuoto
+        }
+      },
+      error: (err) => {
+        console.error("Error fetching cart items:", err);
+        this.snackbar.open("Errore nel recupero degli articoli del carrello");
       }
-
-      
     });
   }
 
-  private fetchOtherItemData() {
-    this.orderItems = []; // sistemazione temporanea, da aggiornre dto e poi aggiornare questo metodo
+  // Metodo per ottenere i dati aggiuntivi degli articoli nel carrello
+  private fetchOtherItemData(): void {
+    this.orderItems = [];
     this.totalprice = 0;
     for (let cartItem of this.itemsFromCart) {
-      this.productS.getProduct(cartItem.productId).subscribe((resp:any) => {
-        const combinedItem = {
-          ...resp.dati, //i campi di product
-          cartItemId: cartItem.id, //+ quelli di cartitem presi a mano
-          cartId: cartItem.cartId,
-          quantity: cartItem.quantity,
-        };
-        this.totalprice = this.totalprice + (combinedItem.price * combinedItem.quantity);
-        this.orderItems.push(combinedItem);
+      this.productS.getProduct(cartItem.productId).subscribe({
+        next: (resp: any) => {
+          const combinedItem = {
+            ...resp.dati,
+            cartItemId: cartItem.id,
+            cartId: cartItem.cartId,
+            quantity: cartItem.quantity,
+          };
+          this.totalprice += combinedItem.price * combinedItem.quantity;
+          this.orderItems.push(combinedItem);
+        },
+        error: (err) => {
+          console.error("Error fetching product data:", err);
+          this.snackbar.open("Errore nel recupero dei dati del prodotto");
+        }
       });
     }
   }
 
-  onAddressChange(addressId: number) {
+  // Metodo per gestire il caso in cui il carrello è vuoto
+  private handleEmptyCart(): void {
+    console.log("Il tuo carrello è vuoto, aggiungi qualcosa al carrello per continuare");
+    this.snackbar.open("Il tuo carrello è vuoto, aggiungi qualcosa al carrello per continuare", '', {
+      duration: 3000
+    });
+    setTimeout(() => {
+      this.redRoute.navigate(["home"]);
+    }, 3000);
+  }
+
+  // Metodo per cambiare l'indirizzo selezionato
+  onAddressChange(addressId: number): void {
     this.selectedAddress = this.addresses.find((addr: any) => addr.id === addressId);
   }
 
-  onPaymentMethodChange(event: any) {
+  // Metodo per cambiare il metodo di pagamento selezionato
+  onPaymentMethodChange(event: any): void {
     this.paymentMethod = event.value;
   }
 
-  openDeleteItemDialog(itemToRemove:any) {
+  // Metodo per aprire il dialogo di conferma rimozione articolo
+  openDeleteItemDialog(itemToRemove: any): void {
+    const deleteOrderitemDialog = this.dialog.open(RemoveItemComponent, {
+      data: {
+        brand: itemToRemove.brand,
+        model: itemToRemove.model,
+        maxQuantity: itemToRemove.quantity
+      }
+    });
 
-    console.log("Removing items from cart:",itemToRemove);
-    console.log("Cart Item ID:", itemToRemove.cartItemId);
-    console.log("Product ID:", itemToRemove.id);
-
-   let deleteOrderitemDialog = this.dialog.open(RemoveItemComponent,{
-    data : {
-      brand        : itemToRemove.brand,
-      model        : itemToRemove.model,
-      maxQuantity  : itemToRemove.quantity
-    }
-   });
-
-   deleteOrderitemDialog.afterClosed().subscribe(result => {
-    if(result !="false"){
-      let qtyToRemove = result;
-      console.log(qtyToRemove);
-
-
-      this.removeOrderItems(itemToRemove,qtyToRemove);
-    }
-  });
-
+    deleteOrderitemDialog.afterClosed().subscribe(result => {
+      if (result !== "false") {
+        this.removeOrderItems(itemToRemove, result); // Chiama removeOrderItems() se l'utente conferma la rimozione
+      }
+    });
   }
 
-  private removeOrderItems(item:any,quantityToRemove:number){
-    console.log("item qty>0");
+  // Metodo per rimuovere articoli dall'ordine
+  private removeOrderItems(item: any, quantityToRemove: number): void {
     this.cartitemS.removeItemsCart({
-      id        :   item.cartItemId,
-      productId :   item.id,
-      cartId    :   item.cartId,
-      quantity  :   quantityToRemove,
-    }).subscribe((r:any)=>{
-      if(r)
-        this.fetchCartItems(item.cartId);
-      else
-      this.snackbar.open("theres been a problem deleting the item:"+r.msg)
-    }
-   )
+      id: item.cartItemId,
+      productId: item.id,
+      cartId: item.cartId,
+      quantity: quantityToRemove,
+    }).subscribe({
+      next: () => this.fetchCartItems(item.cartId), // Chiama fetchCartItems() per aggiornare il carrello
+      error: (err) => {
+        console.error("Error removing item from cart:", err);
+        this.snackbar.open("Errore nella rimozione dell'articolo:" + err.msg);
+      }
+    });
   }
 
-  onSubmit() {
-    console.log("Saving order....");
-
+  // Metodo per inviare l'ordine
+  onSubmit(): void {
     this.orderS.createOrder({
-      addressId : this.selectedAddress.id,
+      addressId: this.selectedAddress.id,
       customerId: this.customerId
-    }).subscribe((r:any)=>
-    {
-      console.log(r)
-      if(r.rc == true || r.rc == "true"){
-        console.log("completato l'ordine");
-        this.snackbar.open("order created, redirecting....", ''  , {
-          duration: 2500
-        });
-        setTimeout(() => {
-          this.redRoute.navigate(["customer/c/orders"]);
-        }, 3000)
-        
-      }else{
-        this.snackbar.open("problem with order:" + r.msg, ''  , {
-          duration: 2000
-        });
+    }).subscribe({
+      next: (r: any) => {
+        if (r.rc) {
+          this.snackbar.open("Ordine creato, reindirizzamento in corso...", '', {
+            duration: 2500
+          });
+          setTimeout(() => {
+            this.redRoute.navigate(["@me/orders"]);
+          }, 3000);
+        } else {
+          this.snackbar.open("Problema con l'ordine: " + r.msg, '', {
+            duration: 2000
+          });
+        }
+      },
+      error: (err) => {
+        console.error("Error creating order:", err);
+        this.snackbar.open("Errore nella creazione dell'ordine");
       }
-    }
-    )
-
+    });
   }
 
-  addNewAddress() {
-    let newAddressDialog = this.dialog.open(NewAddressDialogComponent);
+  // Metodo per aprire il dialogo di aggiunta nuovo indirizzo
+  addNewAddress(): void {
+    const newAddressDialog = this.dialog.open(NewAddressDialogComponent);
 
-    newAddressDialog.afterClosed().subscribe((r)=>{
-      if(r!="false" && r!=false){
-        this.createAddress(r);
+    newAddressDialog.afterClosed().subscribe(result => {
+      if (result !== "false" && result !== false) {
+        this.createAddress(result); // Chiama createAddress() se l'utente conferma l'aggiunta
       }
-    })
-
+    });
   }
-  private createAddress(addr: any) {
+
+  // Metodo per creare un nuovo indirizzo
+  private createAddress(addr: any): void {
     this.addressS.createAddress({
-      customerID : this.customerId,
-      country : addr.country,
-      city : addr.city,
+      customerID: this.customerId,
+      country: addr.country,
+      city: addr.city,
       postalCode: addr.postalCode,
       street: addr.street,
-      houseNumber : addr.houseNumber
-    }).subscribe((r:any)=>{
-
-      if(r.rc){
-        this.fetchAddresses();
-      }else{
-        this.snackbar.open("Errore nel aggiunta del indirizzo:"+r.msg);
+      houseNumber: addr.houseNumber
+    }).subscribe({
+      next: (r: any) => {
+        if (r.rc) {
+          this.fetchAddresses(); // Chiama fetchAddresses() per aggiornare la lista degli indirizzi
+        } else {
+          this.snackbar.open("Errore nell'aggiunta dell'indirizzo: " + r.msg);
+        }
+      },
+      error: (err) => {
+        console.error("Error creating address:", err);
+        this.snackbar.open("Errore nella creazione dell'indirizzo");
       }
-
-    })
+    });
   }
-
-
 }

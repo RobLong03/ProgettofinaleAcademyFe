@@ -205,7 +205,7 @@ openChangeAddress(currentAddressID:number, orderId:number) {
   }
 
   private deleteItemFromOrder(delItemId:number){
-    this.orderItemsService.deleteOrderItme({
+    this.orderItemsService.deleteOrderItem({
       id : delItemId
     }).subscribe((r:any)=>
     {

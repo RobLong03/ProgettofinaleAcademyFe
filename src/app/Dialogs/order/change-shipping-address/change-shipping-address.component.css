@@ -1,0 +1,48 @@
+/* Imposta il tema scuro */
+:host {
+    display: block;
+    color: #ffffff;
+    background-color: #333333;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  /* Stile per il titolo del dialogo */
+  h2 {
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+  
+  /* Stile per il contenuto del dialogo */
+  mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Stile per il campo del modulo */
+  mat-form-field {
+    width: 100%;
+  }
+  
+  /* Stile per le opzioni del selettore */
+  mat-option {
+    background-color: #444444;
+    color: #ffffff;
+  }
+  
+  /* Stile per il pulsante di azione */
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  button[mat-button] {
+    color: #ffffff;
+    background-color: #555555;
+  }
+  
+  button[mat-button]:hover {
+    background-color: #666666;
+  }

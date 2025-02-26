@@ -1,0 +1,32 @@
+:host {
+    display: block;
+    color: #ffffff;
+    background-color: #333333;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    color: #ffcc00;
+    margin-bottom: 16px;
+  }
+  
+  mat-dialog-content p {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  button[mat-button] {
+    color: #ffffff;
+    background-color: #555555;
+    margin-left: 8px;
+  }
+  
+  button[mat-button]:hover {
+    background-color: #777777;
+  }

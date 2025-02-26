@@ -1,46 +1,45 @@
-<h2 mat-dialog-title>Aggiungi Indirizzo</h2>
+<h2 mat-dialog-title class="dialog-title">Aggiungi Indirizzo</h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="dialog-content">
     <div> 
-        <!-- str Paese, str Citta, str codice postale, str strada, int numero civico  -->
-        <form [formGroup]="addressForm">
-    
-            <P>
-                <mat-form-field>
+        <form [formGroup]="addressForm" class="address-form">
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="form-field">
                     <mat-label>Paese:</mat-label>
                     <input matInput placeholder="Ex. Italy" formControlName="country">
                 </mat-form-field>
         
-                <mat-form-field>
+                <mat-form-field appearance="fill" class="form-field">
                     <mat-label>Citta:</mat-label>
                     <input matInput placeholder="Ex. Bari" formControlName="city">
                 </mat-form-field>
+            </div>
     
-                <mat-form-field>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="form-field">
                     <mat-label>Codice Postale</mat-label>
                     <input matInput placeholder="Ex. 70122" formControlName="postalCode">
                 </mat-form-field>
-            </P>
+            </div>
     
-            <p>
-                <mat-form-field>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="form-field">
                     <mat-label>Strada:</mat-label>
                     <input matInput placeholder="Ex. Via Roberto De Bari" formControlName="street">
                 </mat-form-field>
-            </p>
+            </div>
     
-            <P>
-                <mat-form-field>
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="form-field">
                     <mat-label>Civico:</mat-label>
                     <input type="number" matInput placeholder="Ex. 119" formControlName="houseNumber">
                 </mat-form-field>
-            </P>
-    
+            </div>
         </form>
     </div>
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions class="dialog-actions">
     <button mat-button mat-dialog-close="false">Annulla</button>
     <button mat-button (click)="onConfirm()" [disabled]="!addressForm.valid">Conferma</button>
 </mat-dialog-actions>
