@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CreateOrderRequest, DeleteOrderRequest, UpdateOrderRequest, UpdateOrderStatusRequest } from '../../Interfaces/order';
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +23,19 @@ export class OrderService {
     return this.http.get(this.apiUrl + "listByCustomer?id=" + id);
   }
 
-  createOrder(body : {}){
+  createOrder(body : CreateOrderRequest){
     return this.http.post(this.apiUrl + "create", body);
   }
 
-  updateOrder(body : {}){
+  updateOrder(body : UpdateOrderRequest){
     return this.http.post(this.apiUrl + "update", body);
   }
 
-updateOrderStatus(body : {}){
+updateOrderStatus(body : UpdateOrderStatusRequest){
     return this.http.post(this.apiUrl + "updateStatus", body);
 }
 
-  deleteOrder(body : {}){
+  deleteOrder(body : DeleteOrderRequest){
     return this.http.post(this.apiUrl + "delete", body);
   }
 }
