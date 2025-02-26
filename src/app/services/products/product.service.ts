@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -16,6 +16,29 @@ export class ProductService {
 
   listProduct(){
     return this.http.get(this.apiUrl + "list");
+  }
+
+  filteredListProduct(types:string[] | null, minPrice:number, maxPrice:number, brands:string[] | null){
+
+    let param=new HttpParams();
+
+    if(types?.length) {
+      param=param.set("types", types.join(","));
+    }
+
+    if(minPrice != null) {
+      param=param.set("minPrice", minPrice.toString());
+    }
+
+    if(maxPrice != null) {
+      param=param.set("maxPrice", maxPrice.toString());
+    }
+
+    if(brands?.length) {
+      param=param.set("brands", brands.join());
+    }
+    
+    return this.http.get(this.apiUrl + "filteredList?"+param);
   }
 
   createProduct(body : {}){

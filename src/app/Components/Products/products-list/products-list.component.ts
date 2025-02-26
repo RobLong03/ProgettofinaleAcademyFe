@@ -10,6 +10,9 @@ import { MotherboardService } from '../../../services/products/motherboard.servi
 import { PsuService } from '../../../services/products/psu.service';
 import { RamService } from '../../../services/products/ram.service';
 import { StorageService } from '../../../services/products/storage.service';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { SessionStorageService } from '../../../utils/session-storage.service';
+import { AuthServiceService } from '../../../Auth/auth-service.service';
 
 @Component({
   selector: 'app-products-list',
@@ -21,8 +24,33 @@ export class ProductsListComponent implements OnInit {
   response: any;
   category: string | null = null;
   showSpinner=true;
-
-
+  customerId: number | null;
+  isLoggedIn:boolean=false;
+  selectedTypes:string[]=[];
+  selectedMinPrice:number=0;
+  selectedMaxPrice:number=1000;
+  selectedBrands:string[]=[];
+  formRetrieveFilter!: FormGroup;
+  types=[
+    {name:"ram", selected:false},
+    {name:"cpu", selected:false},
+    {name:"gpu", selected:false},
+    {name:"psu", selected:false},
+    {name:"storage", selected:false},
+    {name:"motherboard", selected:false},
+    {name:"cases", selected:false}
+  ];
+  brands=[
+    {name:"Corsair", selected:false},
+    {name:"Kingston", selected:false},
+    {name:"Crucial", selected:false},
+    {name:"G.Skill", selected:false},
+    {name:"MSI", selected:false},
+    {name:"ASUS", selected:false},
+    {name:"Gigabyte", selected:false},
+    {name:"ASRock", selected:false}
+  ];
+  
   constructor(
     private prodS: ProductService,
     private caseS: CaseService,
@@ -35,8 +63,14 @@ export class ProductsListComponent implements OnInit {
     private thisRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
-    private wishlItemS: WishlistItemService
-  ) {}
+    private wishlItemS: WishlistItemService,
+    private fb:FormBuilder,
+    private userValues:SessionStorageService,
+    private authS:AuthServiceService
+  ) {
+    this.customerId = parseInt(this.userValues.idCliente!);
+    this.isLoggedIn = this.authS.isAuthenticatedCustomer();
+  }
 
 
 
@@ -105,8 +139,6 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     
-
-
     this.thisRoute.paramMap.subscribe(params => {
       const category = params.get('category')?.trim().toLowerCase() || null;
       this.category = category;
@@ -144,10 +176,57 @@ export class ProductsListComponent implements OnInit {
         });
       }
     });
+
+    this.initializeFilterForm();
+  }
+
+  initializeFilterForm():void {
+
+    this.formRetrieveFilter = this.fb.group({
+      selectedTypesForm: this.fb.array(this.types.map(() => this.fb.control(false))), //FormArray di FormControl inizializzati a false
+      selectedMinPriceForm: new FormControl(this.selectedMinPrice),
+      selectedMaxPriceForm: new FormControl(this.selectedMaxPrice),
+      selectedBrandsForm: this.fb.array(this.brands.map(() => this.fb.control(false)))
+    });
+  }
+
+  retrieveFilter(): void {
+    const selectedTypesFormArray=this.formRetrieveFilter.get('selectedTypesForm') as FormArray;
+    this.selectedTypes=selectedTypesFormArray.controls
+      .map((ctrl, i) => (ctrl.value ? this.types[i].name : null))
+      .filter(name => name!==null) as string[];
+  
+    const selectedBrandsFormArray=this.formRetrieveFilter.get('selectedBrandsForm') as FormArray;
+    this.selectedBrands=selectedBrandsFormArray.controls
+      .map((ctrl, i) => (ctrl.value ? this.brands[i].name : null))
+      .filter(name => name!==null) as string[];
+
+    this.selectedMinPrice=(this.formRetrieveFilter.value.selectedMinPriceForm!==this.selectedMinPrice)
+      ? this.formRetrieveFilter.value.selectedMinPriceForm : this.selectedMinPrice
+
+    this.selectedMaxPrice=(this.formRetrieveFilter.value.selectedMaxPriceForm!==this.selectedMaxPrice) 
+      ? this.formRetrieveFilter.value.selectedMaxPriceForm : this.selectedMaxPrice
+
+    //console.log(this.selectedTypes);
+    //console.log(this.selectedBrands);
+    //console.log(this.selectedMinPrice);
+    //console.log(this.selectedMaxPrice);
+
+    this.getFilteredValue(this.selectedTypes, this.selectedMinPrice, this.selectedMaxPrice, this.selectedBrands);
+  }
+
+  getFilteredValue(t:string[], minP:number, maxP:number, b:string[]) {
+
+    this.prodS.filteredListProduct(t, minP, maxP, b)
+      .subscribe((resp:any) => {
+
+        console.log(resp.dati);
+        this.productList=resp.dati;
+      })
   }
 
   addToWishlist(productId: number) {
-    this.wishlItemS.createWishlistItem({ productId }, 2).subscribe((resp: any) => {
+    this.wishlItemS.createWishlistItem({ productId }, this.customerId!).subscribe((resp: any) => {
       console.log(resp.rc);
     });
   }

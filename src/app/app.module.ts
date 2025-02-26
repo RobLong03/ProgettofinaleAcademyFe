@@ -35,6 +35,8 @@ import {
   MatSnackBarLabel,
   MatSnackBarRef,
 } from '@angular/material/snack-bar';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
@@ -148,7 +150,8 @@ import { NewAddressDialogComponent } from './Dialogs/address/new-address-dialog/
     MatDialogModule,
     MatSnackBarAction,
     MatSnackBarActions,
-    MatSnackBarLabel
+    MatSnackBarLabel,
+    MatSliderModule
   ],
   providers: [
     provideClientHydration(),

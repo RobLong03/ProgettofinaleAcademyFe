@@ -1,56 +1,84 @@
-<mat-spinner  *ngIf="showSpinner"></mat-spinner>
-<div *ngIf="productList && productList.length > 0">
-  <div class="card-container">
-    <mat-card
-      class="example-card"
-      appearance="outlined"
-      *ngFor="let prod of productList"
-      (click)="onClick(prod.id)"
-    >
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{ prod?.model }}</mat-card-title>
-        <mat-card-subtitle>{{ prod?.brand }}</mat-card-subtitle>
-      </mat-card-header>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
 
-      <img
-        mat-card-image
-        [src]="prod?.imageUrl"
-        alt="Photo of {{ prod?.model }}"
-        class="product-image"
-      />
+    <form [formGroup]="formRetrieveFilter" (ngSubmit)="retrieveFilter()">
 
-      <mat-card-content>
-        <p class="product-description">
-          {{ prod?.description?.description }}
-        </p>
-        <p class="product-price">
-          {{ prod?.price | currency: 'EUR': 'symbol-narrow' }}
-        </p>
-      </mat-card-content>
+      <button mat-raised-button color="primary" type="submit">Apply filter</button>
 
-      <mat-card-actions>
-        <button mat-button class="action-button">Add To Cart</button>
-        <button mat-button class="action-button">Add to Wishlist</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div>
+      <div class="checkbox-section">
+        <span>Filter for Type:</span>
+        <div formArrayName="selectedTypesForm">
+          <mat-checkbox class="mat-checkbox-filter" *ngFor="let type of types; let i = index" [formControlName]="i">
+            {{ type.name }}
+          </mat-checkbox>
+        </div>
+      </div>
 
-<!-- Show fallback message when productList is empty or null -->
-<div *ngIf="!productList || productList.length === 0 && !showSpinner">
-  <div class=" no-products-message">
-    <p>No products available at the moment. Please check back later!</p>
-  </div>
-</div>
+      <div class="checkbox-section">
+        <span>Filter for Brand:</span>
+        <div formArrayName="selectedBrandsForm">
+          <mat-checkbox class="mat-checkbox-filter" *ngFor="let brand of brands; let i = index" [formControlName]="i">
+            {{ brand.name }}
+          </mat-checkbox>
+        </div>
+      </div>
 
+      <div>
+        <span>Filter for Price:</span>
+        <div class="slider-container">
+          <span class="fixed-width">{{ formRetrieveFilter.get('selectedMinPriceForm')?.value }}€</span>
+          <mat-slider [min]="selectedMinPrice" [max]="selectedMaxPrice">
+            <input matSliderStartThumb formControlName="selectedMinPriceForm">
+            <input matSliderEndThumb formControlName="selectedMaxPriceForm">
+          </mat-slider>
+          <span class="fixed-width">{{ formRetrieveFilter.get('selectedMaxPriceForm')?.value }}€</span>
+        </div>
+      </div>
+    </form>
 
-<div *ngIf="category">
-  <button mat-button (click)="goback()"style="float: left;">
-    <mat-icon>arrow_back</mat-icon> BACK
-  </button>
-</div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div *ngIf="productList && productList.length > 0">
+      <div class="card-container">
+        <mat-card
+          class="example-card"
+          appearance="outlined"
+          *ngFor="let prod of productList"
+          (click)="onClick(prod.id)">
+          
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ prod?.model }}</mat-card-title>
+            <mat-card-subtitle>{{ prod?.brand }}</mat-card-subtitle>
+          </mat-card-header>
 
+          <img mat-card-image [src]="prod?.imageUrl" alt="Photo of {{ prod?.model }}" class="product-image" />
 
+          <mat-card-content>
+            <p class="product-description">{{ prod?.description?.description }}</p>
+            <p class="product-price">{{ prod?.price | currency: 'EUR': 'symbol-narrow' }}</p>
+          </mat-card-content>
 
+          <mat-card-actions>
+            <button mat-button class="action-button" [disabled]="!isLoggedIn">Add To Cart</button>
+            <button mat-button class="action-button" (click)="addToWishlist(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn">Add to Wishlist</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Show fallback message when productList is empty or null -->
+    <div *ngIf="!productList || productList.length === 0 && !showSpinner">
+      <div class="no-products-message">
+        <p>No products available at the moment. Please check back later!</p>
+      </div>
+    </div>
+
+    <div *ngIf="category">
+      <button mat-button (click)="goback()" style="float: left;">
+        <mat-icon>arrow_back</mat-icon> BACK
+      </button>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
 
