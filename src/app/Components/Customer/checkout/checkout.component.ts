@@ -157,11 +157,11 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  // Metodo per inviare l'ordine
+  // Metodo per inviare l'odine
   onSubmit(): void {
     this.orderS.createOrder({
-      addressId: this.selectedAddress.id,
-      customerId: this.customerId
+      customerId: this.customerId,
+      addressId: this.selectedAddress.id
     }).subscribe({
       next: (r: any) => {
         if (r.rc) {
