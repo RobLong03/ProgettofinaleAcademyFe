@@ -21,4 +21,8 @@ export class CartService {
   clearCart(body : {}){
     return this.http.post(this.apiUrl + "clear", body);
   }
+
+  getCart(id : number){
+    return this.http.get(this.apiUrl + "get?id=" + id);
+  }
 }
