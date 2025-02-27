@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MotherboardService } from '../../../../services/products/motherboard.service';
 import { ActivatedRoute } from '@angular/router';
 import { WishlistItemService } from '../../../../services/wishlist/wishlist-item.service';
+import { CartItemService } from '../../../../services/cart/cart-item.service';
 
 @Component({
   selector: 'app-specific-motherboard',
@@ -15,6 +16,7 @@ export class SpecificMotherboardComponent implements OnInit{
   constructor(
     private motherbS:MotherboardService,
     private wishlItemS:WishlistItemService,
+    private cartItems:CartItemService,
     private route:ActivatedRoute) { }
   
   ngOnInit(): void {
@@ -32,6 +34,14 @@ export class SpecificMotherboardComponent implements OnInit{
     this.wishlItemS.createWishlistItem({productId:productId}, 1)
       .subscribe((resp:any) => {
 
+        console.log(resp.rc);
+      });
+  }
+
+  addToCart(productId:number){
+
+    this.cartItems.createCartItem({productId:productId}, 1)
+      .subscribe((resp:any) => {
         console.log(resp.rc);
       });
   }

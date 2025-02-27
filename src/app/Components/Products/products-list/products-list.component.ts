@@ -13,6 +13,7 @@ import { StorageService } from '../../../services/products/storage.service';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SessionStorageService } from '../../../utils/session-storage.service';
 import { AuthServiceService } from '../../../Auth/auth-service.service';
+import { CartItemService } from '../../../services/cart/cart-item.service';
 
 @Component({
   selector: 'app-products-list',
@@ -64,6 +65,7 @@ export class ProductsListComponent implements OnInit {
     private location: Location,
     private router: Router,
     private wishlItemS: WishlistItemService,
+    private cartItemS: CartItemService,
     private fb:FormBuilder,
     private userValues:SessionStorageService,
     private authS:AuthServiceService
@@ -230,6 +232,12 @@ export class ProductsListComponent implements OnInit {
 
   addToWishlist(productId: number) {
     this.wishlItemS.createWishlistItem({ productId }, this.customerId!).subscribe((resp: any) => {
+      console.log(resp.rc);
+    });
+  }
+
+  addToCart(productId:number) {
+    this.cartItemS.createCartItem({ productId }, this.customerId!).subscribe((resp: any) => {
       console.log(resp.rc);
     });
   }
