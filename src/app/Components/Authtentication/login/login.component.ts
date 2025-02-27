@@ -31,8 +31,8 @@ export class LoginComponent {
     console.log("login clicked")
     if (this.loginForm.valid) {
       console.log('Login data:', this.loginForm.value);
-      
-      
+
+
       this.customerS.signInCustomer({
         username: this.loginForm.value.email,
         pwd: this.loginForm.value.password
@@ -44,12 +44,14 @@ export class LoginComponent {
         if(this.logged){
           this.setLoggeduser();
           this.setGlobalParameter();
-          this.redRouter.navigate(["home"]);
+          this.redRouter.navigateByUrl('', { skipLocationChange: false }).then(() => {
+            location.reload();
+          });
         }else{
           this.authS.resetAll();
           this.loginForm.reset();
         }
-        
+
 
       });
     } else {

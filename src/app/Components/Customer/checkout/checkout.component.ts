@@ -1,3 +1,4 @@
+import { CustomerService } from './../../../services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from '../../../utils/session-storage.service';
 import { AddressService } from '../../../services/customer/address.service';
@@ -9,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewAddressDialogComponent } from '../../../Dialogs/address/new-address-dialog/new-address-dialog.component';
 import { RemoveItemComponent } from '../../../Dialogs/checkout/remove-item/remove-item.component';
-
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -33,7 +34,8 @@ export class CheckoutComponent implements OnInit {
     private orderS: OrderService,
     private redRoute: Router,
     public dialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private custS:CustomerService
   ) {
     this.customerId = parseInt(this.userValues.idCliente!);
     this.cartId = parseInt(this.userValues.idCarrelloCliente!);
@@ -168,6 +170,21 @@ export class CheckoutComponent implements OnInit {
           this.snackbar.open("Ordine creato, reindirizzamento in corso...", '', {
             duration: 2500
           });
+          let dettagliProdotti = '';
+          this.orderItems.forEach((prodotto: { nome: any; quantita: number; prezzo: number; }) => {
+        dettagliProdotti += `${prodotto.nome} x ${prodotto.quantita} = €${(prodotto.prezzo * prodotto.quantita).toFixed(2)}\n`;
+      });
+      this.custS.getCustomer(this.customerId).subscribe((x:any)=>{
+        emailjs.send("service_sq6mmfs","template_clitmec", {
+          to_name: x.dati.email,
+          from_name: 'DDDR Techzone',
+          dettagli_prodotti: dettagliProdotti,
+          // altri parametri
+        });
+
+      })
+
+
           setTimeout(() => {
             this.redRoute.navigate(["@me/orders"]);
           }, 3000);

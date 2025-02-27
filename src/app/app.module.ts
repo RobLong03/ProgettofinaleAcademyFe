@@ -26,7 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { MatTableModule } from '@angular/material/table';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarAction, MatSnackBarActions, MatSnackBarLabel, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -76,6 +76,7 @@ import { OrderHistoryComponent } from './Components/Customer/order-history/order
 import { ProductComponent as Productadmin } from './Components/Administration/product/product.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-description-panel/product-description-panel.component';
+import { AdminsListComponent } from './Components/Administration/admins-list/admins-list.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-descr
     ProductDescriptionPanelComponent,AnagraficaComponent,
     DeleteAddressConfirmDialogComponent,
     UpdateAddressDialogComponent,
-    CustomerManagementComponent
+    CustomerManagementComponent,
+    AdminsListComponent
   ],
   imports: [
     BrowserModule,
@@ -156,7 +158,11 @@ import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-descr
     MatTableModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSnackBarAction,
+    MatSnackBarActions,
+    MatSnackBarLabel,
+    MatSliderModule,
   ],
   providers: [
     provideClientHydration(),
