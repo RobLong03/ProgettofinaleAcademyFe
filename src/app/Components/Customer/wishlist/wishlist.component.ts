@@ -3,6 +3,8 @@ import { WishlistService } from '../../../services/wishlist/wishlist.service';
 import { ActivatedRoute } from '@angular/router';
 import { WishlistItemService } from '../../../services/wishlist/wishlist-item.service';
 import { SessionStorageService } from '../../../utils/session-storage.service';
+import { CartService } from '../../../services/cart/cart.service';
+import { CartItemService } from '../../../services/cart/cart-item.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,6 +20,7 @@ export class WishlistComponent implements OnInit{
   constructor(
     private wishlist:WishlistService,
     private wishlistItem:WishlistItemService,
+    private cartItemS:CartItemService,
     private route:ActivatedRoute,
     private userValues:SessionStorageService
   ) { 
@@ -32,6 +35,12 @@ export class WishlistComponent implements OnInit{
 
       this.items=resp.dati.wishlistItems;
       console.log(this.items);
+    });
+  }
+
+  addToCart(productId:number) {
+    this.cartItemS.createCartItem({ productId }, this.customerId!).subscribe((resp: any) => {
+      console.log(resp.rc);
     });
   }
 

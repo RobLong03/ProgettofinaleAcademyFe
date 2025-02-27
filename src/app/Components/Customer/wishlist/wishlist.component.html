@@ -1,6 +1,6 @@
 
 <div class="button-container">
-  <button mat-button (click)="emptyWishlist()">EMPTY</button>
+  <button mat-button (click)="emptyWishlist()"><i class="material-icons">delete_outline</i>EMPTY</button>
 </div>
 
 <div class="product-list">
@@ -20,7 +20,8 @@
         </div>
   
         <mat-card-actions>
-          <button mat-button (click)="deleteItem(item.id); $event.stopPropagation();">Remove</button>
+          <button mat-button (click)="addToCart(item.id); $event.stopPropagation();"><i class="material-icons"><i class="material-icons">add_shopping_cart</i></i></button>
+          <button mat-button (click)="deleteItem(item.id); $event.stopPropagation();"><i class="material-icons">remove</i></button>
         </mat-card-actions>
       </mat-card>
     </div>
