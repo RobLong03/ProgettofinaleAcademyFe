@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container">
   <mat-drawer mode="side" opened>
 
-    <form [formGroup]="formRetrieveFilter" (ngSubmit)="retrieveFilter()">
+    <form *ngIf="formRetrieveFilter" [formGroup]="formRetrieveFilter" (ngSubmit)="retrieveFilter()">
 
       <button mat-raised-button color="primary" type="submit">Apply filter</button>
 
@@ -27,7 +27,7 @@
         <span>Filter for Price:</span>
         <div class="slider-container">
           <span class="fixed-width">{{ formRetrieveFilter.get('selectedMinPriceForm')?.value }}€</span>
-          <mat-slider [min]="selectedMinPrice" [max]="selectedMaxPrice">
+          <mat-slider min="1" max="2000">
             <input matSliderStartThumb formControlName="selectedMinPriceForm">
             <input matSliderEndThumb formControlName="selectedMaxPriceForm">
           </mat-slider>

@@ -21,36 +21,20 @@ import { CartItemService } from '../../../services/cart/cart-item.service';
   styleUrl: './products-list.component.css'
 })
 export class ProductsListComponent implements OnInit {
-  productList: any = [];
+  productList: any = {};
   response: any;
   category: string | null = null;
   showSpinner=true;
   customerId: number | null;
   isLoggedIn:boolean=false;
   selectedTypes:string[]=[];
-  selectedMinPrice:number=0;
-  selectedMaxPrice:number=1000;
+  selectedMinPrice:number=1;
+  selectedMaxPrice:number=2000;
   selectedBrands:string[]=[];
   formRetrieveFilter!: FormGroup;
-  types=[
-    {name:"ram", selected:false},
-    {name:"cpu", selected:false},
-    {name:"gpu", selected:false},
-    {name:"psu", selected:false},
-    {name:"storage", selected:false},
-    {name:"motherboard", selected:false},
-    {name:"cases", selected:false}
-  ];
-  brands=[
-    {name:"Corsair", selected:false},
-    {name:"Kingston", selected:false},
-    {name:"Crucial", selected:false},
-    {name:"G.Skill", selected:false},
-    {name:"MSI", selected:false},
-    {name:"ASUS", selected:false},
-    {name:"Gigabyte", selected:false},
-    {name:"ASRock", selected:false}
-  ];
+  types:any=[];
+  brands:any=[];
+  checked=false;
 
   constructor(
     private prodS: ProductService,
@@ -74,13 +58,8 @@ export class ProductsListComponent implements OnInit {
     this.isLoggedIn = this.authS.isAuthenticatedCustomer();
   }
 
-
-
-
   onClick(prodId: number) {
     const productChosen = this.productList?.find((prod: any) => prod.id === prodId);
-
-
 
     //prendo il prodotto dalla lista con id
     if (productChosen) {
@@ -114,8 +93,7 @@ export class ProductsListComponent implements OnInit {
           console.log("Il prodotto scelto contiene 'gpu' nella descrizione.");
           this.router.navigate(['product/gpu/' + productChosen.id]);
           break;
-
-
+          
         default:
           alert("Prodotto non trovato")
       }
@@ -141,9 +119,6 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-
-
     this.thisRoute.paramMap.subscribe(params => {
       const category = params.get('category')?.trim().toLowerCase() || null;
       this.category = category;
@@ -166,6 +141,10 @@ export class ProductsListComponent implements OnInit {
             this.showSpinner=false;
             this.response = resp;
             this.productList = this.response.dati;
+
+            this.initializeFilter();
+            this.checked=true;
+            this.initializeFilterForm(this.checked);
           }, 224);
         });
       } else {
@@ -174,24 +153,41 @@ export class ProductsListComponent implements OnInit {
             this.showSpinner=false;
             this.response = resp;
             this.productList = this.response.dati;
+
+            this.initializeFilter();
+            this.initializeFilterForm(this.checked);
           }, 224);
-
-
 
         });
       }
     });
+  }
+  
+  initializeFilter() {
 
-    this.initializeFilterForm();
+    this.productList.forEach((product:any) => {
+
+      const type=product.type;
+      const brand=product.brand;
+
+      if (!this.types.some((t:any) => t.name===type)) {
+        this.types.push({ name:type, selected:false });
+      }
+
+      if (!this.brands.some((b:any) => b.name===brand)) {
+        this.brands.push({ name:brand, selected:false });
+      }
+    });
   }
 
-  initializeFilterForm():void {
+  initializeFilterForm(checked:boolean):void {
 
-    this.formRetrieveFilter = this.fb.group({
-      selectedTypesForm: this.fb.array(this.types.map(() => this.fb.control(false))), //FormArray di FormControl inizializzati a false
-      selectedMinPriceForm: new FormControl(this.selectedMinPrice),
-      selectedMaxPriceForm: new FormControl(this.selectedMaxPrice),
-      selectedBrandsForm: this.fb.array(this.brands.map(() => this.fb.control(false)))
+    this.formRetrieveFilter=this.fb.group({
+      //FormArray di FormControl inizializzati a false
+      selectedTypesForm:this.fb.array(this.types.map(() => this.fb.control({ value:checked, disabled: checked}))),
+      selectedMinPriceForm:new FormControl(this.selectedMinPrice),
+      selectedMaxPriceForm:new FormControl(this.selectedMaxPrice),
+      selectedBrandsForm:this.fb.array(this.brands.map(() => this.fb.control(false)))
     });
   }
 
