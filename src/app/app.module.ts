@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -27,15 +26,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { MatTableModule } from '@angular/material/table';
-import {
-  MatSnackBar,
-  MatSnackBarAction,
-  MatSnackBarActions,
-  MatSnackBarLabel,
-  MatSnackBarRef,
-} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LoginComponent } from './Components/Authtentication/login/login.component';
 import { RegisterComponent } from './Components/Authtentication/register/register.component';
@@ -44,7 +37,6 @@ import { ProductComponent } from './Components/Products/product/product.componen
 import { CaseComponent } from './Components/Products/Case/case/case.component';
 import { HomeComponent } from './Components/HomePage/home/home.component';
 import { FooterComponent } from './Components/footer/footer.component';
-import { MatMenuModule } from '@angular/material/menu';
 import { AboutComponent } from './Components/about/about.component';
 import { CustomerComponent } from './Components/Customer/customer/customer.component';
 import { CpuComponent } from './Components/Products/cpu/cpu/cpu.component';
@@ -75,6 +67,10 @@ import { ChangeShippingAddressComponent } from './Dialogs/order/change-shipping-
 import { ChangeStatusDialogComponent } from './Dialogs/order/change-status-dialog/change-status-dialog.component';
 import { NewAddressDialogComponent } from './Dialogs/address/new-address-dialog/new-address-dialog.component';
 import { AdminLoginComponent } from './Components/Administration/admin-login/admin-login.component';
+import { AnagraficaComponent } from './Components/Customer/anagrafica/anagrafica.component';
+import { DeleteAddressConfirmDialogComponent } from './Dialogs/address/delete-address-confirm-dialog/delete-address-confirm-dialog.component';
+import { UpdateAddressDialogComponent } from './Dialogs/address/update-address-dialog/update-address-dialog.component';
+import { CustomerManagementComponent } from './Components/Administration/customer-management/customer-management.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OrderHistoryComponent } from './Components/Customer/order-history/order-history.component';
 import { ProductComponent as Productadmin } from './Components/Administration/product/product.component';
@@ -125,7 +121,10 @@ import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-descr
     NewAddressDialogComponent,
     AdminLoginComponent,
     Productadmin,
-    ProductDescriptionPanelComponent,
+    ProductDescriptionPanelComponent,AnagraficaComponent,
+    DeleteAddressConfirmDialogComponent,
+    UpdateAddressDialogComponent,
+    CustomerManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -156,9 +155,7 @@ import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-descr
     MatPaginatorModule,
     MatTableModule,
     MatDialogModule,
-    MatSnackBarAction,
-    MatSnackBarActions,
-    MatSnackBarLabel,
+    MatSnackBarModule,
     MatSliderModule
   ],
   providers: [

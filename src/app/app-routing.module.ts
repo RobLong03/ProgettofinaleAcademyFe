@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './Components/Products/product/product.component';
@@ -19,7 +19,6 @@ import { CheckoutComponent } from './Components/Customer/checkout/checkout.compo
 import { WishlistComponent } from './Components/Customer/wishlist/wishlist.component';
 import { AdminComponent } from './Components/Administration/admin/admin.component';
 import { ProductComponent as ProductAdministrationComponent} from './Components/Administration/product/product.component';
-import { CustomerComponent as CustomerAdministrationComponent} from './Components/Administration/customer/customer.component';
 import { OrdersComponent } from './Components/Administration/orders/orders.component';
 import { ErrorComponent } from './Components/error/error.component';
 import { ProductsListComponent } from './Components/Products/products-list/products-list.component';
@@ -30,6 +29,8 @@ import { adminGuardPathGuard } from './Auth/Guards/admin-guard-path.guard';
 import { adminrGuardChildGuard } from './Auth/Guards/adminr-guard-child.guard';
 import { customerGuardPathGuard } from './Auth/Guards/customer-guard-path.guard';
 import { customerGuardChildGuard } from './Auth/Guards/customer-guard-child.guard';
+import { AnagraficaComponent } from './Components/Customer/anagrafica/anagrafica.component';
+import { CustomerManagementComponent } from './Components/Administration/customer-management/customer-management.component';
 
 const routes: Routes = [
 
@@ -72,14 +73,15 @@ const routes: Routes = [
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
     {path:'orders', component:OrderHistoryComponent},
-    {path:'wishlist', component:WishlistComponent}
+    {path:'wishlist', component:WishlistComponent},
+    {path:'update', component:AnagraficaComponent}
   ]},
   //authguard da inserire
   {path:'admin/login', component:AdminLoginComponent},
   {path:'admin', component:AdminComponent,children:[ //canActivate:[adminGuardPathGuard], canActivateChild:[adminrGuardChildGuard],
     { path: '', redirectTo:"products", pathMatch: 'full' },
     {path:'products', component:ProductAdministrationComponent},
-    {path:'customer', component:CustomerAdministrationComponent},
+    {path:'customer', component:CustomerManagementComponent},
     {path:'orders', component:OrdersComponent}
   ]},
 

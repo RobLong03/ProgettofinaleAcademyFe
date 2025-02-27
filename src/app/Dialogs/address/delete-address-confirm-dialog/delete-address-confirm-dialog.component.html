@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Conferma eliminazione</h2>
+<mat-dialog-content>
+  <p>Sei sicuro di voler eliminare l'indirizzo con ID #{{data.address.id}} |  {{data.address.country}} {{data.address.postalCode}} {{data.address.city}} {{data.address.street}} {{data.address.houseNumber}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close="false">Annulla</button>
+  <button mat-button mat-dialog-close="true">Conferma</button>
+</mat-dialog-actions>
