@@ -1,1 +1,196 @@
-<p>ad-product works!</p>
+<form [formGroup]="myform" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title>{{ data!==undefined&&data!==null ? 'Update Product' : 'Create Product' }}</mat-card-title>
+    <mat-card-content>
+      <!-- Basic Product Fields -->
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Brand</mat-label>
+          <input matInput formControlName="brand" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Model</mat-label>
+          <input matInput formControlName="model" required />
+        </mat-form-field>
+      </div>
+
+      <p color="primary" *ngIf="!editData">AGGIUNGI O MODIFICA LA DESCRIZIONE SU UPDATE</p>
+      <app-product-description-panel
+  *ngIf="editData"
+  [idprodo]="data.id!">
+</app-product-description-panel>
+      <br>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Stock</mat-label>
+          <input matInput type="number" min="1" formControlName="stock" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" min="1" formControlName="price" required />
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Image URL</mat-label>
+          <input matInput formControlName="imageUrl" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+
+      <!-- Product Type Selection -->
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Product Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option value="cpu">CPU</mat-option>
+            <mat-option value="gpu">GPU</mat-option>
+            <mat-option value="ram">RAM</mat-option>
+            <mat-option value="motherboard">Motherboard</mat-option>
+            <mat-option value="psu">PSU</mat-option>
+            <mat-option value="case">Case</mat-option>
+            <mat-option value="storage">Storage</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- Create css for other categories -->
+      <!-- Optional Fields for CPU -->
+      <div *ngIf="myform.get('type')?.value === 'cpu'" class="cpu-fields">
+        <h3>CPU Details</h3>
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Ghz Count</mat-label>
+            <input matInput type="number" min="0" formControlName="ghz" placeholder="Optional" />
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Core Count</mat-label>
+            <input matInput type="number" min="0" formControlName="core" placeholder="Optional" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <!-- Optional Fields for GPU -->
+    <div *ngIf="myform.get('type')?.value === 'gpu'" class="gpu-fields">
+      <h3>GPU Details</h3>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>GPU Memory (GB)</mat-label>
+          <input matInput type="number" min="0" formControlName="vram" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Ghz Count</mat-label>
+          <input matInput type="number" min="0" formControlName="ghz" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Optional Fields for RAM -->
+
+    <div *ngIf="myform.get('type')?.value === 'ram'" class="gpu-fields">
+      <h3>RAM Details</h3>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>RAM Memory (GB)</mat-label>
+          <input matInput type="number" min="0" formControlName="size" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Mhz Count</mat-label>
+          <input matInput type="number" min="0" formControlName="mhz" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Optional Field for Motherboard -->
+    <div *ngIf="myform.get('type')?.value === 'motherboard'" class="gpu-fields">
+      <h3>Motherboard Details</h3>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>CPU Compatibility</mat-label>
+          <input matInput formControlName="cpuCompatibility" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Optional Field for PSU -->
+    <div *ngIf="myform.get('type')?.value === 'psu'" class="gpu-fields">
+      <h3>PSU Details</h3>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Watt Count</mat-label>
+          <input matInput type="number" min="0" formControlName="watt" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Optional Field for Case -->
+    <div *ngIf="myform.get('type')?.value === 'case'" class="gpu-fields">
+      <h3>Case Details</h3>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Product Type</mat-label>
+          <mat-select formControlName="size">
+            <mat-option value="PICCOLO">Piccolo</mat-option>
+            <mat-option value="MEDIO">Medio</mat-option>
+            <mat-option value="GRANDE">Grande</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+ <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Color</mat-label>
+          <mat-select formControlName="color" [compareWith]="compareColors">
+            <mat-option *ngFor="let col of colors" [value]="col">
+              {{ col.colore }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Optional Field for Storage-->
+    </div>
+    <div *ngIf="myform.get('type')?.value === 'storage'" class="gpu-fields">
+      <h3>Storage Details</h3>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Storage Type</mat-label>
+          <mat-select formControlName="stype" placeholder="Select Storage Type">
+            <mat-option *ngFor="let type of storageTypes" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Storage Count (GB) </mat-label>
+          <input matInput type="number" min="0" formControlName="size" placeholder="Optional" />
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="myform.invalid">
+        Submit
+      </button>
+      <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    </mat-card-actions>
+
+    <mat-card-footer *ngIf="msg">
+      <p>{{ msg }}</p>
+    </mat-card-footer>
+  </mat-card>
+</form>

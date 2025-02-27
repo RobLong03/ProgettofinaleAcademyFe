@@ -10,8 +10,8 @@ export class CartItemService {
     
   constructor(private http: HttpClient) { }
 
-  createCartItem(body : {}){
-    return this.http.post(this.apiUrl + "create", body);
+  createCartItem(body : {}, id : number){
+    return this.http.post(this.apiUrl + "create?customerId=" + id, body);
   }
 
   removeCartItem(body : {}){

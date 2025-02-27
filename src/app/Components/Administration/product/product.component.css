@@ -104,3 +104,60 @@
   color: gray;
   margin-top: 20px;
 }
+:host {
+  display: block;
+  padding: 2rem;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Center the confirmation dialog */
+.confirmation-dialog {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+/* Title for the confirmation message */
+.confirmation-dialog h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #d32f2f;
+  margin-bottom: 1rem;
+}
+
+/* Style actions inside the dialog */
+.confirmation-dialog mat-card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+/* Delete button with red color */
+.confirmation-dialog button[mat-icon-button] {
+  background: #d32f2f;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: background 0.3s ease-in-out;
+}
+
+.confirmation-dialog button[mat-icon-button]:hover {
+  background: #b71c1c;
+}
+
+/* Cancel button with subtle grey */
+.confirmation-dialog button[mat-button] {
+  color: #555;
+  font-weight: 500;
+}
+
+.confirmation-dialog button[mat-button]:hover {
+  color: #000;
+}

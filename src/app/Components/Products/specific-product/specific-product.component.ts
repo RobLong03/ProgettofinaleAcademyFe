@@ -9,6 +9,7 @@ import { RamService } from '../../../services/products/ram.service';
 import { StorageService } from '../../../services/products/storage.service';
 import { WishlistItemService } from '../../../services/wishlist/wishlist-item.service';
 import { Location } from '@angular/common';
+import { CartItemService } from '../../../services/cart/cart-item.service';
 
 @Component({
   selector: 'app-specific-product',
@@ -29,7 +30,8 @@ export class SpecificProductComponent implements OnInit {
     private zone: NgZone,
     private route: ActivatedRoute,
     private location: Location,
-    private wishlItemS: WishlistItemService
+    private wishlItemS: WishlistItemService,
+    private cartItems: CartItemService
   ) {}
 
   ngOnInit(): void {
