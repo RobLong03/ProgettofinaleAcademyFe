@@ -43,4 +43,27 @@
     margin-bottom: 20px; /* opzionale, per dare un po' di spazio */
   }
   
-  
+  /* Stili per la "X" e per la gestione della quantità */
+.remove-item {
+  font-size: 20px;
+  color: red;
+  font-weight: bold;
+  background: none;
+  border: none;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-container button {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.quantity-container span {
+  font-size: 16px;
+  font-weight: bold;
+}

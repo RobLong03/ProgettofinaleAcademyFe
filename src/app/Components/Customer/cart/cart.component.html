@@ -1,27 +1,46 @@
 <div class="button-container">
-    <button mat-button (click)="emptyCart()">EMPTY</button>
-  </div>
-  
-  <div class="product-list">
-      <div *ngFor="let item of items" class="product-row">
-        <mat-card class="product-card" appearance="outlined">
-          <mat-card-header>
-            <mat-card-title>{{ item.product.model }}</mat-card-title>
-            <mat-card-subtitle>{{ item.product.brand }}</mat-card-subtitle>
-          </mat-card-header>
-    
-          <div class="product-content">
-            <img mat-card-image [src]="item.product.imageUrl" alt="Product Image">
-            <div class="product-info">
-              <p>{{ item.product.description }}</p>
-              <h5>Price: {{ item.product.price | currency:'EUR' }}</h5>
-            </div>
+  <button mat-button (click)="emptyCart()">EMPTY</button>
+</div>
+
+<div class="product-list">
+  <div *ngFor="let item of items" class="product-row">
+    <mat-card class="product-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>{{ item.product.dati.model }}</mat-card-title>
+        <mat-card-subtitle>{{ item.product.dati.brand }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <div class="product-content">
+        <img
+          mat-card-image
+          [src]="item.product.dati.imageUrl"
+          alt="Product Image"
+        />
+        <div class="product-info">
+          <p>{{ item.product.dati.description }}</p>
+          <h5>Price: {{ item.product.dati.price | currency : "EUR" }}</h5>
+
+          <!-- Display quantity with increase/decrease buttons -->
+          <div class="quantity-container">
+            <button mat-button (click)="addQuantity(item.id)">+</button>
+            <span>{{ item.quantity }}</span>
+            <button mat-button (click)="reduceItem(item.id)">-</button>
           </div>
-    
-          <mat-card-actions>
-            <button mat-button (click)="deleteItem(item.id); $event.stopPropagation();">Remove</button>
-          </mat-card-actions>
-        </mat-card>
+        </div>
       </div>
-    </div>
-    
+
+      <mat-card-actions>
+        <!-- X button for removing item -->
+        <button
+          mat-button
+          (click)="deleteItem(item.id); $event.stopPropagation()"
+        >
+          <span class="remove-item">X</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="total-price">
+  <h3>Total Price: {{ totalPrice | currency: 'EUR' }}</h3>
+</div>
