@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartItemService } from '../../../services/cart/cart-item.service';
 import { CartService } from '../../../services/cart/cart.service';
 import { ActivatedRoute } from '@angular/router';
+import { SessionStorageService } from '../../../utils/session-storage.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,20 +11,27 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   items: any;
+  customerId: number | null;
+  cartId: number | null;
 
   constructor(
     private cartItem: CartItemService,
     private cart: CartService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private userValues:SessionStorageService
+  ) {
+    this.customerId = parseInt(this.userValues.idCliente!);
+    this.cartId = parseInt(this.userValues.idCarrelloCliente!);
+  }
 
   ngOnInit(): void {
-    this.cart
-      .getCart(parseInt(this.route.parent?.snapshot.paramMap.get('id')!))
-      .subscribe((resp: any) => {
-        this.items = resp.dati.cartItems;
-        console.log(this.items);
-      });
+    
+    this.cart.getCart(this.customerId!)
+      .subscribe((resp:any) => {
+
+      this.items=resp.dati.cartItemS;
+      console.log(this.items);
+    });
   }
 
   deleteItem(id: number) {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -22,7 +22,8 @@ export class CartService {
     return this.http.post(this.apiUrl + "clear", body);
   }
 
-  getCart(id : number){
-    return this.http.get(this.apiUrl + "get?id=" + id);
+  getCart(customerId : number){
+    let param = new HttpParams().set('customerId', customerId);
+    return this.http.get(this.apiUrl + "get", {params: param});
   }
 }
