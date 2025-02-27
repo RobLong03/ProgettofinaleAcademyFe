@@ -44,3 +44,10 @@
 <div class="total-price">
   <h3>Total Price: {{ totalPrice | currency: 'EUR' }}</h3>
 </div>
+
+<!-- Button to go to checkout -->
+<div class="checkout-button-container">
+  <button mat-raised-button color="primary" [routerLink]="['/@me/checkout']">
+    Go to Checkout
+  </button>
+</div>
