@@ -23,10 +23,10 @@ export class SessionStorageService implements iStorageService,iGlobalUserData{
   }
   
   removeItem(key: string): void {
-    return sessionStorage.removeItem(key);
+    return localStorage.removeItem(key);
   }
   clear(): void {
-    return sessionStorage.clear();
+    return localStorage.clear();
   }
 
   private readonly ID_CLIENTE_KEY = 'idCliente';
