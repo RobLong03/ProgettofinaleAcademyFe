@@ -87,7 +87,11 @@
           </mat-list>
         </mat-menu>
 
-        <a class="disappear" routerLink="/login" mat-button>Login</a>
+        <a *ngIf="islogged" class="disappear" routerLink="/@me/wishlist" mat-button>Wishlist</a>
+
+        <a *ngIf="!islogged" class="disappear" routerLink="/login" mat-button>Login</a>
+        <a *ngIf="islogged" class="disappear"routerLink="/home" (click)="logout()" mat-button>Logout</a>
+
         <a *ngIf="admin&&islogged" class="disappear" routerLink="/admin"mat-button>Admin</a>
       </div>
 
