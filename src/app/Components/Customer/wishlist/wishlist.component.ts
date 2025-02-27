@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../../services/wishlist/wishlist.service';
-import { ActivatedRoute } from '@angular/router';
 import { WishlistItemService } from '../../../services/wishlist/wishlist-item.service';
 import { SessionStorageService } from '../../../utils/session-storage.service';
-import { CartService } from '../../../services/cart/cart.service';
 import { CartItemService } from '../../../services/cart/cart-item.service';
 
 @Component({
@@ -21,7 +19,6 @@ export class WishlistComponent implements OnInit{
     private wishlist:WishlistService,
     private wishlistItem:WishlistItemService,
     private cartItemS:CartItemService,
-    private route:ActivatedRoute,
     private userValues:SessionStorageService
   ) { 
     this.customerId = parseInt(this.userValues.idCliente!);
@@ -39,8 +36,9 @@ export class WishlistComponent implements OnInit{
   }
 
   addToCart(productId:number) {
+    
     this.cartItemS.createCartItem({ productId }, this.customerId!).subscribe((resp: any) => {
-      console.log(resp.rc);
+      console.log("ciao!! "+resp.rc);
     });
   }
 
@@ -51,7 +49,7 @@ export class WishlistComponent implements OnInit{
     })
     .subscribe((resp:any) => {
 
-      console.log(resp.rc);
+      console.log("baubau "+resp.rc);
       if(resp.rc) {
         //aggiorno array items andando a filtrare elementi con id diverso da quello passato,
         //utile perchè le modifiche vengono visualizzate in automatico senza ricaricare pagina
