@@ -60,7 +60,7 @@
           </mat-card-content>
 
           <mat-card-actions>
-            <button mat-button class="action-button" [disabled]="!isLoggedIn">Add To Cart</button>
+            <button mat-button class="action-button" (click)="addToCart(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn">Add To Cart</button>
             <button mat-button class="action-button" (click)="addToWishlist(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn">Add to Wishlist</button>
           </mat-card-actions>
         </mat-card>
