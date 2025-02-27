@@ -3,7 +3,7 @@
 <div *ngIf="!searched"  >
   <mat-label id="example-radio-group-label">Vuoi individuare l'utente in base al id o in base al email?</mat-label>
 <mat-radio-group aria-labelledby="example-radio-group-label"
-class="example-radio-group" (change)="swtichUserSearchMode($event)" >
+class="example-radio-group" (change)="switchUserSearchMode($event)" >
     <mat-radio-button value="id">#ID</mat-radio-button>
     <mat-radio-button value="email">Email</mat-radio-button>
   </mat-radio-group>

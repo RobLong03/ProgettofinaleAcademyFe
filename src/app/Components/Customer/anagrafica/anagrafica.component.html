@@ -1,0 +1,123 @@
+
+<mat-tab-group>
+    <mat-tab label="Aggiorna dati e password">
+<div class="update-container">
+    <mat-card class="nerd-card">
+      <mat-card-header>
+        <mat-card-title>Dati</mat-card-title>
+        <mat-card-subtitle><strong>Modifica i campi che vuoi aggiornare,e lascia invariati quelli da tenere</strong></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="customerForm" (ngSubmit)="sendDataCheck()">
+          <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" name="name" formControlName="name">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Cognome</mat-label>
+            <input matInput type="text" name="surname" formControlName="surname">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Codice Fiscale</mat-label>
+            <input matInput type="text" name="taxId" formControlName="taxId">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" name="email" formControlName="email">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Password Corrente</mat-label>
+            <input matInput type="password" name="currentPassword" formControlName="currentPassword">
+          </mat-form-field>
+
+          <mat-checkbox (change)="updateChangePassword($event.checked)"  > Cambio password:</mat-checkbox>
+
+          <div *ngIf="changePassword">
+            
+          <mat-form-field appearance="fill">
+            <mat-label>Password Nuova</mat-label>
+            <input matInput type="password" name="newPassword" formControlName="newPassword">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Conferma Password Nuova</mat-label>
+            <input matInput type="password" name="confirmPassword" formControlName="confirmPassword">
+          </mat-form-field>
+
+          </div>
+  
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!customerForm.valid">
+              Aggiorna
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-footer>
+        <p class="footer-note">Welcome to the future of hardware shopping!</p>
+      </mat-card-footer>
+    </mat-card>
+  </div></mat-tab>
+
+  <mat-tab label="Gestisci Indirizzi">
+  <p></p>
+    <button type="button" mat-stroked-button (click)="openDialog()">Aggiungi un altro indirizzo</button>
+
+
+    <div class="address-list">
+      <div *ngFor="let addr of addresses; let i = index" class="address-item">
+
+        <mat-card class="address-card">
+          <mat-card-header>
+            <mat-card-title>Indirizzo {{i + 1}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <br>
+            <p>{{addr.country}}, {{addr.postalCode}}, {{addr.city}}, {{addr.street}}, {{addr.houseNumber}}</p>
+            <p></p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-stroked-button color="primary" (click)="updateAddress(addr)">Aggiorna</button>
+            <button mat-stroked-button color="warn" (click)="removeAddress(addr)">Rimuovi</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-divider *ngIf="i < addresses.length - 1"></mat-divider>
+      </div>
+    </div>
+  </mat-tab>
+    
+
+  <mat-tab label="Cancella Account">
+    
+    <div class="delete-account-container">
+
+      
+
+      <mat-card class="delete-card">
+        <mat-card-header>
+          <mat-card-title>Cancella Account</mat-card-title>
+        </mat-card-header>
+
+        <form #deleteAccountForm="ngForm">
+          <mat-card-content>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" name="passwordDelete" ngModel required>
+            </mat-form-field>
+          </mat-card-content>
+        
+          <mat-card-actions class="center-actions">
+            <button mat-raised-button color="warn" (click)="deleteAccount(deleteAccountForm)" [disabled]="!deleteAccountForm.valid">Cancella Account</button>
+          </mat-card-actions>
+        </form>
+
+      </mat-card>
+    </div>
+  </mat-tab>
+  </mat-tab-group>
+  
+

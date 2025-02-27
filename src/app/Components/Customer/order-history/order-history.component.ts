@@ -36,14 +36,14 @@ export class OrderHistoryComponent implements OnInit {
 
   // Carica gli ordini del cliente e li ordina per ID
   private loadOrders(): void {
-    this.orderService.listByCustomer(this.customerId).subscribe(
-      (response: any) => {
+    this.orderService.listByCustomer(this.customerId).subscribe({
+      next: (response: any) => {
         this.orderList = response.dati.sort((a: any, b: any) => a.id - b.id);
       },
-      (error: any) => {
+      error: (error: any) => {
         this.snackbar.open('Errore nel caricamento degli ordini', 'Chiudi', { duration: 3000 });
       }
-    );
+    });
   }
 
   // Apre il dialog per confermare la cancellazione di un articolo dall'ordine
@@ -65,18 +65,18 @@ export class OrderHistoryComponent implements OnInit {
 
   // Cancella un articolo dall'ordine
   private deleteItemFromOrder(delItemId: number): void {
-    this.orderItemsService.deleteOrderItem({ id: delItemId }).subscribe(
-      (response: any) => {
+    this.orderItemsService.deleteOrderItem({ id: delItemId }).subscribe({
+      next: (response: any) => {
         if (response.rc) {
           this.loadOrders(); // Ricarica gli ordini dopo la cancellazione
         } else {
           this.snackbar.open(`Errore nella cancellazione: ${response.msg}`, 'Chiudi', { duration: 3000 });
         }
       },
-      (error: any) => {
+      error: (error: any) => {
         this.snackbar.open('Errore nella cancellazione dell\'articolo', 'Chiudi', { duration: 3000 });
       }
-    );
+    });
   }
 
   // Apre il dialog per confermare la cancellazione di un ordine
@@ -94,34 +94,34 @@ export class OrderHistoryComponent implements OnInit {
 
   // Cancella un ordine
   private deleteOrder(delOrderID: number): void {
-    this.orderService.deleteOrder({ id: delOrderID }).subscribe(
-      (response: any) => {
+    this.orderService.deleteOrder({ id: delOrderID }).subscribe({
+      next: (response: any) => {
         if (response.rc) {
           this.loadOrders(); // Ricarica gli ordini dopo la cancellazione
         } else {
           this.snackbar.open(`Errore nella cancellazione: ${response.msg}`, 'Chiudi', { duration: 3000 });
         }
       },
-      (error: any) => {
+      error: (error: any) => {
         this.snackbar.open('Errore nella cancellazione dell\'ordine', 'Chiudi', { duration: 3000 });
       }
-    );
+    });
   }
 
   // Apre il dialog per cambiare l'indirizzo di spedizione di un ordine
   openChangeAddress(currentAddressID: number, orderId: number): void {
-    this.addressService.listAddressByCustomer(this.customerId).subscribe(
-      (response: any) => {
+    this.addressService.listAddressByCustomer(this.customerId).subscribe({
+      next: (response: any) => {
         if (response.rc) {
           this.loadAddressChangeDialog(response.dati, currentAddressID, orderId); // Chiamata successiva
         } else {
           this.snackbar.open('Non è stato possibile caricare gli indirizzi', 'Chiudi', { duration: 3000 });
         }
       },
-      (error: any) => {
+      error: (error: any) => {
         this.snackbar.open('Errore nel caricamento degli indirizzi', 'Chiudi', { duration: 3000 });
       }
-    );
+    });
   }
 
   // Carica il dialog per cambiare l'indirizzo di spedizione
@@ -146,8 +146,8 @@ export class OrderHistoryComponent implements OnInit {
 
   // Cambia l'indirizzo di spedizione di un ordine
   private changeAddress(orderId: number, addressId: number): void {
-    this.orderService.updateOrder({ id: orderId, addressId: addressId }).subscribe(
-      (response: any) => {
+    this.orderService.updateOrder({ id: orderId, addressId: addressId }).subscribe({
+      next: (response: any) => {
         if (response.rc) {
           this.snackbar.open('Indirizzo aggiornato con successo', 'Chiudi', { duration: 3000 });
           this.loadOrders(); // Ricarica gli ordini dopo l'aggiornamento
@@ -155,9 +155,9 @@ export class OrderHistoryComponent implements OnInit {
           this.snackbar.open(`Errore nell'aggiornamento dell'indirizzo: ${response.msg}`, 'Chiudi', { duration: 3000 });
         }
       },
-      (error: any) => {
+      error: (error: any) => {
         this.snackbar.open('Errore nell\'aggiornamento dell\'indirizzo', 'Chiudi', { duration: 3000 });
       }
-    );
+    });
   }
 }
