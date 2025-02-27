@@ -53,9 +53,10 @@ export class SessionStorageService implements iStorageService,iGlobalUserData{
   }
 
   clearSession(): void {
-    this.removeItem(this.ID_CLIENTE_KEY);
-    this.removeItem(this.ID_CARRELLO_KEY);
-    this.removeItem(this.ID_WISHLIST_KEY);
+    console.log("clear session")
+    this.setItem(this.ID_CLIENTE_KEY, "");
+    this.setItem(this.ID_CARRELLO_KEY, "");
+    this.setItem(this.ID_WISHLIST_KEY, "");
   }
 
 }

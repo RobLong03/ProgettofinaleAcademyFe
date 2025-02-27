@@ -42,6 +42,7 @@ export class AuthServiceService {
     this.isLoggedInCustomer = false;
     this.sessionS.setItem('isLoggedInAdmin', '0');
     this.sessionS.setItem('isLoggedInCustomer', '0');
+    this.sessionS.clearSession();
   }
 
   isAuthenticatedAdmin(): boolean {
@@ -60,6 +61,8 @@ export class AuthServiceService {
   
     this.sessionS.setItem('isLoggedInAdmin', '0');
     this.sessionS.setItem('isLoggedInCustomer', '0');
+
+    this.sessionS.clearSession();
   
     console.log("Auth state reset: Admin = false, Customer = false");
   }
