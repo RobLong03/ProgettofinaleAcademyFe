@@ -13,7 +13,7 @@
       <!-- Spacer pushes the menu items to the right -->
       <span class="menu-spacer"></span>
     <!-- <a  routerLink="/about" mat-button>About</a> -->
-    <a mat-button (click)="openHelpDialog(helpDialog)">Help</a>
+    <a mat-button (click)="openHelpDialog()">Help</a>
       <!-- Inline menu items only on medium and larger screens -->
 
       <div fxShow.gt-sm>
@@ -187,7 +187,7 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-<ng-template class="foo" style="display: block;" #helpDialog>
+<!-- <ng-template class="foo" style="display: block;" #helpDialog>
   <h1 mat-dialog-title>Aiuto</h1>
   <div mat-dialog-content>
     <p>Qui puoi inserire le informazioni di aiuto che desideri mostrare all'utente.</p>
@@ -195,7 +195,7 @@
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Chiudi</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 <!-- FOOTER COMPONENT -->
 <app-footer></app-footer>

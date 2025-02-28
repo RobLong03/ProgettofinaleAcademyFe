@@ -1,4 +1,4 @@
-<!-- Template inline per il dialog di aiuto -->
+<!-- Template inline per il dialog di aiuto
 <ng-template class="foo" style="display: block;" #helpDialog>
   <h1 mat-dialog-title>Aiuto</h1>
   <div mat-dialog-content>
@@ -7,7 +7,7 @@
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Chiudi</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 
 <footer class="footer" >
@@ -32,7 +32,7 @@
           <p><a routerLink="/admin" class="text-reset">Admin</a></p>
           <p><a routerLink="/about" class="text-reset">About</a></p>
           <p><a routerLink="/admin/" class="text-reset">Orders</a></p>
-          <p><a (click)="openHelpDialog(helpDialog)" style="cursor: pointer;" matTooltip="Puoi contattarci con l'email per qualsiasi problema" class="text-reset">Help</a></p>
+          <p><a (click)="openHelpDialog()" style="cursor: pointer;" matTooltip="Puoi contattarci con l'email per qualsiasi problema" class="text-reset">Help</a></p>
         </div>
 
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

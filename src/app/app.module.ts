@@ -77,6 +77,7 @@ import { ProductComponent as Productadmin } from './Components/Administration/pr
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ProductDescriptionPanelComponent } from './Dialogs/dialog/product-description-panel/product-description-panel.component';
 import { AdminsListComponent } from './Components/Administration/admins-list/admins-list.component';
+import { HelpComponent } from './Dialogs/help/help.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { AdminsListComponent } from './Components/Administration/admins-list/adm
     DeleteAddressConfirmDialogComponent,
     UpdateAddressDialogComponent,
     CustomerManagementComponent,
-    AdminsListComponent
+    AdminsListComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
