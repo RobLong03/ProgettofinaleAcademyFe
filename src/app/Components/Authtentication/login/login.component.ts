@@ -44,9 +44,7 @@ export class LoginComponent {
         if(this.logged){
           this.setLoggeduser();
           this.setGlobalParameter();
-          this.redRouter.navigateByUrl('', { skipLocationChange: false }).then(() => {
-            location.reload();
-          });
+          this.redRouter.navigate(["home"])
         }else{
           this.authS.resetAll();
           this.loginForm.reset();
@@ -65,10 +63,12 @@ export class LoginComponent {
   }
 
   setGlobalParameter(){
+    console.log({email: this.loginForm.value.email})
     this.customerS.getCustomerids({email: this.loginForm.value.email})
     .subscribe((cIds:any)=>
     {
       if(cIds.rc == true){
+        console.log(cIds)
         this.sesStorS.setUserSession(cIds.dati.customerId,cIds.dati.cartId,cIds.dati.wishListId);
       }else{
         console.log("errore nel login...");
