@@ -44,7 +44,10 @@ export class LoginComponent {
         if(this.logged){
           this.setLoggeduser();
           this.setGlobalParameter();
-          this.redRouter.navigate(["home"])
+          this.redRouter.navigate(["home"]).then(()=>{
+            location.reload();
+          });
+
         }else{
           this.authS.resetAll();
           this.loginForm.reset();

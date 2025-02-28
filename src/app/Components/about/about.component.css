@@ -1,0 +1,142 @@
+/* Stile di base e tipografia, Retro 80 Futurwave */
+.about-page {
+  font-family: 'Orbitron', sans-serif;
+  padding: 20px;
+  background: linear-gradient(135deg, #2a2a72, #009ffd);
+  color: #ffffff;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Header: titolo e descrizione con effetto neon e glitch */
+.about-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.about-header h1 {
+  font-size: 3rem;
+  color: #ff00ff; /* Neon pink */
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  /* Combiniamo neonGlow e un effetto glitch */
+  animation: neonGlow 1.5s infinite alternate, fancyGlitch 2s infinite;
+}
+.about-header p {
+  font-size: 1.2rem;
+  color: #00ffff; /* Neon cyan */
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  animation: fadeIn 1s ease;
+}
+
+/* Contenuto principale: descrizione e animazione */
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.description {
+  flex: 1;
+  min-width: 300px;
+  margin: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ffffff;
+}
+.animation-container {
+  flex: 1;
+  min-width: 300px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Animazione: scatola con look futurwave, ora con rotazione leggera */
+.animated-box {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  border: 2px solid #ff00ff;
+  border-radius: 5px;
+  animation: pulse80 2s infinite, rotateFlicker 3s infinite linear;
+  box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+}
+
+/* Scatola vuota con immagine di una componente hardware in stile Retro 80 Futurwave */
+.hardware-box {
+  width: 300px;
+  height: 300px;
+  background: #1a1a2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+  overflow: hidden;
+}
+.hardware-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+.hardware-box:hover img {
+  transform: scale(1.05) rotate(5deg);
+}
+
+/* Footer: stile e posizionamento */
+.about-footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #cccccc;
+}
+
+/* Design responsive */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+}
+
+/* Keyframes per le animazioni */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes neonGlow {
+  from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+  to { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
+}
+@keyframes fancyGlitch {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, 2px); }
+  20% { transform: translate(2px, -2px); }
+  30% { transform: translate(-2px, 0); }
+  40% { transform: translate(2px, 2px); }
+  50% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 0); }
+  70% { transform: translate(0, 2px); }
+  80% { transform: translate(-2px, -2px); }
+  90% { transform: translate(2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes pulse80 {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #ff00ff, 0 0 40px #00ffff;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+  }
+}
+@keyframes rotateFlicker {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}

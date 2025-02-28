@@ -170,19 +170,11 @@ export class CheckoutComponent implements OnInit {
           this.snackbar.open("Ordine creato, reindirizzamento in corso...", '', {
             duration: 2500
           });
-          let dettagliProdotti = '';
-          this.orderItems.forEach((prodotto: { nome: any; quantita: number; prezzo: number; }) => {
-        dettagliProdotti += `${prodotto.nome} x ${prodotto.quantita} = €${(prodotto.prezzo * prodotto.quantita).toFixed(2)}\n`;
-      });
-      this.custS.getCustomer(this.customerId).subscribe((x:any)=>{
-        emailjs.send("service_sq6mmfs","template_clitmec", {
-          to_name: x.dati.email,
-          from_name: 'DDDR Techzone',
-          dettagli_prodotti: dettagliProdotti,
-          // altri parametri
-        });
 
-      })
+
+      this.EmailSender(this.customerId);
+
+
 
 
           setTimeout(() => {
@@ -233,6 +225,28 @@ export class CheckoutComponent implements OnInit {
         console.error("Error creating address:", err);
         this.snackbar.open("Errore nella creazione dell'indirizzo");
       }
+    });
+  }
+  private EmailSender(customerId:number) {
+    let dettagliProdotti = '';
+    this.orderItems.forEach((prodotto: { nome: any; quantita: number; prezzo: number; }) => {
+  dettagliProdotti += `${prodotto.nome} x ${prodotto.quantita} = €${(prodotto.prezzo * prodotto.quantita).toFixed(2)}\n`;
+});
+
+    this.custS.getCustomer(customerId).subscribe((x: any) => {
+      console.log(x);
+      emailjs.send(
+        "service_sq6mmfs",
+        "template_clitmec",
+        {
+          ...x, // spread customer data into the template parameters if needed
+          to_name: x.dati.email,
+          from_name: "DDDR Techzone",
+          dettagli_prodotti: dettagliProdotti,
+          // add other parameters as required
+        },
+        "OnWFkHV1CAcfM8QBv"
+      );
     });
   }
 }

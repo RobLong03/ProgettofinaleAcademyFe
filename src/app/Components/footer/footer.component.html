@@ -1,3 +1,15 @@
+<!-- Template inline per il dialog di aiuto -->
+<ng-template class="foo" style="display: block;" #helpDialog>
+  <h1 mat-dialog-title>Aiuto</h1>
+  <div mat-dialog-content>
+    <p>Qui puoi inserire le informazioni di aiuto che desideri mostrare all'utente.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Chiudi</button>
+  </div>
+</ng-template>
+
+
 <footer class="footer" >
 
   <section class="footer-links" >
@@ -19,9 +31,9 @@
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
           <h6>Useful links</h6>
           <p><a routerLink="/admin/login" class="text-reset">Admin</a></p>
-          <p><a routerLink="/admin/" class="text-reset">Settings</a></p>
+          <p><a routerLink="/about" class="text-reset">About</a></p>
           <p><a routerLink="/admin/" class="text-reset">Orders</a></p>
-          <p><a routerLink="/admin/" class="text-reset">Help</a></p>
+          <p><a (click)="openHelpDialog(helpDialog)" style="cursor: pointer;" matTooltip="Puoi contattarci con l'email per qualsiasi problema" class="text-reset">Help</a></p>
         </div>
 
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

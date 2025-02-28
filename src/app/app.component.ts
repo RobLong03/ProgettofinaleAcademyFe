@@ -1,7 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, TemplateRef } from '@angular/core';
 import { AuthServiceService } from './Auth/auth-service.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +17,10 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private authS:AuthServiceService,
-    private router:Router
-  ) { }
+    protected router:Router,
+    private dialog: MatDialog) { }
+
+
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -33,4 +36,8 @@ export class AppComponent implements OnInit {
       location.reload();
     });
   };
+
+  openHelpDialog(template: TemplateRef<any>): void {
+    this.dialog.open(template, { width: '400px' });
+  }
 }

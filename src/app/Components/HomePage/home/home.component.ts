@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProductService } from '../../../services/products/product.service';
-
+import { CustomerService } from '../../../services/customer/customer.service';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -28,7 +29,7 @@ currentIndex: any;
     { image: "https://i.ibb.co/7dYFCy3h/cpu.jpg" },
     { image: "https://i.ibb.co/dJkZ9BRK/products.jpg" } // Generic product image
   ];
-  constructor(private prodS: ProductService) {}
+  constructor(private prodS: ProductService,private custS:CustomerService) {}
 
   ngOnInit(): void {
     this.prodS.listProduct()
@@ -70,8 +71,9 @@ autoMoveCarousel(count = Math.floor(Math.random() * 10)): void {
 // Go to a specific slide when an indicator is clicked
 goToSlide(index: number): void {
   this.currentIndex = index;
+
 }
 
-
+//da finire
 
 }

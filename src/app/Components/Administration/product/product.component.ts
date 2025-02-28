@@ -20,6 +20,7 @@ export class ProductComponent  implements OnInit , AfterViewInit {
 
 
 
+
   productList!: Product[];
   displayedColumns: string[] = ['Model', 'Brand', 'Price', 'Type', 'Actions'];
   public dataSource!: MatTableDataSource<Product>;
@@ -127,7 +128,10 @@ export class ProductComponent  implements OnInit , AfterViewInit {
       }
     });
   }
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
     addToWishlist(_t65: any) {
     throw new Error('Method not implemented.');
