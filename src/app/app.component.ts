@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   title = 'ProjectBetaFE';
   admin: boolean = false;
   islogged: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private authS:AuthServiceService,

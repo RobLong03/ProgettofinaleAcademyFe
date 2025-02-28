@@ -12,9 +12,10 @@
 
       <!-- Spacer pushes the menu items to the right -->
       <span class="menu-spacer"></span>
-    <a  routerLink="/about" mat-button>About</a>
+    <!-- <a  routerLink="/about" mat-button>About</a> -->
     <a mat-button (click)="openHelpDialog(helpDialog)">Help</a>
       <!-- Inline menu items only on medium and larger screens -->
+
       <div fxShow.gt-sm>
         <button mat-button [matMenuTriggerFor]="menu">Products</button>
         <mat-menu class="disappear" #menu="matMenu" style="overflow: hidden;" yPosition="below">
@@ -91,10 +92,33 @@
         <a *ngIf="islogged" class="disappear" routerLink="/@me/wishlist" mat-button><i class="material-icons">stars</i>Wishlist</a>
         <a *ngIf="islogged" class="disappear" routerLink="/@me/cart" mat-button><i class="material-icons">shopping_cart</i>Cart</a>
 
-        <a *ngIf="!islogged" class="disappear" routerLink="/login" mat-button><i class="material-icons">login</i>Login</a>
-        <a *ngIf="islogged" class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
+        <a *ngIf="!islogged&&(!admin)" class="disappear" routerLink="/login" mat-button><i class="material-icons">login</i>Login</a>
 
-        <a *ngIf="admin&&islogged" class="disappear" routerLink="/admin"mat-button><i class="material-icons">admin_panel_settings</i>Admin</a>
+       
+
+        <span *ngIf="islogged">
+          <button mat-button [matMenuTriggerFor]="customer"> &#64;Me </button>
+          <mat-menu class="disappear" #customer="matMenu" style="overflow: hidden;" yPosition="below">
+            <mat-list style="overflow: hidden;">
+              <a routerLink="/@me/update" style="cursor: pointer; overflow: hidden;" mat-list-item>
+                <i class="material-icons">account_box</i>
+                Dettagli profilo
+              </a>
+  
+              <a routerLink="/@me/orders" style="cursor: pointer; overflow: hidden;" mat-list-item>
+                <i class="material-icons">receipt_long</i>
+               Storico Ordini
+              </a>
+
+              <a class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
+
+            </mat-list>
+          </mat-menu>
+        </span>
+
+        <a *ngIf="admin" class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
+
+        <a *ngIf="admin" class="disappear" routerLink="/admin"mat-button><i class="material-icons">admin_panel_settings</i>Admin</a>
       </div>
 
     </mat-toolbar-row>
@@ -143,7 +167,7 @@
         About
       </a>
       <a
-        routerLink="/admin/login"
+        routerLink="/admin"
         routerLinkActive="is-active"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="sidenav.toggle()"

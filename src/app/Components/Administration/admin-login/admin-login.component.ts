@@ -43,7 +43,11 @@ export class AdminLoginComponent {
 
         if(this.logged){
           this.setLoggeduser();
-          this.redRouter.navigate(["admin"]);
+          setTimeout(() => {
+            this.redRouter.navigate(["admin"]).then(() => {
+              location.reload();
+            });
+          }, 1000);
         }else{
           this.authS.resetAll();
           this.loginForm.reset();
