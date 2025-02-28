@@ -1,34 +1,57 @@
 <div class="cart-container">
-  <div class="product-list">
-    <div *ngFor="let item of items" class="product-row">
-      <mat-card class="product-card" appearance="outlined">
-        <div class="product-details">
-          <img class="product-image" [src]="item.product.dati.imageUrl" alt="Product Image" />
-          <div class="product-info">
-            <h3>{{ item.product.dati.model }}</h3>
-            <p>{{ item.product.dati.brand }}</p>
-            <p>{{ item.product.dati.description }}</p>
-            <h5>Price: {{ item.product.dati.price | currency : 'EUR' }}</h5>
-            <div class="quantity-container">
-              <button mat-mini-button color="primary" (click)="addQuantity(item.id)">+</button>
-              <span>{{ item.quantity }}</span>
-              <button mat-mini-button color="primary" (click)="reduceItem(item.id)">-</button>
+  <h2 class="cart-title">My Cart</h2>
+
+  <div *ngIf="items.length > 0; else emptyCartMessage">
+    <div class="product-list">
+      <div *ngFor="let item of items" class="product-row">
+        <mat-card class="product-card" appearance="outlined">
+          <div class="product-details">
+            <img class="product-image" [src]="item.product.dati.imageUrl" alt="Product Image" />
+            <div class="product-info">
+              <h3>{{ item.product.dati.model }}</h3>
+              <p class="product-brand">{{ item.product.dati.brand }}</p>
+              <p>{{ item.product.dati.description }}</p>
+              <h5>Each: {{ item.product.dati.price | currency : 'EUR' }}</h5>
+              <div class="quantity-container">
+                <label>Quantity:</label>
+                <button mat-icon-button color="primary" (click)="reduceItem(item.id)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span>{{ item.quantity }}</span>
+                <button mat-icon-button color="primary" (click)="addQuantity(item.id)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="product-total">
+              <h5>Total: {{ (item.product.dati.price * item.quantity) | currency : 'EUR' }}</h5>
             </div>
             <button mat-icon-button color="warn" (click)="deleteItem(item.id); $event.stopPropagation()">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
-        </div>
-      </mat-card>
+        </mat-card>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div class="total-price">
+      <h3>Estimated Total: {{ totalPrice | currency: 'EUR' }}</h3>
+    </div>
+
+    <div class="checkout-button-container">
+      <button class="empty-cart-button" mat-stroked-button (click)="emptyCart()">
+        Empty Cart
+      </button>
+      <button class="checkout-button" mat-raised-button [routerLink]="['/@me/checkout']">
+        Go to Checkout
+      </button>
     </div>
   </div>
 
-  <div class="total-price">
-    <h3>Total Price: {{ totalPrice | currency: 'EUR' }}</h3>
-  </div>
-
-  <div class="checkout-button-container">
-    <button mat-raised-button color="accent" [routerLink]="['/@me/checkout']">
-      Go to Checkout
-    </button>
-  </div>
+  <ng-template #emptyCartMessage>
+    <div class="empty-cart-message">
+      <p>Your cart is empty.</p>
+    </div>
+  </ng-template>
+</div>

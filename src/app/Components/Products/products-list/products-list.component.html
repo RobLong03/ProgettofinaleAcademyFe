@@ -1,8 +1,6 @@
 <mat-drawer-container class="example-container">
   <mat-drawer mode="side" opened>
-
     <form *ngIf="formRetrieveFilter" [formGroup]="formRetrieveFilter" (ngSubmit)="retrieveFilter()">
-
       <button mat-raised-button color="primary" type="submit">Apply filter</button>
 
       <div class="checkbox-section">
@@ -35,8 +33,8 @@
         </div>
       </div>
     </form>
-
   </mat-drawer>
+
   <mat-drawer-content>
     <div *ngIf="productList && productList.length > 0">
       <div class="card-container">
@@ -47,27 +45,31 @@
           (click)="onClick(prod.id)">
           
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{ prod?.model }}</mat-card-title>
+            <mat-card-title class="card-title">{{ prod?.model }}</mat-card-title>
             <mat-card-subtitle>{{ prod?.brand }}</mat-card-subtitle>
           </mat-card-header>
 
-          <img mat-card-image [src]="prod?.imageUrl" alt="Photo of {{ prod?.model }}" class="product-image" />
+          <div class="image-container">
+            <img mat-card-image [src]="prod?.imageUrl" alt="Photo of {{ prod?.model }}" class="product-image" />
+          </div>
 
           <mat-card-content>
             <p class="product-description">{{ prod?.description?.description }}</p>
             <p class="product-price">{{ prod?.price | currency: 'EUR': 'symbol-narrow' }}</p>
           </mat-card-content>
 
-          <mat-card-actions>
-            <button mat-button class="action-button" (click)="addToCart(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn"><i class="material-icons">add_shopping_cart</i></button>
-            <button mat-button class="action-button" (click)="addToWishlist(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn"><i class="material-icons">stars</i></button>
+          <mat-card-actions class="card-actions">
+            <button mat-button class="action-button" (click)="addToCart(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn">
+              <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+            <button mat-button class="action-button" (click)="addToWishlist(prod?.id); $event.stopPropagation();" [disabled]="!isLoggedIn">
+              <mat-icon>stars</mat-icon>
+            </button>
           </mat-card-actions>
         </mat-card>
       </div>
     </div>
 
-    <!-- Show fallback message when productList is empty or null -->
     <div *ngIf="!productList || productList.length === 0 && !showSpinner">
       <div class="no-products-message">
         <p>No products available at the moment. Please check back later!</p>
@@ -75,10 +77,9 @@
     </div>
 
     <div *ngIf="category">
-      <button mat-button (click)="goback()" style="float: left;">
+      <button mat-button (click)="goback()" class="back-button">
         <mat-icon>arrow_back</mat-icon> BACK
       </button>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-
