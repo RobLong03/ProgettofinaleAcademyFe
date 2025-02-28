@@ -10,6 +10,8 @@ import { StorageService } from '../../../services/products/storage.service';
 import { WishlistItemService } from '../../../services/wishlist/wishlist-item.service';
 import { Location } from '@angular/common';
 import { CartItemService } from '../../../services/cart/cart-item.service';
+import { SessionStorageService } from '../../../utils/session-storage.service';
+import { AuthServiceService } from '../../../Auth/auth-service.service';
 
 @Component({
   selector: 'app-specific-product',
@@ -18,6 +20,9 @@ import { CartItemService } from '../../../services/cart/cart-item.service';
 })
 export class SpecificProductComponent implements OnInit {
   product: any;
+  isLoggedIn:boolean=false;
+  customerId: number | null=0;
+  wishlistId: number | null=0;
 
   constructor(
     private caseS: CaseService,
@@ -31,8 +36,14 @@ export class SpecificProductComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private wishlItemS: WishlistItemService,
-    private cartItems: CartItemService
-  ) {}
+    private cartItemS: CartItemService,
+    private userValues:SessionStorageService,
+    private authS:AuthServiceService
+  ) {
+    this.customerId = parseInt(this.userValues.idCliente!);
+    this.wishlistId = parseInt(this.userValues.idWishListCliente!);
+    this.isLoggedIn = this.authS.isAuthenticatedCustomer();
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -77,10 +88,15 @@ export class SpecificProductComponent implements OnInit {
   }
 
   addToWishlist(productId: number) {
-    this.wishlItemS.createWishlistItem({ productId }, 2).subscribe(
-      (resp: any) => console.log(resp.rc),
-      error => console.error("Error adding to wishlist:", error)
-    );
+    this.wishlItemS.createWishlistItem({ productId }, this.customerId!).subscribe((resp: any) => {
+      console.log(resp.rc);
+    });
+  }
+
+  addToCart(productId:number) {
+    this.cartItemS.createCartItem({ productId }, this.customerId!).subscribe((resp: any) => {
+      console.log(resp.rc);
+    });
   }
 
   goback() {
