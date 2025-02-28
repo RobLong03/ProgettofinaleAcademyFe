@@ -42,6 +42,7 @@ export class AdProductComponent implements OnInit, DoCheck {
   //per le immagini
   private readonly UPLOADPRESET = 'projecthardware';
   selectedFile!: File;
+  isFileSelected : boolean = false;
   imageUrl: string = '';
 
   constructor(
@@ -107,7 +108,6 @@ export class AdProductComponent implements OnInit, DoCheck {
       service.subscribe(
         (product: any) => {
           this.editData = product.dati;
-
           this.patchFormValues();
         },
         (error: any) => {
@@ -116,6 +116,7 @@ export class AdProductComponent implements OnInit, DoCheck {
       );
     }
   }
+
   ngDoCheck(): void {
     if (!this.dialogRef) return; // Ensure logic runs only when the dialog is open
 
@@ -196,6 +197,7 @@ export class AdProductComponent implements OnInit, DoCheck {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
   patchFormValues(): void {
+    this.isFileSelected = true;
     if (this.editData) {
       this.myform.patchValue({
         brand: this.editData.brand,
@@ -368,6 +370,7 @@ export class AdProductComponent implements OnInit, DoCheck {
       this.selectedFile = event.target.files[0];
     }
     this.uploadImage();
+    this.isFileSelected = true;
   }
 
   uploadImage() {
@@ -398,7 +401,7 @@ export class AdProductComponent implements OnInit, DoCheck {
 
   checkForImageUpdate($event: any) {
     console.log($event);
-    if (!this.selectedFile) {
+    if (!this.isFileSelected) {
       let imgUrl = '';
     
       switch ($event) {
@@ -440,7 +443,7 @@ export class AdProductComponent implements OnInit, DoCheck {
 
   checkImageFieldStorage($event:any){
     console.log($event);
-    if (!this.selectedFile || (this.selectedFile && !this.myform.value.imageUrl)){
+    if (!this.isFileSelected || (this.isFileSelected && !this.myform.value.imageUrl)){
       let imgUrl = '';
       switch ($event) {
         case 'SSD_DATA':
