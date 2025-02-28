@@ -228,10 +228,13 @@ export class CheckoutComponent implements OnInit {
     });
   }
   private EmailSender(customerId:number) {
-    let dettagliProdotti = '';
-    this.orderItems.forEach((prodotto: { nome: any; quantita: number; prezzo: number; }) => {
-  dettagliProdotti += `${prodotto.nome} x ${prodotto.quantita} = €${(prodotto.prezzo * prodotto.quantita).toFixed(2)}\n`;
-});
+    let dettagliProdotti = ``;
+    let shippingAddress = `\n ${this.selectedAddress.country} ,  ${this.selectedAddress.postalCode}  , ${this.selectedAddress.city} ,  ${this.selectedAddress.street} ,  ${this.selectedAddress.houseNumber}` 
+    this.orderItems.forEach((prodotto:any) => {
+  dettagliProdotti += `${prodotto.brand} ${prodotto.model} \n Prezzo Singolo: €${(prodotto.price) .toFixed(2)} | qty =  ${prodotto.quantity} | prezzo totale : ${(prodotto.price * prodotto.quantity).toFixed(2)} \n\n`;
+}); 
+
+    dettagliProdotti += `\n Prezzo totale del ordine: ${this.totalprice} \n Metodo di pagamento scelto: ${this.paymentMethod} `
 
     this.custS.getCustomer(customerId).subscribe((x: any) => {
       console.log(x);
@@ -243,6 +246,7 @@ export class CheckoutComponent implements OnInit {
           to_name: x.dati.email,
           from_name: "DDDR Techzone",
           dettagli_prodotti: dettagliProdotti,
+          indirizzo_spedizione : shippingAddress
           // add other parameters as required
         },
         "OnWFkHV1CAcfM8QBv"
