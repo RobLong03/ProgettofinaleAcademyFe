@@ -1,69 +1,53 @@
-.product-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Spazio tra le righe */
-    width: 100%;
-  }
-  
-  .product-row {
-    width: 75%; /* Occupa quasi tutta la larghezza */
-    margin: 0 auto; /* Centra gli elementi */
-    cursor: pointer;
-  }
-  
-  .product-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .product-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 10px;
-  }
-  
-  .product-content img {
-    width: 250px; /* Dimensione immagine */
-    height: auto;
-  }
-  
-  .product-info {
-    flex-grow: 1;
-  }
-  
-  mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+}
 
-  .button-container {
-    text-align: center;
-    margin-bottom: 20px; /* opzionale, per dare un po' di spazio */
-  }
-  
-  /* Stili per la "X" e per la gestione della quantità */
-.remove-item {
-  font-size: 20px;
-  color: red;
-  font-weight: bold;
-  background: none;
-  border: none;
+.product-list {
+  width: 100%;
+}
+
+.product-row {
+  margin-bottom: 15px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  padding-left: 20px;;
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+}
+
+.product-image {
+  width: 180px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .quantity-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
-.quantity-container button {
-  padding: 5px 10px;
-  font-size: 16px;
-}
-
-.quantity-container span {
-  font-size: 16px;
-  font-weight: bold;
+.total-price, .checkout-button-container {
+  text-align: right;
+  width: 100%;
+  margin-top: 20px;
 }
