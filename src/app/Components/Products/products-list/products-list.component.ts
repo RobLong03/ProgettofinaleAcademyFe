@@ -178,6 +178,8 @@ export class ProductsListComponent implements OnInit {
         this.brands.push({ name:brand, selected:false });
       }
     });
+
+    console.log(this.types);
   }
 
   initializeFilterForm(checked:boolean):void {
@@ -196,6 +198,13 @@ export class ProductsListComponent implements OnInit {
     this.selectedTypes=selectedTypesFormArray.controls
       .map((ctrl, i) => (ctrl.value ? this.types[i].name : null))
       .filter(name => name!==null) as string[];
+
+    //sostituisco case con cases
+    if(this.selectedTypes.includes("case")) {
+      let num=this.selectedTypes.indexOf("case");
+
+      this.selectedTypes[num]="cases";
+    }
 
     const selectedBrandsFormArray=this.formRetrieveFilter.get('selectedBrandsForm') as FormArray;
     this.selectedBrands=selectedBrandsFormArray.controls
