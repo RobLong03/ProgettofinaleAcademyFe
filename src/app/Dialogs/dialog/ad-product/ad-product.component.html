@@ -7,6 +7,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Brand</mat-label>
           <input matInput formControlName="brand" required />
+          
         </mat-form-field>
       </div>
 
@@ -56,6 +57,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Product Type</mat-label>
           <mat-select formControlName="type" (valueChange)="checkForImageUpdate($event)"  >
+            <mat-option value="product">Product</mat-option>
             <mat-option value="cpu">CPU</mat-option>
             <mat-option value="gpu">GPU</mat-option>
             <mat-option value="ram">RAM</mat-option>
@@ -172,7 +174,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Storage Type</mat-label>
           <mat-select formControlName="stype" placeholder="Select Storage Type" (valueChange)="checkImageFieldStorage($event)" >
-            <mat-option *ngFor="let type of storageTypes" [value]="type"  >  
+            <mat-option *ngFor="let type of storageTypes" [value]="type"  >
               {{ type }}
             </mat-option>
           </mat-select>

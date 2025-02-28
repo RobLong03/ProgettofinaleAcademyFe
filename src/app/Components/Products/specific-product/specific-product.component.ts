@@ -12,6 +12,8 @@ import { Location } from '@angular/common';
 import { CartItemService } from '../../../services/cart/cart-item.service';
 import { SessionStorageService } from '../../../utils/session-storage.service';
 import { AuthServiceService } from '../../../Auth/auth-service.service';
+import { Product } from '../../../Interfaces/order';
+import { ProductService } from '../../../services/products/product.service';
 
 @Component({
   selector: 'app-specific-product',
@@ -32,7 +34,7 @@ export class SpecificProductComponent implements OnInit {
     private psuS: PsuService,
     private ramS: RamService,
     private storageS: StorageService,
-    private zone: NgZone,
+    private prodS: ProductService,
     private route: ActivatedRoute,
     private location: Location,
     private wishlItemS: WishlistItemService,
@@ -58,6 +60,7 @@ export class SpecificProductComponent implements OnInit {
 
 
       const serviceMap: { [key: string]: any } = {
+        product: this.prodS.getProduct(id),
         case: this.caseS.getCase(id),
         cpu: this.cpuS.getCpu(id),
         gpu:this.gpuS.getGpu(id),

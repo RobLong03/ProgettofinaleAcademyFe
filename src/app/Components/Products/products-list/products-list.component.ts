@@ -64,6 +64,10 @@ export class ProductsListComponent implements OnInit {
     //prendo il prodotto dalla lista con id
     if (productChosen) {
       switch (productChosen.type.toLowerCase()) {
+        case "product":
+          console.log("Il prodotto scelto contiene 'Product' nella descrizione.");
+          this.router.navigate(['product/product/' + productChosen.id]);
+          break;
         case "case":
           console.log("Il prodotto scelto contiene 'Case' nella descrizione.");
           this.router.navigate(['product/case/' + productChosen.id]);
@@ -93,7 +97,7 @@ export class ProductsListComponent implements OnInit {
           console.log("Il prodotto scelto contiene 'gpu' nella descrizione.");
           this.router.navigate(['product/gpu/' + productChosen.id]);
           break;
-          
+
         default:
           alert("Prodotto non trovato")
       }
@@ -101,6 +105,7 @@ export class ProductsListComponent implements OnInit {
 
     const productType = productChosen.type.trim().toLowerCase();
     const categoryRoutes: { [key: string]: string } = {
+      product:"product",
       case: "case",
       cpu: "cpu",
       ram: "ram",
@@ -126,6 +131,7 @@ export class ProductsListComponent implements OnInit {
       this.productList={};
 
       const serviceMap: { [key: string]: any } = {
+        product: this.prodS.listProduct(),
         case: this.caseS.listCase(),
         cpu: this.cpuS.listCpu(),
         ram: this.ramS.listRam(),
@@ -162,7 +168,7 @@ export class ProductsListComponent implements OnInit {
       }
     });
   }
-  
+
   initializeFilter() {
 
     this.productList.forEach((product:any) => {
@@ -200,6 +206,7 @@ export class ProductsListComponent implements OnInit {
       .filter(name => name!==null) as string[];
 
     //sostituisco case con cases
+    
     if(this.selectedTypes.includes("case")) {
       let num=this.selectedTypes.indexOf("case");
 
