@@ -12,7 +12,8 @@
 
       <!-- Spacer pushes the menu items to the right -->
       <span class="menu-spacer"></span>
-
+    <a  routerLink="/about" mat-button>About</a>
+    <a mat-button (click)="openHelpDialog(helpDialog)">Help</a>
       <!-- Inline menu items only on medium and larger screens -->
       <div fxShow.gt-sm>
         <button mat-button [matMenuTriggerFor]="menu">Products</button>
@@ -104,13 +105,53 @@
     <!-- SIDENAV (opens from left) -->
     <mat-sidenav #sidenav mode="over">
       <mat-nav-list>
-        <a (click)="sidenav.toggle()" href="#" mat-list-item>Close</a>
-        <a href="#" mat-list-item>Menu Item 1</a>
-        <a href="#" mat-list-item>Menu Item 2</a>
-        <a href="#" mat-list-item>Menu Item 3</a>
-        <a href="#" mat-list-item>Menu Item 4</a>
-        <a href="#" mat-list-item>Menu Item 5</a>
-        <a href="#" mat-list-item>Menu Item 6</a>
+<a (click)="sidenav.toggle()" mat-list-item>Close</a>
+      <a
+        routerLink="/home"
+
+
+        (click)="sidenav.toggle()"
+        mat-list-item
+      >
+        Home
+      </a>
+      <a
+        routerLink="/login"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="sidenav.toggle()"
+        mat-list-item
+      >
+        Login
+      </a>
+      <a
+        routerLink="/register"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="sidenav.toggle()"
+        mat-list-item
+      >
+        Register
+      </a>
+      <a
+        routerLink="/about"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="sidenav.toggle()"
+        mat-list-item
+      >
+        About
+      </a>
+      <a
+        routerLink="/admin/login"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="sidenav.toggle()"
+        mat-list-item
+      >
+        Admin Login
+      </a>
+
       </mat-nav-list>
     </mat-sidenav>
 
@@ -122,6 +163,15 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+<ng-template class="foo" style="display: block;" #helpDialog>
+  <h1 mat-dialog-title>Aiuto</h1>
+  <div mat-dialog-content>
+    <p>Qui puoi inserire le informazioni di aiuto che desideri mostrare all'utente.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Chiudi</button>
+  </div>
+</ng-template>
 
 <!-- FOOTER COMPONENT -->
 <app-footer></app-footer>

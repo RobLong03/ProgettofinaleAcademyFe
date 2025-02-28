@@ -124,3 +124,10 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #00ccff !important; /* Neon blue */
 }
+.foo {
+  text-align: center;     /* Centra il testo all'interno del footer */
+  padding: 20px;          /* Spaziatura interna */
+  background-color: #f1f1f1; /* Colore di sfondo */
+  width: 100%;            /* Occupa tutta la larghezza */
+  margin-top: 40px;       /* Spazio sopra il footer */
+}

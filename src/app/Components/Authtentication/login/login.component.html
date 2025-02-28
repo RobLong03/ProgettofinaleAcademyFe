@@ -14,14 +14,15 @@
                   <label for="password" class="form-label">Inserisci la tua password:</label>
                   <input type="password" class="form-control" id="password" placeholder="password" formControlName="password" required>
               </div>
-              <button type="submit" class="btn btn-outline-primary w-100" [disabled]="loginForm.invalid">Login</button>
+              <button type="submit" class="btn btn-outline-primary w-100" [disabled]="loginForm.invalid || isLoading">Login</button>
           </form>
+          <div *ngIf="isLoading" class="spinner-border text-primary mt-3" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
       </div>
       <h6 class="mb-3 d-flex justify-content-center">Registrati qui</h6>
-  <button routerLink="/register" class="btn btn-primary">
-    Registra utente
-  </button>
+      <button routerLink="/register" class="btn btn-primary">
+        Registra utente
+      </button>
   </div>
-
-
 </div>

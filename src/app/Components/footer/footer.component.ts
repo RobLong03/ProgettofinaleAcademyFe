@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   host: { 'hostID': crypto.randomUUID().toString() }
 })
 export class FooterComponent {
+  constructor(private dialog: MatDialog) {}
+
+  openHelpDialog(template: TemplateRef<any>): void {
+    this.dialog.open(template, { width: '400px' });
+  }
 
 }

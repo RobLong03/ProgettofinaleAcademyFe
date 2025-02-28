@@ -14,6 +14,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   response: any;
   logged: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder,
               private customerS : CustomerService,
@@ -27,37 +28,42 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
-    console.log("login clicked")
-    if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
+onSubmit() {
+  this.isLoading = true;
+  console.log("login clicked")
+  if (this.loginForm.valid) {
+    console.log('Login data:', this.loginForm.value);
 
+    this.customerS.signInCustomer({
+      username: this.loginForm.value.email,
+      pwd: this.loginForm.value.password
+    }).subscribe((rsp:any)=>{
+      console.log(rsp.logged);
+      this.response = rsp;
+      this.logged = rsp.logged;
 
-      this.customerS.signInCustomer({
-        username: this.loginForm.value.email,
-        pwd: this.loginForm.value.password
-      }).subscribe((rsp:any)=>{
-        console.log(rsp.logged);
-        this.response = rsp;
-        this.logged = rsp.logged;
-
-        if(this.logged){
-          this.setLoggeduser();
-          this.setGlobalParameter();
-          this.redRouter.navigate(["home"])
-        }else{
-          this.authS.resetAll();
-          this.loginForm.reset();
-        }
-
-
-      });
-    } else {
-      console.log('Form non valido');
-      this.loginForm.reset();
-    }
+      if(this.logged){
+        this.setLoggeduser();
+        this.setGlobalParameter();
+        setTimeout(() => {
+          this.redRouter.navigate(["home"]).then(() => {
+            location.reload();
+          });
+        }, 1000);
+      } else {
+        this.authS.resetAll();
+        this.loginForm.reset();
+        this.isLoading = false;
+      }
+    }, error => {
+      console.error('Login error', error);
+      this.isLoading = false;
+    });
+  } else {
+    console.log('Form non valido');
+    this.loginForm.reset();
   }
-
+}
   setLoggeduser(){
     this.authS.setLoggedInCustomer();
   }
@@ -78,5 +84,4 @@ export class LoginComponent {
     }
     )
   }
-
 }
