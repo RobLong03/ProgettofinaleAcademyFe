@@ -1,0 +1,14 @@
+.fld {
+  width: 20%;
+}
+
+.my-icon {
+  z-index: 1;
+  position: relative;
+}
+
+#reg {
+  cursor: pointer;
+  float: right;
+  top: 0;
+}

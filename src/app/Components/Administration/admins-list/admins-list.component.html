@@ -1,0 +1,116 @@
+<!-- Form Section: Create/Update Administrator -->
+<mat-card>
+  <h2>{{ isEditMode ? 'Edit Administrator' : 'Create Administrator' }}</h2>
+  <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" formControlName="username" type="text" />
+      <mat-error *ngIf="adminForm.get('username')?.hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email" />
+      <mat-error *ngIf="adminForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="adminForm.get('email')?.hasError('email')">
+        Please enter a valid email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fld" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Password"
+        formControlName="password"
+        [type]="isVisibile ? 'text' : 'password'"
+      />
+      <button mat-icon-button type="button"  matTooltip="{{ isVisibile ? 'nascondi' : 'visualizza' }}" matSuffix (click)="toggleVisibility()" tabindex="-1">
+        <mat-icon style="color: antiquewhite;">
+          {{ isVisibile ? 'remove_red_eye' : 'visibility_off' }}
+        </mat-icon>
+      </button>
+      <mat-error *ngIf="adminForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+
+    <div>
+      <button mat-raised-button color="primary" type="submit">
+        {{ isEditMode ? 'Update' : 'Create' }}
+      </button>
+      <button mat-raised-button color="accent" type="button" (click)="resetForm()">
+        Clear
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+
+<!-- Listing Administrators -->
+<mat-card>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <mat-card-content >
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let admin"> {{ admin.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+        <td mat-cell *matCellDef="let admin"> {{ admin.username }} </td>
+      </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let admin"> {{ admin.email }} </td>
+      </ng-container>
+
+      <!-- Password Column -->
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
+        <td mat-cell *matCellDef="let admin"> {{ admin.password }} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let admin">
+          <button mat-icon-button color="primary" (click)="editAdmin(admin)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="openDeleteDialog(admin)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+  <div *ngIf="!admins || admins.length === 0 && !loading">
+    <p>No Administrators available at the moment.</p>
+  </div>
+</mat-card>
+
+<!-- Delete Confirmation Dialog Template -->
+<ng-template #deleteDialog let-data>
+  <h2 mat-dialog-title>Confirm Deletion</h2>
+  <mat-dialog-content>Are you sure you want to delete this administrator?</mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button color="warn" (click)="deleteAdmin(data.id)">Delete</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</ng-template>

@@ -87,12 +87,13 @@
           </mat-list>
         </mat-menu>
 
-        <a *ngIf="islogged" class="disappear" routerLink="/@me/wishlist" mat-button>Wishlist</a>
+        <a *ngIf="islogged" class="disappear" routerLink="/@me/wishlist" mat-button><i class="material-icons">stars</i>Wishlist</a>
+        <a *ngIf="islogged" class="disappear" routerLink="/@me/cart" mat-button><i class="material-icons">shopping_cart</i>Cart</a>
 
-        <a *ngIf="!islogged" class="disappear" routerLink="/login" mat-button>Login</a>
-        <a *ngIf="islogged" class="disappear"routerLink="/home" (click)="logout()" mat-button>Logout</a>
+        <a *ngIf="!islogged" class="disappear" routerLink="/login" mat-button><i class="material-icons">login</i>Login</a>
+        <a *ngIf="islogged" class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
 
-        <a *ngIf="admin&&islogged" class="disappear" routerLink="/admin"mat-button>Admin</a>
+        <a *ngIf="admin&&islogged" class="disappear" routerLink="/admin"mat-button><i class="material-icons">admin_panel_settings</i>Admin</a>
       </div>
 
     </mat-toolbar-row>

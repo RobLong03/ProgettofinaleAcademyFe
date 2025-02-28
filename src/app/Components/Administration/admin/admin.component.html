@@ -15,6 +15,7 @@
         <a mat-list-item routerLink="orders">
           <mat-icon class="icon">receipt_long</mat-icon> Gestione Ordini
         </a>
+        
       </mat-nav-list>
     </mat-sidenav>
 
@@ -30,10 +31,17 @@
           <mat-icon>add</mat-icon>
          </button>
 
+         <a style="display: none;" [routerLink]="['/admin/list']" routerLinkActive="active" #AdminLink="routerLinkActive"></a>
 
-        <button matTooltip="Gestione Admins" mat-icon-button>
-          <mat-icon>account_circle</mat-icon>
+        <button  *ngIf="!AdminLink.isActive" [routerLink]="['/admin/list']" matTooltip="Gestione Admins" mat-icon-button>
+           <mat-icon>account_circle</mat-icon>
+          </button>
+
+         <button *ngIf="AdminLink.isActive" [routerLink]="['/admin/list']" matTooltip="Indietro" mat-icon-button (click)="goback()"style="float: left;">
+          <mat-icon>arrow_back</mat-icon>
         </button>
+
+
       </mat-toolbar>
       <div class="main-content">
         <router-outlet></router-outlet>

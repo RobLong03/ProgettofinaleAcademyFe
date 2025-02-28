@@ -66,7 +66,7 @@ export class ProductComponent  implements OnInit , AfterViewInit {
     this.prodS.listProduct().subscribe((x: any) => {
       this.showSpinner = false;
       this.response = x;
-      this.productList = this.response.dati; // Assumendo che i dati siano sotto 'dati'
+      this.productList = this.response.dati;
       this.dataSource = new MatTableDataSource<Product>(this.productList);
       // Associa paginator e sort alla data source
       this.dataSource.paginator = this.paginator;

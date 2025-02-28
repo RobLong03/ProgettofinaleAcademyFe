@@ -31,8 +31,8 @@ export class LoginComponent {
     console.log("login clicked")
     if (this.loginForm.valid) {
       console.log('Login data:', this.loginForm.value);
-      
-      
+
+
       this.customerS.signInCustomer({
         username: this.loginForm.value.email,
         pwd: this.loginForm.value.password
@@ -44,12 +44,12 @@ export class LoginComponent {
         if(this.logged){
           this.setLoggeduser();
           this.setGlobalParameter();
-          this.redRouter.navigate(["home"]);
+          this.redRouter.navigate(["home"])
         }else{
           this.authS.resetAll();
           this.loginForm.reset();
         }
-        
+
 
       });
     } else {
@@ -63,10 +63,12 @@ export class LoginComponent {
   }
 
   setGlobalParameter(){
+    console.log({email: this.loginForm.value.email})
     this.customerS.getCustomerids({email: this.loginForm.value.email})
     .subscribe((cIds:any)=>
     {
       if(cIds.rc == true){
+        console.log(cIds)
         this.sesStorS.setUserSession(cIds.dati.customerId,cIds.dati.cartId,cIds.dati.wishListId);
       }else{
         console.log("errore nel login...");

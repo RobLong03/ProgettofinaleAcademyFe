@@ -1,39 +1,48 @@
-<div class="body ">
+<div class="body">
+  <div class="row">
+    <!-- Intro Section -->
+    <div class="col-md-4 content">
+      <section id="intro">
+        <h1>Benvenuto su TechZone</h1>
+        <p class="p bg-dark p-4 mt-4 me-1 text-white rounded-pill">
+          Il tuo negozio di componenti hardware di qualità! Scopri il meglio della tecnologia con TechZone,
+          il punto di riferimento per gli appassionati di hardware e professionisti del settore.
+        </p>
+      </section>
+    </div>
 
-
-
-<div class="row ">
-
-  <div class="col-md-4 content ">
-
-
-    <section id="intro">
-      <h1 >Benvenuto su TechZone</h1>
-        <p class="p bg-dark p-4 mt-4 me-1 text-white rounded-pill">Il tuo negozio di componenti hardware di qualità! Scopri il meglio della tecnologia con TechZone,
-        il punto di riferimento per gli appassionati di hardware e professionisti del settore.</p>
-    </section>
-  </div>
-
-    <section  class="col-md-4" id="componenti">
-        <h2 class="bg-dark p-2 mt-4 text-white bg-opacity-75 rounded-pill" >🚀Le parti hardware</h2>
-        <ul>
-            <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Processori:</strong> Ultime generazioni Intel e AMD.</p>
-            <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Schede Video:</strong> GPU NVIDIA e AMD per grafica senza compromessi.</p>
-            <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ Memorie RAM:</strong> DDR4 e DDR5 per velocità e stabilità.</p>
-            <p class="p bg-dark p-2 mt-4 me-1 text-white  rounded-pill"><strong>✔ SSD e HDD:</strong> Archiviazione ultraveloce.</p>
-        </ul>
-    </section>
-    <section class="col-md-4"   id="perche-noi">
-      <h2 class="bg-dark p-2 mt-4 me-1 text-white bg-opacity-75 rounded-pill">🎯Perché scegliere noi?</h2>
+    <!-- Hardware Components Section -->
+    <section class="col-md-4" id="componenti">
+      <h2 class="bg-dark p-2 mt-4 text-white bg-opacity-75 rounded-pill">🚀 Le parti hardware</h2>
       <ul>
-          <p class="p me-1  bg-dark p-2 mt-4 me-1 text-white  rounded-pill">Prodotti selezionati e garantiti.</p>
-          <p class="p me-1 bg-dark p-2 mt-4 me-1 text-white  rounded-pill">Prezzi competitivi e offerte esclusive.</p>
-          <p class="p me-1 p bg-dark p-2 mt-4 me-1 text-white  rounded-pill">Assistenza esperta e personalizzata.</p>
-          <p class="p me-1 p bg-dark p-2 mt-4 me-1 text-white  rounded-pill">Spedizioni rapide in tutta Italia.</p>
+        <p class="p bg-dark p-2 mt-4 me-1 text-white rounded-pill">
+          <strong>✔ Processori:</strong> Ultime generazioni Intel e AMD.
+        </p>
+        <p class="p bg-dark p-2 mt-4 me-1 text-white rounded-pill">
+          <strong>✔ Schede Video:</strong> GPU NVIDIA e AMD per grafica senza compromessi.
+        </p>
+        <p class="p bg-dark p-2 mt-4 me-1 text-white rounded-pill">
+          <strong>✔ Memorie RAM:</strong> DDR4 e DDR5 per velocità e stabilità.
+        </p>
+        <p class="p bg-dark p-2 mt-4 me-1 text-white rounded-pill">
+          <strong>✔ SSD e HDD:</strong> Archiviazione ultraveloce.
+        </p>
       </ul>
-  </section>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="col-md-4 " id="perche-noi">
+      <h2 class="bg-dark p-2 mt-4 ps-3  text-white bg-opacity-75 rounded-pill">🎯 Perché scegliere noi?</h2>
+      <ul>
+        <p class="p me-1 bg-dark p-2 mt-4 text-white rounded-pill">Prodotti selezionati e garantiti.</p>
+        <p class="p me-1 bg-dark p-2 mt-4 text-white rounded-pill">Prezzi competitivi e offerte esclusive.</p>
+        <p class="p me-1 bg-dark p-2 mt-4 text-white rounded-pill">Assistenza esperta e personalizzata.</p>
+        <p class="p me-1 bg-dark p-2 mt-4 text-white rounded-pill">Spedizioni rapide in tutta Italia.</p>
+      </ul>
+    </section>
   </div>
 
+  <!-- Carousel Section -->
   <div class="carousel slide carousel-container" data-ride="carousel">
     <!-- Carousel Indicators -->
     <ol class="carousel-indicators">
@@ -48,7 +57,7 @@
       <div *ngFor="let prod of productList; let i = index"
            class="carousel-item"
            [class.active]="i === currentIndex">
-        <!-- Just images in each carousel item -->
+        <!-- Carousel image using Angular Material directive -->
         <img mat-card-image [src]="prod.imageUrl.image" alt="Photo of {{ prod.model }}" class="d-block w-100"/>
       </div>
     </div>
@@ -56,13 +65,11 @@
     <!-- Carousel Navigation -->
     <a class="carousel-control-prev" role="button" data-slide="prev" (click)="moveCarousel('prev')">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only"></span>
+
     </a>
     <a class="carousel-control-next" role="button" data-slide="next" (click)="moveCarousel('next')">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only"></span>
+
     </a>
   </div>
-
-
 </div>

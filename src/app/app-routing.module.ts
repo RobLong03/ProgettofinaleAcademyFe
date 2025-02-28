@@ -31,6 +31,7 @@ import { customerGuardPathGuard } from './Auth/Guards/customer-guard-path.guard'
 import { customerGuardChildGuard } from './Auth/Guards/customer-guard-child.guard';
 import { AnagraficaComponent } from './Components/Customer/anagrafica/anagrafica.component';
 import { CustomerManagementComponent } from './Components/Administration/customer-management/customer-management.component';
+import { AdminsListComponent } from './Components/Administration/admins-list/admins-list.component';
 
 const routes: Routes = [
 
@@ -80,6 +81,7 @@ const routes: Routes = [
   {path:'admin/login', component:AdminLoginComponent},
   {path:'admin', component:AdminComponent,children:[ //canActivate:[adminGuardPathGuard], canActivateChild:[adminrGuardChildGuard],
     { path: '', redirectTo:"products", pathMatch: 'full' },
+    {path:'list',component:AdminsListComponent},
     {path:'products', component:ProductAdministrationComponent},
     {path:'customer', component:CustomerManagementComponent},
     {path:'orders', component:OrdersComponent}

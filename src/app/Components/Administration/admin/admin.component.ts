@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AdProductComponent } from '../../../Dialogs/dialog/ad-product/ad-product.component';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
@@ -10,9 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdminComponent {
 
+
 isAdmin: any;
 
-constructor(private dialog:MatDialog) {
+constructor(private dialog:MatDialog,private location:Location) {
 
 }
 
@@ -28,6 +30,8 @@ onClick( ): void {
       }
     });
   }
-
+  goback() {
+    this.location.back();
+  }
 
 }

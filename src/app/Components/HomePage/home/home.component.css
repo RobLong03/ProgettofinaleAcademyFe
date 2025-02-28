@@ -1,8 +1,8 @@
-body {
+.body {
   background-color: #0f0f0f;
   color: #fff;
   margin: 0;
-  padding: 0;
+  padding: 2rem;
   font-family: Arial, sans-serif;
 }
 
@@ -336,4 +336,110 @@ body {
     height: 40px;
     font-size: 20px;
   }
+}
+
+/* Headings with subtle text shadow */
+#intro h1,
+#componenti h2,
+#perche-noi h2 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced paragraph style */
+.p {
+  font-size: 1.1rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-left: 5px solid #00ffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.p:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Spacing for content sections */
+.content,
+#componenti,
+#perche-noi {
+  margin-bottom: 2rem;
+}
+
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  max-width: 80%;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Carousel Inner and Items */
+.carousel-inner {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  width: 100%;
+  height: 25rem;
+  border-radius: 15px;
+}
+
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+
+.carousel-indicators li {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: #007bff;
+  transform: scale(1.2);
 }

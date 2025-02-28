@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AuthServiceService } from './Auth/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
   islogged: boolean = false;
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private authS:AuthServiceService
+    private authS:AuthServiceService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -27,5 +29,8 @@ export class AppComponent implements OnInit {
   logout() {
 
     this.authS.resetAll();
+    this.router.navigate([''], { skipLocationChange: true }).then(() => {
+      location.reload();
+    });
   };
 }
