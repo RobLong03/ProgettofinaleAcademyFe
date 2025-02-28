@@ -75,7 +75,7 @@ const routes: Routes = [
     {path:'checkout', component:CheckoutComponent},
     {path:'orders', component:OrderHistoryComponent},
     {path:'wishlist', component:WishlistComponent},
-    {path:'update', component:AnagraficaComponent}
+    {path:'', component:AnagraficaComponent}
   ]},
   //authguard da inserire
   {path:'admin/login', component:AdminLoginComponent},
