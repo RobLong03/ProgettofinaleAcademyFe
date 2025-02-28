@@ -4,6 +4,7 @@ import { CustomerService } from '../../../services/customer/customer.service';
 import { AuthServiceService } from '../../../Auth/auth-service.service';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '../../../utils/session-storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
               private customerS : CustomerService,
               private authS : AuthServiceService,
               private redRouter: Router,
-              private sesStorS : SessionStorageService
+              private sesStorS : SessionStorageService,
+              public snackbar : MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -43,6 +45,7 @@ onSubmit() {
       this.logged = rsp.logged;
 
       if(this.logged){
+        this.snackbar.open('Login Effettuato, reindirizzamento','', { duration: 950 });
         this.setLoggeduser();
         this.setGlobalParameter();
         setTimeout(() => {
@@ -51,6 +54,8 @@ onSubmit() {
           });
         }, 1000);
       } else {
+        this.snackbar.open('Riprovare','', { duration: 950 });
+
         this.authS.resetAll();
         this.loginForm.reset();
         this.isLoading = false;
