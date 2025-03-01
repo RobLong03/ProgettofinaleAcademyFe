@@ -22,6 +22,7 @@ import { ColorDescription, Product } from '../../../Interfaces/Product';
 import { Observable } from 'rxjs';
 import { ColorService } from '../../../services/products/color.service';
 import { ImageServiceService } from '../../../services/cloudinary/image-service.service';
+import { ProductDescriptionService } from '../../../services/products/product-description.service';
 
 @Component({
   selector: 'app-ad-product',
@@ -45,6 +46,9 @@ export class AdProductComponent implements OnInit, DoCheck {
   isFileSelected : boolean = false;
   imageUrl: string = '';
 
+  lang!:string;
+  description!:string;
+
   constructor(
     private colorS: ColorService,
     private prodS: ProductService,
@@ -63,7 +67,8 @@ export class AdProductComponent implements OnInit, DoCheck {
     protected dialogRef: MatDialogRef<AdProductComponent>,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private imageService: ImageServiceService
+    private imageService: ImageServiceService,
+    private prodDescS: ProductDescriptionService
   ) {
     //[Validators.required, Validators.pattern(/^[^\s]+(?: [^\s]+)*$/)] questa regex serve per non accettare spazi bianchi
     this.myform = this.formBuilder.group({
@@ -295,9 +300,19 @@ export class AdProductComponent implements OnInit, DoCheck {
         this.rc = response.rc;
         this.msg = response.msg;
         if (response.rc) {
-          this.dialogRef.close('reload');
-          window.location.reload();
-          //reload the elements
+
+          //creazione descrizione prodotto
+          this.prodDescS.createDescription({
+            lang:this.lang,
+            idprodotto:parseInt(this.msg),
+            description:this.description
+          }).subscribe((res:any) => {
+            console.log("Creazione descrizione: "+res.rc);
+
+            this.dialogRef.close('reload');
+            window.location.reload();
+            //reload the elements
+          });
         }
       },
       (error: string) => console.error('Error creating product:', error)
@@ -459,11 +474,10 @@ export class AdProductComponent implements OnInit, DoCheck {
         case 'HDD':
           imgUrl = 'https://i.ibb.co/3yrd0QnF/hdd.jpg';
           break;
+      }
+      this.myform.patchValue({
+        imageUrl: imgUrl
+      });
     }
-    this.myform.patchValue({
-      imageUrl: imgUrl
-    });
   }
-}
-
 }

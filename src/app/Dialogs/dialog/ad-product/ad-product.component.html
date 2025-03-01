@@ -17,8 +17,22 @@
           <input matInput formControlName="model" required />
         </mat-form-field>
       </div>
+      
+      <!--campi che memorizzano lang e dscrizione, non fanno perte del form ma vengono valorizzari durante inserimento daii-->
+      <div class="form-field" *ngIf="!editData">
+        <mat-form-field appearance="outline">
+          <mat-label>Lang description</mat-label>
+          <input matInput [(ngModel)]="lang" [ngModelOptions]="{standalone: true}" required />
+        </mat-form-field>
+      </div>
 
-      <p color="white" *ngIf="!editData">AGGIUNGI O MODIFICA LA DESCRIZIONE SU UPDATE</p>
+      <div class="form-field" *ngIf="!editData">
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput [(ngModel)]="description" [ngModelOptions]="{standalone: true}" required />
+        </mat-form-field>
+      </div>
+      
       <app-product-description-panel *ngIf="editData" [idprodo]="data.id!">
       </app-product-description-panel>
       <br>
