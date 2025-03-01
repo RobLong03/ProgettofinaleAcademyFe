@@ -70,7 +70,7 @@ const routes: Routes = [
     */
 
 
-  {path:'@me', component:CustomerComponent,canActivate:[customerGuardPathGuard], canActivateChild:[customerGuardChildGuard], children:[ 
+  {path:'@me', component:CustomerComponent,canActivate:[customerGuardPathGuard], canActivateChild:[customerGuardChildGuard], children:[
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
     {path:'orders', component:OrderHistoryComponent},
@@ -88,6 +88,7 @@ const routes: Routes = [
   ]},
 
   {path:'404', component:ErrorComponent},
+ 
   {path:'**', redirectTo:'404'}
 ];
 

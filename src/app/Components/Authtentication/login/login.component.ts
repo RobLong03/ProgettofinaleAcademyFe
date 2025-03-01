@@ -16,6 +16,7 @@ export class LoginComponent {
   response: any;
   logged: boolean = false;
   isLoading: boolean = false;
+  isVisibile = false;
 
   constructor(private fb: FormBuilder,
               private customerS : CustomerService,
@@ -88,5 +89,8 @@ onSubmit() {
       }
     }
     )
+  }
+  toggleVisibility(): void {
+    this.isVisibile = !this.isVisibile;
   }
 }

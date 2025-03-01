@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegisterComponent implements OnInit{
 
   customerForm!: FormGroup;
+  isVisibile = false;
 
   constructor(private custmS:CustomerService,
                   public dialog : MatDialog,
@@ -22,9 +23,9 @@ export class RegisterComponent implements OnInit{
                   private redRoute : Router,
                   private snackbar : MatSnackBar
   ) { }
-    
+
   ngOnInit(): void {
-      
+
     this.customerForm=new FormGroup({
 
       name:new FormControl(null, Validators.required),
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit{
     .subscribe((resp:any) => {
 
       if(resp.rc) {
-        
+
         this.snackbar.open('Registrazione effettuata con successo','', { duration: 950 });
 
         this.createAddressDialog(this.customerForm.value.email);
@@ -109,5 +110,7 @@ export class RegisterComponent implements OnInit{
       }
     })
   }
-
+  toggleVisibility(): void {
+    this.isVisibile = !this.isVisibile;
+  }
 }

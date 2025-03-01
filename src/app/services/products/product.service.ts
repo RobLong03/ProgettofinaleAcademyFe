@@ -24,6 +24,7 @@ export class ProductService {
 
     if(types?.length) {
       param=param.set("types", types.join(","));
+
     }
 
     if(minPrice != null) {
@@ -37,7 +38,7 @@ export class ProductService {
     if(brands?.length) {
       param=param.set("brands", brands.join());
     }
-    
+
     return this.http.get(this.apiUrl + "filteredList?"+param);
   }
 

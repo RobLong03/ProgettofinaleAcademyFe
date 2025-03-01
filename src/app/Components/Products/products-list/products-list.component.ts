@@ -206,7 +206,7 @@ export class ProductsListComponent implements OnInit {
       .filter(name => name!==null) as string[];
 
     //sostituisco case con cases
-    
+
     if(this.selectedTypes.includes("case")) {
       let num=this.selectedTypes.indexOf("case");
 
