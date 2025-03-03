@@ -12,21 +12,21 @@ export class SessionStorageService implements iStorageService,iGlobalUserData{
 
   getItem(key: string): string | null {
     if(isPlatformBrowser(this.platformId))
-      return localStorage.getItem(key);
+      return sessionStorage.getItem(key);
 
     return null
 
   }
   setItem(key: string, value: string): void {
     if(isPlatformBrowser(this.platformId))
-      return localStorage.setItem(key,value);
+      return sessionStorage.setItem(key,value);
   }
   
   removeItem(key: string): void {
-    return localStorage.removeItem(key);
+    return sessionStorage.removeItem(key);
   }
   clear(): void {
-    return localStorage.clear();
+    return sessionStorage.clear();
   }
 
   private readonly ID_CLIENTE_KEY = 'idCliente';
