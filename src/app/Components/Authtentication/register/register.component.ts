@@ -105,9 +105,9 @@ export class RegisterComponent implements OnInit{
           }else{
             alert("C'è stato un errore, per favore aggiungi un indirizzo dalla pagina di gestione del tuo profilo");
           }
-          this.redRoute.navigate(["login"]);
         })
       }
+      this.redRoute.navigate(["login"]);
     })
   }
   toggleVisibility(): void {
