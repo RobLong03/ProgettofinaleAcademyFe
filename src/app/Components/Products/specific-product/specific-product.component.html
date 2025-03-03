@@ -1,4 +1,4 @@
-<button mat-button (click)="goback()" style="float: left;">
+<button mat-button (click)="goback()" style="float: left">
   <mat-icon>arrow_back</mat-icon> BACK
 </button>
 
@@ -10,16 +10,21 @@
       <mat-card-subtitle>{{ product?.brand }}</mat-card-subtitle>
     </mat-card-header>
 
-    <img mat-card-image [src]="product?.imageUrl" alt="Photo of {{ product?.model }}" class="product-image" />
+    <img
+      mat-card-image
+      [src]="product?.imageUrl"
+      alt="Photo of {{ product?.model }}"
+      class="product-image"
+    />
 
-      <mat-card-content>
-        <p class="product-description">
-          {{ product?.description?.description }}
-        </p>
-        <p class="product-price">
-          {{ product?.price | currency: 'EUR': 'symbol-narrow' }}
-        </p>
-      </mat-card-content>
+    <mat-card-content>
+      <p class="product-description">
+        {{ product?.description?.description }}
+      </p>
+      <p class="product-price">
+        {{ product?.price | currency : "EUR" : "symbol-narrow" }}
+      </p>
+    </mat-card-content>
 
     <mat-card-actions>
       <button mat-button class="action-button">Add To Cart</button>
@@ -27,12 +32,21 @@
     </mat-card-actions>
   </mat-card>
 </div>
-      <mat-card-actions>
-        <button mat-button class="action-button" (click)="addToCart(product?.id)" [disabled]="!isLoggedIn"><mat-icon>add_shopping_cart</mat-icon></button>
-        <button mat-button class="action-button" (click)="addToWishlist(product?.id)" [disabled]="!isLoggedIn"><mat-icon>stars</mat-icon></button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-
-
-
+<mat-card-actions>
+  <button
+    mat-button
+    class="action-button"
+    (click)="addToCart(product?.id)"
+    [disabled]="!isLoggedIn"
+  >
+    <mat-icon>add_shopping_cart</mat-icon>
+  </button>
+  <button
+    mat-button
+    class="action-button"
+    (click)="addToWishlist(product?.id)"
+    [disabled]="!isLoggedIn"
+  >
+    <mat-icon>stars</mat-icon>
+  </button>
+</mat-card-actions>
