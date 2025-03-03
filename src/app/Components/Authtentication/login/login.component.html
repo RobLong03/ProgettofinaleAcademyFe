@@ -11,9 +11,20 @@
                   <input type="email" class="form-control" id="email" placeholder="prova@email.com" formControlName="email" required>
               </div>
               <div class="mb-3">
-                  <label for="password" class="form-label">Inserisci la tua password:</label>
-                  <input type="password" class="form-control" id="password" placeholder="password" formControlName="password" required>
+                <label for="password" class="form-label">Inserisci la tua password:</label>
+                <div id="password-field">
+                  <input type="password" class="form-control" id="password" placeholder="password"
+                         formControlName="password" required [type]="isVisibile ? 'text' : 'password'">
+                  <button id="eye" mat-icon-button type="button"
+                          matTooltip="{{ isVisibile ? 'nascondi' : 'visualizza' }}"
+                          (click)="toggleVisibility()" tabindex="-1">
+                    <mat-icon style="color: antiquewhite;">
+                      {{ isVisibile ? 'remove_red_eye' : 'visibility_off' }}
+                    </mat-icon>
+                  </button>
+                </div>
               </div>
+
               <button type="submit" class="btn btn-outline-primary w-100" [disabled]="loginForm.invalid || isLoading">Login</button>
           </form>
           <div *ngIf="isLoading" class="spinner-border text-primary mt-3" role="status">

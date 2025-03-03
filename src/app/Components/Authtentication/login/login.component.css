@@ -4,3 +4,37 @@
     align-items: center;
     margin: 150px 400px;
   }
+/* Container for input and button */
+#password-field {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Style the password input */
+#password {
+  width: 100%;
+  padding-right: 40px; /* Extra padding to avoid text overlapping the button */
+  box-sizing: border-box;
+}
+
+/* Position the eye button inside the input field */
+#eye {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Optional: Hover and focus feedback */
+#eye:hover {
+  color: #333;
+}
+
+#eye:focus {
+  outline: none;
+}

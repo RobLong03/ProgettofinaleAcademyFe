@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Richiedi Assistenza</h2>
+<form [formGroup]="helpForm" (ngSubmit)="onSubmit()" class="help-form">
+    <div *ngIf="helpForm.errors?.['atLeastOneRequired']" class="error-message">
+        <p>Almeno uno tra Email e Telefono è richiesto.</p>
+      </div>
+  <mat-dialog-content>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Tuo Nome" formControlName="ticket_name" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Email" formControlName="ticket_email">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Telefono" formControlName="ticket_phone">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Messaggio" formControlName="message"></textarea>
+    </mat-form-field>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close="false">Annulla</button>
+    <button mat-button type="submit" [disabled]="helpForm.invalid">Conferma</button>
+  </mat-dialog-actions>
+</form>

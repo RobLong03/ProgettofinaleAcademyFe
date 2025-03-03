@@ -3,6 +3,7 @@ import { Component, Inject, OnInit, PLATFORM_ID, TemplateRef } from '@angular/co
 import { AuthServiceService } from './Auth/auth-service.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { HelpComponent } from './Dialogs/help/help.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
   title = 'ProjectBetaFE';
   admin: boolean = false;
   islogged: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private authS:AuthServiceService,
@@ -37,7 +39,7 @@ export class AppComponent implements OnInit {
     });
   };
 
-  openHelpDialog(template: TemplateRef<any>): void {
-    this.dialog.open(template, { width: '400px' });
+  openHelpDialog(): void {
+    this.dialog.open(HelpComponent);
   }
 }

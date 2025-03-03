@@ -5,6 +5,7 @@ import { CustomerService } from '../../../services/customer/customer.service';
 import { SessionStorageService } from '../../../utils/session-storage.service';
 import { Router } from '@angular/router';
 import { AdministratorService } from '../../../services/administrator/administrator.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-login',
@@ -20,6 +21,7 @@ export class AdminLoginComponent {
               private adminS : AdministratorService,
               private authS : AuthServiceService,
               private redRouter: Router,
+              private snackbar : MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -28,11 +30,7 @@ export class AdminLoginComponent {
   }
 
   onSubmit() {
-    console.log("login clicked")
     if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
-      
-      
       this.adminS.signInAdmin({
         username: this.loginForm.value.username,
         pwd: this.loginForm.value.password
@@ -42,9 +40,15 @@ export class AdminLoginComponent {
         this.logged = rsp.logged;
 
         if(this.logged){
+          this.snackbar.open('Login Effettuato, reindirizzamento','', { duration: 950 });
           this.setLoggeduser();
-          this.redRouter.navigate(["admin"]);
+          setTimeout(() => {
+            this.redRouter.navigate(["admin"]).then(() => {
+              location.reload();
+            });
+          }, 1000);
         }else{
+          this.snackbar.open('Credenziali sbagliate, riprovare','', { duration: 1500 });
           this.authS.resetAll();
           this.loginForm.reset();
         }

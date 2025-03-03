@@ -5,7 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -22,6 +22,7 @@ import { ColorDescription, Product } from '../../../Interfaces/Product';
 import { Observable } from 'rxjs';
 import { ColorService } from '../../../services/products/color.service';
 import { ImageServiceService } from '../../../services/cloudinary/image-service.service';
+import { ProductDescriptionService } from '../../../services/products/product-description.service';
 
 @Component({
   selector: 'app-ad-product',
@@ -45,6 +46,9 @@ export class AdProductComponent implements OnInit, DoCheck {
   isFileSelected : boolean = false;
   imageUrl: string = '';
 
+  lang!:string;
+  description!:string;
+
   constructor(
     private colorS: ColorService,
     private prodS: ProductService,
@@ -63,15 +67,17 @@ export class AdProductComponent implements OnInit, DoCheck {
     protected dialogRef: MatDialogRef<AdProductComponent>,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private imageService: ImageServiceService
+    private imageService: ImageServiceService,
+    private prodDescS: ProductDescriptionService
   ) {
+    //[Validators.required, Validators.pattern(/^[^\s]+(?: [^\s]+)*$/)] questa regex serve per non accettare spazi bianchi
     this.myform = this.formBuilder.group({
-      brand: ['', Validators.required],
-      model: ['', Validators.required],
+      brand: ['', [Validators.required, Validators.pattern(/^[^\s]+(?: [^\s]+)*$/)]],
+      model: ['', [Validators.required, Validators.pattern(/^[^\s]+(?: [^\s]+)*$/)]],
 
       //
-      stock: [0, Validators.required],
-      price: [0, Validators.required],
+      stock: [0, [Validators.required, Validators.pattern(/^[^\s]+(?: [^\s]+)*$/)]],
+      price: [0, [Validators.required, Validators.pattern(/^[^\s]+(?: [^\s]+)*$/)]],
       imageUrl: [''],
       type: [
         { value: this.data?.type || '', disabled: !!this.data?.type },
@@ -294,9 +300,19 @@ export class AdProductComponent implements OnInit, DoCheck {
         this.rc = response.rc;
         this.msg = response.msg;
         if (response.rc) {
-          this.dialogRef.close('reload');
-          window.location.reload();
-          //reload the elements
+
+          //creazione descrizione prodotto
+          this.prodDescS.createDescription({
+            lang:this.lang,
+            idprodotto:parseInt(this.msg),
+            description:this.description
+          }).subscribe((res:any) => {
+            console.log("Creazione descrizione: "+res.rc);
+
+            this.dialogRef.close('reload');
+            window.location.reload();
+            //reload the elements
+          });
         }
       },
       (error: string) => console.error('Error creating product:', error)
@@ -326,6 +342,7 @@ export class AdProductComponent implements OnInit, DoCheck {
 
   getProductService(type: string): any {
     const productServiceMap: { [key: string]: any } = {
+      product:this.prodS.getProduct(this.data.id!),
       case: this.caseS.getCase(this.data.id!),
       cpu: this.cpuS.getCpu(this.data.id!),
       gpu: this.gpuS.getGpu(this.data.id!),
@@ -340,6 +357,7 @@ export class AdProductComponent implements OnInit, DoCheck {
 
   createProductService(product: Product): any {
     const productServiceMap: { [key: string]: any } = {
+      product:this.prodS.createProduct(product),
       case: this.caseS.createCase(product),
       cpu: this.cpuS.createCpu(product),
       gpu: this.gpuS.createGpu(product),
@@ -353,6 +371,7 @@ export class AdProductComponent implements OnInit, DoCheck {
   }
   updateProductService(product: Product): any {
     const productServiceMap: { [key: string]: any } = {
+      product:this.prodS.updateProduct(product),
       case: this.caseS.updateCase(product),
       cpu: this.cpuS.updateCpu(product),
       gpu: this.gpuS.updateGpu(product),
@@ -403,7 +422,7 @@ export class AdProductComponent implements OnInit, DoCheck {
     console.log($event);
     if (!this.isFileSelected) {
       let imgUrl = '';
-    
+
       switch ($event) {
         case 'storage':
           imgUrl = 'https://i.ibb.co/6JTqzKg4/generic-storage.webp';
@@ -426,19 +445,19 @@ export class AdProductComponent implements OnInit, DoCheck {
         case 'cpu':
           imgUrl = 'https://i.ibb.co/7dYFCy3h/cpu.jpg';
           break;
-        case 'products':
+        case 'product':
           imgUrl = 'https://i.ibb.co/dJkZ9BRK/products.jpg';
           break;
         default:
           imgUrl = 'https://i.ibb.co/dJkZ9BRK/products.jpg';
           break;
       }
-    
+
       this.myform.patchValue({
         imageUrl: imgUrl
       });
     }
-    
+
   }
 
   checkImageFieldStorage($event:any){
@@ -450,16 +469,15 @@ export class AdProductComponent implements OnInit, DoCheck {
           imgUrl = 'https://i.ibb.co/5Wfs3dj7/ssd.jpg';
           break;
         case 'SSD_NVM':
-          imgUrl = 'https://i.ibb.co/qFBtSsJj/nvme.jpg';          
+          imgUrl = 'https://i.ibb.co/qFBtSsJj/nvme.jpg';
           break;
         case 'HDD':
           imgUrl = 'https://i.ibb.co/3yrd0QnF/hdd.jpg';
           break;
+      }
+      this.myform.patchValue({
+        imageUrl: imgUrl
+      });
     }
-    this.myform.patchValue({
-      imageUrl: imgUrl
-    });
   }
-}
-
 }

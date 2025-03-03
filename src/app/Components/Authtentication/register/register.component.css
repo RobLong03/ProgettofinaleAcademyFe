@@ -1,9 +1,18 @@
-/* Stili di base per dispositivi mobili */
+/* Reset margins; allow natural scrolling */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+/* Container centers the card */
 .registration-container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  min-height: 100vh; /* Full viewport height */
+  /* No overflow hidden – content can scroll if needed */
 }
 
 .nerd-card {
@@ -13,6 +22,7 @@
   color: #c5c6c7;
   border: 1px solid #45a29e;
   padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .nerd-card mat-card-title,
@@ -39,18 +49,14 @@ mat-form-field {
   color: #45a29e;
 }
 
-/* Media query per tablet e dispositivi più grandi */
+/* Media query for tablets and larger devices */
 @media (min-width: 768px) {
-  .registration-container {
-    height: 100vh;
-  }
-
   .nerd-card {
     width: 80%;
   }
 }
 
-/* Media query per desktop e dispositivi più grandi */
+/* Media query for desktop and larger devices */
 @media (min-width: 1024px) {
   .nerd-card {
     width: 60%;

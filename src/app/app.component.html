@@ -12,11 +12,16 @@
 
       <!-- Spacer pushes the menu items to the right -->
       <span class="menu-spacer"></span>
-    <a  routerLink="/about" mat-button>About</a>
-    <a mat-button (click)="openHelpDialog(helpDialog)">Help</a>
+    <!-- <a  routerLink="/about" mat-button>About</a> -->
+    <a mat-button (click)="openHelpDialog()">
+      <mat-icon>help</mat-icon> Help
+    </a>
       <!-- Inline menu items only on medium and larger screens -->
+
       <div fxShow.gt-sm>
-        <button mat-button [matMenuTriggerFor]="menu">Products</button>
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>storefront</mat-icon> Products
+        </button>
         <mat-menu class="disappear" #menu="matMenu" style="overflow: hidden;" yPosition="below">
           <mat-list style="overflow: hidden;">
             <a routerLink="/products" style="cursor: pointer; overflow: hidden;" mat-list-item>
@@ -91,10 +96,33 @@
         <a *ngIf="islogged" class="disappear" routerLink="/@me/wishlist" mat-button><i class="material-icons">stars</i>Wishlist</a>
         <a *ngIf="islogged" class="disappear" routerLink="/@me/cart" mat-button><i class="material-icons">shopping_cart</i>Cart</a>
 
-        <a *ngIf="!islogged" class="disappear" routerLink="/login" mat-button><i class="material-icons">login</i>Login</a>
-        <a *ngIf="islogged" class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
+        <a *ngIf="!islogged&&(!admin)" class="disappear" routerLink="/login" mat-button><i class="material-icons">login</i>Login</a>
 
-        <a *ngIf="admin&&islogged" class="disappear" routerLink="/admin"mat-button><i class="material-icons">admin_panel_settings</i>Admin</a>
+
+
+        <span *ngIf="islogged">
+          <button mat-button [matMenuTriggerFor]="customer"> &#64;Me </button>
+          <mat-menu class="disappear" #customer="matMenu" style="overflow: hidden;" yPosition="below">
+            <mat-list style="overflow: hidden;">
+              <a routerLink="/@me" style="cursor: pointer; overflow: hidden;" mat-list-item>
+                <i class="material-icons">account_box</i>
+                Dettagli profilo
+              </a>
+
+              <a routerLink="/@me/orders" style="cursor: pointer; overflow: hidden;" mat-list-item>
+                <i class="material-icons">receipt_long</i>
+               Storico Ordini
+              </a>
+
+              <a class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
+
+            </mat-list>
+          </mat-menu>
+        </span>
+
+        <a *ngIf="admin" class="disappear"routerLink="/home" (click)="logout()" mat-button><i class="material-icons">logout</i>Logout</a>
+
+        <a *ngIf="admin" class="disappear" routerLink="/admin"mat-button><i class="material-icons">admin_panel_settings</i>Admin</a>
       </div>
 
     </mat-toolbar-row>
@@ -102,59 +130,65 @@
 
   <!-- SIDENAV CONTAINER -->
   <mat-sidenav-container class="mat-sidenav-container">
-    <!-- SIDENAV (opens from left) -->
     <mat-sidenav #sidenav mode="over">
       <mat-nav-list>
-<a (click)="sidenav.toggle()" mat-list-item>Close</a>
-      <a
-        routerLink="/home"
+        <a (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>close</mat-icon> Close
+        </a>
 
+        <a routerLink="/home" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>home</mat-icon> Home
+        </a>
 
-        (click)="sidenav.toggle()"
-        mat-list-item
-      >
-        Home
-      </a>
-      <a
-        routerLink="/login"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="sidenav.toggle()"
-        mat-list-item
-      >
-        Login
-      </a>
-      <a
-        routerLink="/register"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="sidenav.toggle()"
-        mat-list-item
-      >
-        Register
-      </a>
-      <a
-        routerLink="/about"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="sidenav.toggle()"
-        mat-list-item
-      >
-        About
-      </a>
-      <a
-        routerLink="/admin/login"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="sidenav.toggle()"
-        mat-list-item
-      >
-        Admin Login
-      </a>
+        <a routerLink="/login" routerLinkActive="is-active" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>login</mat-icon> Login
+        </a>
 
+        <a routerLink="/register" routerLinkActive="is-active" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>person_add</mat-icon> Register
+        </a>
+
+        <a routerLink="/about" routerLinkActive="is-active" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>info</mat-icon> About
+        </a>
+
+        <a routerLink="/products" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>shopping_cart</mat-icon> Products
+        </a>
+
+        <a routerLink="/@me/cart" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>shopping_basket</mat-icon> Cart
+        </a>
+
+        <a routerLink="/@me/checkout" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>payment</mat-icon> Checkout
+        </a>
+
+        <a routerLink="/@me/orders" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>history</mat-icon> Order History
+        </a>
+
+        <a routerLink="/@me/wishlist" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>favorite</mat-icon> Wishlist
+        </a>
+
+        <a routerLink="/admin" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>admin_panel_settings</mat-icon> Admin Panel
+        </a>
+
+        <a routerLink="/admin/products" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>inventory_2</mat-icon> Manage Products
+        </a>
+
+        <a routerLink="/admin/customer" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>group</mat-icon> Manage Customers
+        </a>
+
+        <a routerLink="/admin/orders" (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>receipt_long</mat-icon> Manage Orders
+        </a>
       </mat-nav-list>
     </mat-sidenav>
-
 
 
     <!-- MAIN CONTENT AREA -->
@@ -163,7 +197,7 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-<ng-template class="foo" style="display: block;" #helpDialog>
+<!-- <ng-template class="foo" style="display: block;" #helpDialog>
   <h1 mat-dialog-title>Aiuto</h1>
   <div mat-dialog-content>
     <p>Qui puoi inserire le informazioni di aiuto che desideri mostrare all'utente.</p>
@@ -171,7 +205,7 @@
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Chiudi</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 <!-- FOOTER COMPONENT -->
 <app-footer></app-footer>

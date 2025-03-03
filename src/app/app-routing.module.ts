@@ -70,16 +70,16 @@ const routes: Routes = [
     */
 
 
-  {path:'@me', component:CustomerComponent, children:[ //canActivate:[customerGuardPathGuard], canActivateChild:[customerGuardChildGuard],
+  {path:'@me', component:CustomerComponent,canActivate:[customerGuardPathGuard], canActivateChild:[customerGuardChildGuard], children:[
     {path:'cart', component:CartComponent},
     {path:'checkout', component:CheckoutComponent},
     {path:'orders', component:OrderHistoryComponent},
     {path:'wishlist', component:WishlistComponent},
-    {path:'update', component:AnagraficaComponent}
+    {path:'', component:AnagraficaComponent}
   ]},
   //authguard da inserire
   {path:'admin/login', component:AdminLoginComponent},
-  {path:'admin', component:AdminComponent,children:[ //canActivate:[adminGuardPathGuard], canActivateChild:[adminrGuardChildGuard],
+  {path:'admin', component:AdminComponent,canActivate:[adminGuardPathGuard], canActivateChild:[adminrGuardChildGuard], children:[
     { path: '', redirectTo:"products", pathMatch: 'full' },
     {path:'list',component:AdminsListComponent},
     {path:'products', component:ProductAdministrationComponent},
@@ -88,6 +88,7 @@ const routes: Routes = [
   ]},
 
   {path:'404', component:ErrorComponent},
+ 
   {path:'**', redirectTo:'404'}
 ];
 

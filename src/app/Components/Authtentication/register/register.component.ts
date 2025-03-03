@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewAddressDialogComponent } from '../../../Dialogs/address/new-address-dialog/new-address-dialog.component';
 import { AddressService } from '../../../services/customer/address.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -14,15 +15,17 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit{
 
   customerForm!: FormGroup;
+  isVisibile = false;
 
   constructor(private custmS:CustomerService,
                   public dialog : MatDialog,
                   private addresS: AddressService,
-                  private redRoute : Router
+                  private redRoute : Router,
+                  private snackbar : MatSnackBar
   ) { }
-    
+
   ngOnInit(): void {
-      
+
     this.customerForm=new FormGroup({
 
       name:new FormControl(null, Validators.required),
@@ -43,7 +46,8 @@ export class RegisterComponent implements OnInit{
 
       this.sendData();
     } else {
-      console.log("Le password inserite non corrispondono!!");
+      this.snackbar.open('le password inserite non corrispondono','', { duration: 1500 });
+
     }
   }
 
@@ -59,8 +63,9 @@ export class RegisterComponent implements OnInit{
     .subscribe((resp:any) => {
 
       if(resp.rc) {
-        
-        console.log("Registrazione effetuata con successo");
+
+        this.snackbar.open('Registrazione effettuata con successo','', { duration: 950 });
+
         this.createAddressDialog(this.customerForm.value.email);
         //aggiungere eventuale redirect alla pagina utente
       } else {
@@ -96,7 +101,7 @@ export class RegisterComponent implements OnInit{
         }).subscribe((resp:any)=>{
           console.log(resp);
           if(resp.rc){
-            alert("Indirizzo creato con successo");
+            this.snackbar.open('Indirizzo creato con successo','', { duration: 950 });
           }else{
             alert("C'è stato un errore, per favore aggiungi un indirizzo dalla pagina di gestione del tuo profilo");
           }
@@ -105,5 +110,7 @@ export class RegisterComponent implements OnInit{
       }
     })
   }
-
+  toggleVisibility(): void {
+    this.isVisibile = !this.isVisibile;
+  }
 }

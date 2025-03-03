@@ -12,57 +12,14 @@
 
     <img mat-card-image [src]="product?.imageUrl" alt="Photo of {{ product?.model }}" class="product-image" />
 
-    <mat-card-content>
-      <p class="product-description">{{ product?.description?.description }}</p>
-      <p class="product-price">{{ product?.price | currency: 'EUR': 'symbol-narrow' }}</p>
-
-      <!-- Dettagli per RAM -->
-      <div *ngIf="product?.type === 'ram'" class="ram-details">
-        <h3>RAM Specifications</h3>
-        <p><strong>Frequency (MHz):</strong> {{ product?.mhz }} MHz</p>
-        <p><strong>Size:</strong> {{ product?.size }} GB</p>
-      </div>
-
-      <!-- Dettagli per CPU -->
-      <div *ngIf="product?.type === 'cpu'" class="cpu-details">
-        <h3>CPU Specifications</h3>
-        <p><strong>Cores:</strong> {{ product?.cores }}</p>
-        <p><strong>Base Clock:</strong> {{ product?.ghz }} GHz</p>
-      </div>
-
-      <!-- Dettagli per GPU -->
-      <div *ngIf="product?.type === 'gpu'" class="gpu-details">
-        <h3>GPU Specifications</h3>
-        <p><strong>Core Clock:</strong> {{ product?.ghz }} GHz</p>
-        <p><strong>VRAM:</strong> {{ product?.vram }} GB</p>
-      </div>
-
-      <!-- Dettagli per Case -->
-      <div *ngIf="product?.type === 'case'" class="case-details">
-        <h3>Case Specifications</h3>
-        <p><strong>Size:</strong> {{ product?.size }}</p>
-        <p><strong>Color:</strong> {{ product?.color.colore }}</p>
-      </div>
-
-      <!-- Dettagli per Motherboard -->
-      <div *ngIf="product?.type === 'motherboard'" class="motherboard-details">
-        <h3>Motherboard Specifications</h3>
-        <p><strong>CPU Compatibility:</strong> {{ product?.cpuCompatibility }}</p>
-      </div>
-
-      <!-- Dettagli per PSU -->
-      <div *ngIf="product?.type === 'psu'" class="psu-details">
-        <h3>PSU Specifications</h3>
-        <p><strong>Wattage:</strong> {{ product?.watt }} W</p>
-      </div>
-
-      <!-- Dettagli per Storage -->
-      <div *ngIf="product?.type === 'storage'" class="storage-details">
-        <h3>Storage Specifications</h3>
-        <p><strong>Size:</strong> {{ product?.size }} GB</p>
-        <p><strong>Type:</strong> {{ product?.type }}</p>
-      </div>
-    </mat-card-content>
+      <mat-card-content>
+        <p class="product-description">
+          {{ product?.description?.description }}
+        </p>
+        <p class="product-price">
+          {{ product?.price | currency: 'EUR': 'symbol-narrow' }}
+        </p>
+      </mat-card-content>
 
     <mat-card-actions>
       <button mat-button class="action-button">Add To Cart</button>
@@ -70,3 +27,12 @@
     </mat-card-actions>
   </mat-card>
 </div>
+      <mat-card-actions>
+        <button mat-button class="action-button" (click)="addToCart(product?.id)" [disabled]="!isLoggedIn"><mat-icon>add_shopping_cart</mat-icon></button>
+        <button mat-button class="action-button" (click)="addToWishlist(product?.id)" [disabled]="!isLoggedIn"><mat-icon>stars</mat-icon></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+
