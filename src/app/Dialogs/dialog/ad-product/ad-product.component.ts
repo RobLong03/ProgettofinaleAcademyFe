@@ -46,7 +46,7 @@ export class AdProductComponent implements OnInit, DoCheck {
   isFileSelected : boolean = false;
   imageUrl: string = '';
 
-  lang!:string;
+  lang:string="EN";
   description!:string;
 
   constructor(
