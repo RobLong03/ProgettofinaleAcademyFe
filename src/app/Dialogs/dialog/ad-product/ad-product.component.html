@@ -29,7 +29,7 @@
       <div class="form-field" *ngIf="!editData">
         <mat-form-field appearance="outline">
           <mat-label>Description</mat-label>
-          <input matInput [(ngModel)]="description" [ngModelOptions]="{standalone: true}" required />
+          <textarea matInput [(ngModel)]="description" [ngModelOptions]="{standalone: true}" required ></textarea>
         </mat-form-field>
       </div>
       
