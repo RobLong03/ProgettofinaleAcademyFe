@@ -7,7 +7,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Brand</mat-label>
           <input matInput formControlName="brand" required />
-          
+
         </mat-form-field>
       </div>
 
@@ -17,12 +17,12 @@
           <input matInput formControlName="model" required />
         </mat-form-field>
       </div>
-      
+
       <!--campi che memorizzano lang e dscrizione, non fanno perte del form ma vengono valorizzari durante inserimento daii-->
       <div class="form-field" *ngIf="!editData">
         <mat-form-field appearance="outline">
           <mat-label>Lang description</mat-label>
-          <input matInput [(ngModel)]="lang" [ngModelOptions]="{standalone: true}" required />
+          <input matInput [(ngModel)]="lang" [ngModelOptions]="{standalone: true}" required value="EN"  disabled="true"/>
         </mat-form-field>
       </div>
 
@@ -32,7 +32,7 @@
           <textarea matInput [(ngModel)]="description" [ngModelOptions]="{standalone: true}" required ></textarea>
         </mat-form-field>
       </div>
-      
+
       <app-product-description-panel *ngIf="editData" [idprodo]="data.id!">
       </app-product-description-panel>
       <br>
