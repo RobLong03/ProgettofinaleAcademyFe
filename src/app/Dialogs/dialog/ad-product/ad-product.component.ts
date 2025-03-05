@@ -410,6 +410,7 @@ export class AdProductComponent implements OnInit, DoCheck {
         });
       },
       error: (error) => {
+        this.isFileSelected = false;
         console.error('Errore nel caricamento:', error);
         this.myform.patchValue({
           imageUrl: 'https://i.ibb.co/dJkZ9BRK/products.jpg', //immagine generica
@@ -419,8 +420,9 @@ export class AdProductComponent implements OnInit, DoCheck {
   }
 
   checkForImageUpdate($event: any) {
+
     console.log($event);
-    if (!this.isFileSelected) {
+    if (!this.isFileSelected || (this.isFileSelected && !this.myform.value.imageUrl)) {
       let imgUrl = '';
 
       switch ($event) {
